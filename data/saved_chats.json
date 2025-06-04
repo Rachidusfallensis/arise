@@ -1,0 +1,185 @@
+{
+  "20250603_170441_799068": {
+    "title": "New Chat",
+    "messages": [],
+    "created_at": "2025-06-03T17:04:41.799136",
+    "document_count": 0
+  },
+  "20250603_170448_996877": {
+    "title": "New Chat",
+    "messages": [],
+    "created_at": "2025-06-03T17:04:48.996932",
+    "document_count": 0
+  },
+  "20250604_132508_465093": {
+    "title": "What is the SAFE project about? ",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is the SAFE project about? ",
+        "timestamp": "2025-06-04T13:28:51.306814"
+      },
+      {
+        "role": "assistant",
+        "content": "The provided context does not contain any information regarding the specific goals or objectives of the SAFE project, beyond the fact that it deals with cyber threat detection and CTI sharing. Therefore, I am unable to provide a comprehensive answer to the user's question regarding the nature or purpose of the SAFE project.",
+        "context": [
+          {
+            "content": "• Creating synergies with relevant stakeholders and open -source communities.  \n• Positioning the SAFE  project at the intersectio n of technology communities and stakeholder \ngroups.  \n• Using appropriate channels to reach the target audience, disseminate results, and \ncommunicate the value proposition.  \nThe SAFE project will deliver a detailed Dissemination and Communication plan at the be ginning of the \nproject (Month 3), which will be updated throughout and re -delivered at Month 18 (intermediate) and",
+            "metadata": {
+              "arcadia_phase": "operational",
+              "filename": "temp_Proposal-SEP-211043552.pdf",
+              "source": "temp_Proposal-SEP-211043552.pdf",
+              "file_type": "pdf",
+              "content_length": 350153,
+              "type": "uploaded_document",
+              "total_chunks": 446,
+              "processed_for_chat": true,
+              "chunk_id": 223
+            }
+          },
+          {
+            "content": "To reach the defined objectives, SAFE project will not use and/or produce any classified background information. Also, the project will not include and/or use information and/or materials subject to national security restrictions. The pilot platform will use synthetic data for development and testing purposes. No restricted classified information will be processed by the solution. Although no classified information will be produced, the consortium plans to undertake a limited dissemination of project deliverables, where the dissemination level is defined as SEN – Sensitive. Nevertheless, to ensure that the SAFE deliverables and the dissemination material do not disclose any security-sensitive material, the consortium will also limit the level of detail in these deliverables so that no internal information (i.e., information that may be internal to the project partners) is ever exposed",
+            "metadata": {
+              "arcadia_phase": "operational",
+              "type": "uploaded_document",
+              "chunk_id": 66,
+              "processed_for_chat": true,
+              "content_length": 350153,
+              "total_chunks": 446,
+              "source": "temp_Proposal-SEP-211043552.pdf",
+              "file_type": "pdf",
+              "filename": "temp_Proposal-SEP-211043552.pdf"
+            }
+          },
+          {
+            "content": "(dissemination and communication plan), within 6 months after grant signature. This plan will have to  be periodically \nupdated ; in line with  the project progress.  \nThe SAFE project will conduct various dissemination and communication activities to ensure \nwidespread sharing of knowledge and engagement from target audiences. The strategy focuses on \nthree main areas:  \n• Raising awareness and facilitating information exchange to maximize visibility of project key \nfacts, outputs, and findings among entities supporting cyber threat detection and CTI sharing.  \n• Facilitating the transfer of project results and engaging key stakeholders.  \n• Increasing the number of entities benefiting from project outputs.  \n• The strategy involves three main steps:  \n• Creating synergies with relevant stakeholders and open -source communities.  \n• Positioning the SAFE  project at the intersectio n of technology communities and stakeholder \ngroups.",
+            "metadata": {
+              "total_chunks": 446,
+              "content_length": 350153,
+              "filename": "temp_Proposal-SEP-211043552.pdf",
+              "type": "uploaded_document",
+              "file_type": "pdf",
+              "chunk_id": 222,
+              "processed_for_chat": true,
+              "source": "temp_Proposal-SEP-211043552.pdf",
+              "arcadia_phase": "operational"
+            }
+          },
+          {
+            "content": "SAFE will use AI to support and enhance the detection and response capabilities of relevant entities, including private and national \nSOC’s, to fight against cyber threats that affect network and information systems across the European Union. The solution will be able to ingest and process large volumes of data from multiple threat intelligence sources. However, this data will not include personal data, since it will be data from security tools, namely HIDS and NTA. Personal data collected and further processed will concern mainly all the technical and/or operational experts contributing to the action. Therefore, it is not expected that SAFE activities will have an impact on ethics issues.\nRemaining characters 4303\nCompliance with ethical principles and relevant legislation\nSAFE project will follow the EU ethical principles as well as respect the rights of the EU citizens by complying with the Charter of",
+            "metadata": {
+              "total_chunks": 446,
+              "type": "uploaded_document",
+              "file_type": "pdf",
+              "arcadia_phase": "operational",
+              "chunk_id": 60,
+              "source": "temp_Proposal-SEP-211043552.pdf",
+              "filename": "temp_Proposal-SEP-211043552.pdf",
+              "content_length": 350153,
+              "processed_for_chat": true
+            }
+          },
+          {
+            "content": "prerequisite. SAFE  is expected to directly impact on the achievement of ubiquitous, high -quality , and \naffordable cybersecurity, which is becoming essential to the functioning of modern life. Without a solid \ncyber -defence strategy, the society will soon lose confidence in ser vices and confidential personal data \ntransfers. The outcomes of SAFE are expected to address the need for trust and confidence in a \nmodern digital age.  \nSAFE solution will act as an enabler for many critical social applications and services, where a high \nlevel of security is required for the transport of data and infrastructure monitoring. By securing \ninfrastructures and thus networks, SAFE  will provide an umbrella of protection to all customers (end -\nusers and / or enterprises) in its network, regardless of their technical knowledge and the state of their \nendpoint security. This will allow more enterprises to embrace digitalization bringing several  new",
+            "metadata": {
+              "file_type": "pdf",
+              "type": "uploaded_document",
+              "arcadia_phase": "system",
+              "processed_for_chat": true,
+              "source": "temp_Proposal-SEP-211043552.pdf",
+              "filename": "temp_Proposal-SEP-211043552.pdf",
+              "total_chunks": 446,
+              "content_length": 350153,
+              "chunk_id": 231
+            }
+          }
+        ],
+        "timestamp": "2025-06-04T13:29:27.529609"
+      },
+      {
+        "role": "user",
+        "content": "extract from the documents the functional requirements ",
+        "timestamp": "2025-06-04T13:30:25.884422"
+      },
+      {
+        "role": "assistant",
+        "content": "The provided text does not contain any information regarding the functional requirements of the system mentioned. Therefore, I am unable to extract the requested data from the given context.",
+        "context": [
+          {
+            "content": "functional operations of the system. The \nconfiguration items and manual operations \nshould be subsequently identified from these \nelements.  UPPA , EVIDEN, ISEP, \nDNSC, ATOS, NCIS, Infalia, \nUPPA, HMOD  BEN, COO, \nBEN, BEN, \nBEN, BEN, \nBEN, BEN , \nBEN NO \nMilestones and deliverables (outputs/outcomes)  \nMilestone No \n(continuous numbering not \nlinked to WP)  Milestone N ame Work Package \nNo Lead Beneficiary  Description  Due D ate \n(month number)  Means of Verification  \nMS3 High Level System \nAnalysis  2 UPPA  Consolidation of system requirem ents on \nthe high -level system ar chitecture  M12 Traceability of system \nrequirements on a first \nversion of the high-level \nCall: DIGITAL -ECCC -2024 -DEPLOY -CYBER -06-ENABLINGTECH  — Novel applications of AI and other enabling technologies for security operation centres  \nEU Grants: Application form (DEP): V2.0 – 01.06 .2022  \n38 system architecture  \nMS4 Logical and Physical",
+            "metadata": {
+              "file_type": "pdf",
+              "chunk_id": 259,
+              "arcadia_phase": "system",
+              "content_length": 350153,
+              "filename": "temp_Proposal-SEP-211043552.pdf",
+              "processed_for_chat": true,
+              "source": "temp_Proposal-SEP-211043552.pdf",
+              "type": "uploaded_document",
+              "total_chunks": 446
+            }
+          },
+          {
+            "content": "▪ Provide a complete analysis of the technical and business requirements considering different stakeholders and sectors,  \n▪ Stakeholders’ analysis  \n▪ Definition of the pilot to validate the platform  \n▪ Technical specification of the component(s)  \nActivities and division of work (WP description ) \nTask No \n(continuous \nnumbering \nlinked to WP)  Task Name Description  Participant s In-kind C ontributions \nand Subcontracting  \n(Yes/No and which)  \n Name  Role \n(COO, BEN, AE, \nAP, OTHER)  \nT2.1 Stakeholders’ analysis & requirements \nelicitation  This task aims to identify and engage \nstakeholders, to understand their needs, and \nwell define project requirements in line with \nstakeholder needs and expectations.  UPPA , EVIDEN, ISEP, \nDNSC, ATOS, DBC, NCIS, \nInfalia, HMOD, ACC  \n BEN, COO, \nBEN, BEN, \nBEN, BEN, \nBEN, BEN, \nBEN, BEN  NO \nT2.2 Pilot definition  This task aims to provide information about \nthe Pilot that will be used to demonstrate",
+            "metadata": {
+              "content_length": 350153,
+              "total_chunks": 446,
+              "filename": "temp_Proposal-SEP-211043552.pdf",
+              "chunk_id": 257,
+              "source": "temp_Proposal-SEP-211043552.pdf",
+              "processed_for_chat": true,
+              "type": "uploaded_document",
+              "arcadia_phase": "operational",
+              "file_type": "pdf"
+            }
+          },
+          {
+            "content": "# ARCADIA Test Document\n        \n        This document contains information about operational analysis and system requirements.\n        \n        ## Stakeholders\n        - System Engineers: Design MBSE solutions\n        - Project Managers: Oversee execution\n        \n        ## Requirements\n        - The system shall process documents efficiently\n        - Response time must be under 5 seconds",
+            "metadata": {
+              "source": "/var/folders/8g/9y3kwvgx747dbjd3fj07_8zm0000gn/T/tmpxq74e8m8.txt",
+              "content_length": 412,
+              "filename": "tmpxq74e8m8.txt",
+              "file_type": "txt",
+              "chunk_id": 0,
+              "arcadia_phase": "operational",
+              "processed_for_chat": true,
+              "total_chunks": 1,
+              "type": "uploaded_document"
+            }
+          },
+          {
+            "content": "Supporting documents:  loan documents, by -laws, documents showing the link; etc.  \nName Country of \nestablishment / or \nnationality  Financial l ink type \n Indicative amount  \n    \n    \n    \nOther sources of control  \nIndicate if there is any other mean, process or link ultimately conferring control to another  country entity  (similar level of \ncontrol on management and resources as the ownership of shares or assets  and of long duration ). \nSupporting documents: documents showing the control  \nInsert text \n \n DECLARATION (control)  \nWe hereby confirm that:  \n1) our organisation is subject to control  by an ineligible country or ineligible country entity  \n2) the present declaration is true and sincere  \n3) the information regarding ownership and control is accurate and reliable  \n4) if needed, w e will provide guarantees to prove compl iance with the requirements  set out in the call \nconditions .  \n DECLARATION (no control)  \nx\nx\nx",
+            "metadata": {
+              "total_chunks": 446,
+              "filename": "temp_Proposal-SEP-211043552.pdf",
+              "content_length": 350153,
+              "chunk_id": 385,
+              "processed_for_chat": true,
+              "file_type": "pdf",
+              "type": "uploaded_document",
+              "source": "temp_Proposal-SEP-211043552.pdf",
+              "arcadia_phase": "system"
+            }
+          },
+          {
+            "content": "management positions ;  \n– the decision -making procedures, including information regarding the required majority and/or quorum needed for \ndecision s. \nSupporting documents: Documents establishing/describing the decision -making bodies, rules regarding election, appointment, \nnomination or tenure, decision -making procedures within the legal entity  (e.g. articles of association bylaws,  reports  on \ncorporate governance, etc ).  \nYou can refer to specific sections of your supporting documents.  \n The same documents and information should be provided for each intermediate legal entity holding directly or indirectly \n5% or more of the capital or voting rights, up to the ultimate owners of all the layers involved.   \nDataSentics:  \nDocuSign Envelope ID: 37409F0C-1023-412A-BC21-44B48A220CA2\nEU Grants: Ownership control declaration : V3.0 – 01.10.2023 \n3 – General Meeting: the company has a sole shareholder, Atos International B.V., established in Netherlands,",
+            "metadata": {
+              "arcadia_phase": "operational",
+              "type": "uploaded_document",
+              "file_type": "pdf",
+              "chunk_id": 403,
+              "filename": "temp_Proposal-SEP-211043552.pdf",
+              "content_length": 350153,
+              "processed_for_chat": true,
+              "total_chunks": 446,
+              "source": "temp_Proposal-SEP-211043552.pdf"
+            }
+          }
+        ],
+        "timestamp": "2025-06-04T13:30:52.566207"
+      }
+    ],
+    "created_at": "2025-06-04T13:25:08.465139",
+    "document_count": 1
+  }
+}
