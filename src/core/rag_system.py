@@ -7,6 +7,8 @@ from src.core.document_processor import ArcadiaDocumentProcessor
 from src.core.requirements_generator import RequirementsGenerator
 from config import config, arcadia_config
 import logging
+from ..utils.enhanced_requirement_extractor import EnhancedRequirementExtractor
+import time
 
 class SAFEMBSERAGSystem:
     def __init__(self):
@@ -16,6 +18,10 @@ class SAFEMBSERAGSystem:
         self.doc_processor = ArcadiaDocumentProcessor()
         self.req_generator = RequirementsGenerator(self.ollama_client)
         self.logger = logging.getLogger(__name__)
+        
+        # Enhanced requirement extractor for advanced analysis
+        self.enhanced_extractor = EnhancedRequirementExtractor()
+        self.logger.info("Enhanced requirement extractor initialized")
     
     def _get_or_create_collection(self):
         """Get or create ChromaDB collection for SAFE MBSE"""
@@ -578,3 +584,49 @@ Please provide a comprehensive answer based on the context provided. If the cont
         except Exception as e:
             self.logger.error(f"❌ Error clearing vector store: {str(e)}")
             return False
+
+    def analyze_text_with_enhanced_extraction(self, text: str) -> Dict:
+        """
+        Analyse le texte avec extraction avancée de requirements
+        
+        Args:
+            text: Texte à analyser
+            
+        Returns:
+            Dictionnaire contenant l'analyse avancée
+        """
+        self.logger.info("Starting enhanced requirement analysis")
+        start_time = time.time()
+        
+        try:
+            # Extraction avancée des requirements
+            enhanced_requirements = self.enhanced_extractor.extract_enhanced_requirements(text)
+            
+            # Génération de statistiques
+            statistics = self.enhanced_extractor.get_statistics(enhanced_requirements)
+            
+            # Formatage pour affichage
+            formatted_output = self.enhanced_extractor.format_extracted_requirements(enhanced_requirements)
+            
+            analysis_time = time.time() - start_time
+            self.logger.info(f"Enhanced analysis completed in {analysis_time:.2f} seconds")
+            self.logger.info(f"Found {len(enhanced_requirements)} requirement elements")
+            
+            return {
+                "enhanced_requirements": enhanced_requirements,
+                "statistics": statistics,
+                "formatted_output": formatted_output,
+                "analysis_time": analysis_time,
+                "success": True
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error in enhanced requirement analysis: {str(e)}")
+            return {
+                "enhanced_requirements": [],
+                "statistics": {},
+                "formatted_output": f"Erreur lors de l'analyse: {str(e)}",
+                "analysis_time": 0,
+                "success": False,
+                "error": str(e)
+            }
