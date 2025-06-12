@@ -16,19 +16,27 @@ REQUIREMENT_TEMPLATES = {
             "rationale": "{rationale}"
         },
         "prompts": {
-            "generation": """Based on the following ARCADIA {phase} analysis, generate functional requirements.
-            
+            "generation": """Based on the following ARCADIA {phase} analysis, generate functional requirements with appropriate priorities based on criticality analysis.
+
 Context: {context}
 Stakeholders: {stakeholders}
 Phase Focus: {phase_description}
 
+PRIORITY ASSIGNMENT GUIDELINES (ARCADIA-compliant):
+- MUST: Safety-critical, regulatory compliance, core security functions, mission-critical operations
+- SHOULD: Important operational features, performance requirements, significant stakeholder needs
+- COULD: Enhancement features, convenience functions, nice-to-have capabilities
+
 Generate requirements in the format:
 - ID: {prefix}-{phase}-XXX
-- The system shall [specific action/capability]
-- Priority: MUST/SHOULD/COULD
-- Verification: [how to verify this requirement]
+- The system shall [specific action/capability for mentioned components]
+- Priority: MUST/SHOULD/COULD (analyze context for criticality indicators)
+- Verification: [specific verification method]
+- Rationale: [why this priority was assigned]
 
-Focus on: {phase_keywords}"""
+Focus on: {phase_keywords}
+
+Make requirements SPECIFIC to components mentioned in the context rather than generic statements."""
         }
     },
     
@@ -46,18 +54,26 @@ Focus on: {phase_keywords}"""
             "verification_method": "{verification}"
         },
         "prompts": {
-            "generation": """Based on the following ARCADIA {phase} analysis, generate non-functional requirements.
-            
+            "generation": """Based on the following ARCADIA {phase} analysis, generate non-functional requirements with priority analysis.
+
 Context: {context}
 Quality Attributes: Performance, Security, Usability, Reliability, Scalability
 Phase: {phase}
 
-Generate measurable non-functional requirements:
+PRIORITY ASSIGNMENT GUIDELINES:
+- MUST: Security requirements, regulatory compliance, safety-critical performance, backup/recovery
+- SHOULD: Performance targets, scalability requirements, important usability features
+- COULD: Advanced features, optimization requirements, convenience enhancements
+
+Generate measurable non-functional requirements for category: {category}
 - ID: NFR-{category}-XXX
-- The system shall [quality attribute] [measurable criteria]
+- The system shall [quality attribute] [measurable criteria for specific components]
 - Metric: [how to measure]
 - Target: [specific value or range]
-- Priority: MUST/SHOULD/COULD"""
+- Priority: MUST/SHOULD/COULD (based on criticality analysis)
+- Rationale: [justification for priority assignment]
+
+Focus on specific components mentioned in the context."""
         }
     },
     

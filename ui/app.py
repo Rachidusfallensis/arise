@@ -18,18 +18,41 @@ import plotly.express as px
 import plotly.graph_objects as go
 import logging
 
-# Configure logging for terminal output
+# Configure logging for terminal output (Streamlit-compatible)
+import os
+from pathlib import Path
+
+# Ensure logs directory exists
+Path("logs").mkdir(exist_ok=True)
+
+# Clear any existing handlers
+logging.getLogger().handlers.clear()
+
+# Configure logging with force and explicit stream
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler('logs/requirements_generation.log')
-    ]
+        logging.StreamHandler(sys.stderr),  # Use stderr instead of stdout for Streamlit
+        logging.FileHandler('logs/requirements_generation.log', mode='a')
+    ],
+    force=True  # Force reconfiguration
 )
 
-# Create logger
+# Create logger with explicit configuration
 logger = logging.getLogger("ARCADIA_RAG_System")
+logger.setLevel(logging.INFO)
+
+# Add console handler if not already present
+if not any(isinstance(h, logging.StreamHandler) for h in logger.handlers):
+    console_handler = logging.StreamHandler(sys.stderr)
+    console_handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+
+# Test logging on startup
+logger.info("Logger initialized successfully - terminal logging active")
 
 # Page configuration
 st.set_page_config(
@@ -478,10 +501,9 @@ def main():
                 st.error(f"RAG system error: {str(e)}")
     
     # Main interface tabs
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "Generate Requirements", 
         "Chat with Documents", 
-        "Enhanced Extraction",
         "Analysis", 
         "Evaluation", 
         "Dashboard"
@@ -494,15 +516,12 @@ def main():
         chat_tab(rag_system)
     
     with tab3:
-        enhanced_extraction_tab(rag_system)
-    
-    with tab4:
         analysis_tab(rag_system)
     
-    with tab5:
+    with tab4:
         evaluation_tab(rag_system, eval_service)
     
-    with tab6:
+    with tab5:
         dashboard_tab()
 
 def generate_requirements_tab(rag_system, target_phase, req_types, export_format):
@@ -790,6 +809,13 @@ def generate_requirements_tab(rag_system, target_phase, req_types, export_format
                 logger.info(f"   • Phases Covered: {len(results.get('requirements', {}))}")
                 logger.info(f"   • Stakeholders Identified: {len(results.get('stakeholders', {}))}")
                 
+                # Log priority distribution
+                priority_dist = stats.get('by_priority', {})
+                logger.info(f"   • Priority Distribution:")
+                logger.info(f"     - MUST (Critical): {priority_dist.get('MUST', 0)}")
+                logger.info(f"     - SHOULD (Important): {priority_dist.get('SHOULD', 0)}")
+                logger.info(f"     - COULD (Nice-to-have): {priority_dist.get('COULD', 0)}")
+                
                 # Log requirements by phase and type
                 for phase, phase_reqs in results.get('requirements', {}).items():
                     phase_total = sum(len(reqs) if isinstance(reqs, list) else 0 for reqs in phase_reqs.values())
@@ -853,6 +879,7 @@ def display_generation_results(results, export_format, rag_system):
     
     # Statistics overview
     stats = results.get('statistics', {})
+    priority_dist = stats.get('by_priority', {})
     
     col1, col2, col3, col4 = st.columns(4)
     with col1:
@@ -863,6 +890,65 @@ def display_generation_results(results, export_format, rag_system):
         st.metric("Phases Covered", len(results.get('requirements', {})))
     with col4:
         st.metric("Quality Score", f"{stats.get('average_quality', 0):.1%}")
+    
+    # Priority distribution overview
+    if priority_dist:
+        st.markdown("#### Priority Distribution Analysis")
+        
+        priority_col1, priority_col2, priority_col3 = st.columns(3)
+        total_reqs = max(stats.get('total_requirements', 1), 1)
+        
+        with priority_col1:
+            must_count = priority_dist.get('MUST', 0)
+            must_percentage = (must_count / total_reqs) * 100
+            st.metric("MUST (Critical)", must_count, delta=f"{must_percentage:.1f}%")
+            
+        with priority_col2:
+            should_count = priority_dist.get('SHOULD', 0)
+            should_percentage = (should_count / total_reqs) * 100
+            st.metric("SHOULD (Important)", should_count, delta=f"{should_percentage:.1f}%")
+            
+        with priority_col3:
+            could_count = priority_dist.get('COULD', 0)
+            could_percentage = (could_count / total_reqs) * 100
+            st.metric("COULD (Nice-to-have)", could_count, delta=f"{could_percentage:.1f}%")
+        
+        # Priority distribution chart
+        import plotly.express as px
+        priority_data = pd.DataFrame([
+            {"Priority": "MUST (Critical)", "Count": must_count, "Percentage": must_percentage},
+            {"Priority": "SHOULD (Important)", "Count": should_count, "Percentage": should_percentage},
+            {"Priority": "COULD (Nice-to-have)", "Count": could_count, "Percentage": could_percentage}
+        ])
+        
+        if priority_data['Count'].sum() > 0:
+            fig = px.pie(priority_data, values='Count', names='Priority', 
+                       title="Requirements Priority Distribution (ARCADIA-Compliant)",
+                       color_discrete_map={
+                           "MUST (Critical)": "#FF4B4B",
+                           "SHOULD (Important)": "#FFA500", 
+                           "COULD (Nice-to-have)": "#00D4AA"
+                       })
+            fig.update_layout(height=400)
+            st.plotly_chart(fig, use_container_width=True)
+            
+            # Expected vs actual distribution analysis
+            st.info("""
+            **ARCADIA Priority Guidelines Met:**
+            - MUST (SHALL): Core security, regulatory compliance, safety-critical operations
+            - SHOULD: Important operational features, performance requirements  
+            - COULD: Enhancement features, convenience functions
+            
+            **Healthy Distribution:** 30-40% MUST, 40-50% SHOULD, 10-20% COULD
+            """)
+            
+            # Color-coded priority health indicator
+            if must_percentage > 50:
+                st.warning("⚠️ High proportion of MUST requirements - consider if all are truly critical")
+            elif must_percentage < 20:
+                st.warning("⚠️ Low proportion of MUST requirements - ensure critical requirements are identified")
+            else:
+                st.success("✅ Balanced priority distribution aligned with ARCADIA methodology")
     
     # Requirements by phase
     for phase, phase_reqs in results.get('requirements', {}).items():
@@ -907,6 +993,27 @@ def display_generation_results(results, export_format, rag_system):
                     "requirements.md",
                     "text/markdown"
                 )
+            elif export_format == "Excel":
+                st.download_button(
+                    "Download Excel (CSV)",
+                    exported_content,
+                    "requirements.csv",
+                    "text/csv"
+                )
+            elif export_format == "DOORS":
+                st.download_button(
+                    "Download DOORS",
+                    exported_content,
+                    "requirements.dxl",
+                    "text/plain"
+                )
+            elif export_format == "ReqIF":
+                st.download_button(
+                    "Download ReqIF",
+                    exported_content,
+                    "requirements.reqif",
+                    "application/xml"
+                )
     
     with col2:
         st.info(f"Export format: {export_format}")
@@ -926,16 +1033,58 @@ def display_requirements_list(requirements, req_type):
         else:
             priority_class = 'priority-low'
         
+        # Get priority confidence and rationale
+        priority_confidence = req.get('priority_confidence', 0.0)
+        priority_rationale = req.get('rationale', 'No rationale provided')
+        
+        # Create expandable details for priority analysis
+        priority_analysis = req.get('priority_analysis', {})
+        analysis_summary = ""
+        if priority_analysis:
+            indicators = priority_analysis.get('indicators_found', [])
+            if indicators:
+                categories = set(ind['category'] for ind in indicators)
+                analysis_summary = f"Based on: {', '.join(categories)}"
+        
         st.markdown(f"""
         <div class="requirement-item">
             <div class="requirement-header">{req.get('id', 'N/A')}: {req.get('title', 'Untitled')}</div>
             <div class="requirement-description">{req.get('description', 'No description')}</div>
             <div class="requirement-meta">
-                <span><strong>Priority:</strong> <span class="{priority_class}">{req.get('priority', 'N/A')}</span></span>
+                <span><strong>Priority:</strong> <span class="{priority_class}">{req.get('priority', 'N/A')}</span> 
+                      (Confidence: {priority_confidence:.1f})</span>
                 <span><strong>Verification:</strong> {req.get('verification_method', 'N/A')}</span>
+            </div>
+            <div class="requirement-analysis" style="font-size: 0.9em; color: #666; margin-top: 8px;">
+                <strong>Priority Analysis:</strong> {analysis_summary}
             </div>
         </div>
         """, unsafe_allow_html=True)
+        
+        # Add expandable details for priority rationale
+        with st.expander(f"Priority Rationale for {req.get('id', 'N/A')}", expanded=False):
+            st.write(priority_rationale)
+            
+            if priority_analysis:
+                st.subheader("Detailed Analysis")
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.metric("Stakeholder Alignment", f"{priority_analysis.get('stakeholder_alignment', 0):.2f}")
+                    st.metric("Regulatory Compliance", f"{priority_analysis.get('regulatory_compliance', 0):.2f}")
+                    st.metric("Safety Criticality", f"{priority_analysis.get('safety_criticality', 0):.2f}")
+                
+                with col2:
+                    st.metric("Component Specificity", f"{priority_analysis.get('component_specificity', 0):.2f}")
+                    st.metric("Phase Relevance", f"{priority_analysis.get('phase_relevance', 0):.2f}")
+                
+                # Show indicators found
+                indicators_found = priority_analysis.get('indicators_found', [])
+                if indicators_found:
+                    st.subheader("Criticality Indicators Found")
+                    for indicator in indicators_found:
+                        st.write(f"• **{indicator['keyword']}** ({indicator['category']}) - Weight: {indicator['weight']:.2f}")
+        
 
 def analysis_tab(rag_system):
     st.markdown("### Proposal Analysis")
@@ -1448,7 +1597,7 @@ def chat_tab(rag_system):
         st.markdown("#### Chat Settings")
         
         # Model selection
-        available_models = ["gemma:7b", "llama2:13b", "codellama:13b", "nomic-embed-text"]
+        available_models = ["llama3:instruct", "gemma3:27b", "gemma3:12b", "gemma3:4b", "mistral:latest", "deepseek-r1:7b"]
         selected_model = st.selectbox(
             "Chat Model",
             available_models,
@@ -1492,299 +1641,6 @@ def chat_tab(rag_system):
                 current_chat = st.session_state.chats[st.session_state.current_chat_id]
                 current_messages = len(current_chat.get('messages', []))
                 st.metric("Current Chat Messages", current_messages)
-
-def enhanced_extraction_tab(rag_system):
-    """Interface pour l'extraction avancée de requirements avec analyse linguistique"""
-    st.markdown("### Extraction Avancée de Requirements")
-    
-    st.markdown("""
-    Cette fonctionnalité utilise l'analyse linguistique avancée pour identifier:
-    - **Verbes d'obligation** (shall, must, should, may, will)
-    - **Entités système** (system, application, component, etc.)
-    - **Conditions et contraintes** (if, when, within, under conditions)
-    - **Métriques quantifiables** (performance, sécurité, qualité)
-    """)
-    
-    # Input methods
-    input_method = st.radio(
-        "Méthode d'entrée",
-        ["Saisir Texte", "Charger Fichier", "Utiliser Exemple"],
-        key="enhanced_input_method"
-    )
-    
-    analysis_text = ""
-    
-    if input_method == "Saisir Texte":
-        analysis_text = st.text_area(
-            "Entrez le texte à analyser",
-            height=200,
-            help="Saisissez ou collez le texte contenant les requirements à analyser",
-            placeholder="Ex: The system shall respond to user requests within 2 seconds under normal conditions."
-        )
-    
-    elif input_method == "Charger Fichier":
-        uploaded_file = st.file_uploader(
-            "Chargez un fichier texte",
-            type=['txt', 'md'],
-            key="enhanced_file_uploader"
-        )
-        
-        if uploaded_file is not None:
-            try:
-                file_content = uploaded_file.read()
-                analysis_text = str(file_content, "utf-8")
-                st.success(f"Fichier chargé: {uploaded_file.name} ({len(analysis_text)} caractères)")
-                
-                with st.expander("Prévisualisation du contenu"):
-                    preview = analysis_text[:500] + "..." if len(analysis_text) > 500 else analysis_text
-                    st.text(preview)
-                    
-            except Exception as e:
-                st.error(f"Erreur lors du chargement du fichier: {str(e)}")
-    
-    elif input_method == "Utiliser Exemple":
-        example_choice = st.selectbox(
-            "Choisir un exemple",
-            [
-                "Système de Transport Intelligent",
-                "Plateforme de Cybersécurité", 
-                "Système d'Automatisation Industrielle"
-            ]
-        )
-        
-        examples = {
-            "Système de Transport Intelligent": """
-The transportation management system shall process traffic data from sensors in real-time. 
-The system must respond to traffic signal adjustment requests within 2 seconds under normal conditions.
-The platform should provide 99.9% availability during peak traffic hours.
-When emergency vehicles are detected, the system shall immediately grant priority routing.
-The user interface must display traffic status with accuracy of at least 95%.
-Storage capacity should be at least 10 TB for historical traffic data.
-""",
-            "Plateforme de Cybersécurité": """
-The cybersecurity platform shall detect anomalies within 5 seconds of occurrence.
-The system must encrypt all communications using at least 256-bit encryption.
-Response time for threat alerts should be less than 10 seconds under stress conditions.
-The monitoring system shall maintain logs with 99.99% availability.
-User authentication must require passwords of at least 12 characters.
-When critical threats are identified, the system shall automatically isolate affected components.
-""",
-            "Système d'Automatisation Industrielle": """
-The automation system shall monitor production line status continuously.
-The platform must stop all operations within 0.5 seconds when emergency stop is activated.
-Quality control algorithms should achieve accuracy of at least 98% for defect detection.
-The system shall generate maintenance alerts 48 hours before predicted equipment failure.
-Under normal operating conditions, the system must maintain throughput of at least 1000 units per hour.
-Data storage capacity should be sufficient for 5 years of operational history.
-"""
-        }
-        
-        if st.button("Charger l'exemple", key="load_enhanced_example"):
-            analysis_text = examples[example_choice]
-            st.success(f"Exemple chargé: {example_choice}")
-    
-    # Analysis controls
-    col1, col2 = st.columns([3, 1])
-    
-    with col1:
-        st.markdown("#### Paramètres d'Analyse")
-        
-        with st.expander("Options Avancées"):
-            confidence_threshold = st.slider(
-                "Seuil de Confiance",
-                min_value=0.0,
-                max_value=1.0,
-                value=0.5,
-                step=0.1,
-                help="Score de confiance minimum pour retenir un requirement"
-            )
-            
-            show_statistics = st.checkbox("Afficher les Statistiques", True)
-            show_raw_output = st.checkbox("Afficher le Texte Brut Formaté", False)
-    
-    with col2:
-        st.markdown("#### Actions")
-        analyze_btn = st.button("Analyser le Texte", type="primary", disabled=not analysis_text)
-        
-        if analysis_text:
-            st.success(f"Texte prêt ({len(analysis_text)} caractères)")
-    
-    # Perform analysis
-    if analyze_btn and analysis_text:
-        logger.info(f"Starting enhanced extraction analysis on {len(analysis_text)} characters")
-        
-        with st.spinner("Analyse linguistique en cours..."):
-            progress_bar = st.progress(0)
-            status_text = st.empty()
-            
-            status_text.text("Initialisation de l'analyse...")
-            progress_bar.progress(20)
-            
-            try:
-                # Perform enhanced analysis
-                status_text.text("Extraction des requirements...")
-                progress_bar.progress(60)
-                
-                analysis_results = rag_system.analyze_text_with_enhanced_extraction(analysis_text)
-                
-                progress_bar.progress(100)
-                status_text.text("Analyse terminée!")
-                
-                if analysis_results.get('success', False):
-                    st.success(f"Analyse complétée en {analysis_results['analysis_time']:.2f} secondes")
-                    
-                    # Store results in session state
-                    st.session_state['enhanced_analysis_results'] = analysis_results
-                    st.session_state['enhanced_analysis_text'] = analysis_text
-                    
-                else:
-                    st.error(f"Erreur pendant l'analyse: {analysis_results.get('error', 'Erreur inconnue')}")
-                    
-            except Exception as e:
-                st.error(f"Erreur pendant l'analyse: {str(e)}")
-                logger.error(f"Enhanced extraction error: {str(e)}")
-    
-    # Display results
-    if 'enhanced_analysis_results' in st.session_state:
-        results = st.session_state['enhanced_analysis_results']
-        enhanced_requirements = results.get('enhanced_requirements', [])
-        statistics = results.get('statistics', {})
-        
-        # Filter by confidence threshold
-        filtered_requirements = [
-            req for req in enhanced_requirements 
-            if req.confidence_score >= confidence_threshold
-        ]
-        
-        st.markdown("### Résultats de l'Analyse")
-        
-        # Summary metrics
-        col1, col2, col3, col4 = st.columns(4)
-        
-        with col1:
-            st.metric("Requirements Trouvés", len(enhanced_requirements))
-        with col2:
-            st.metric("Après Filtrage", len(filtered_requirements))
-        with col3:
-            avg_confidence = statistics.get('average_confidence', 0)
-            st.metric("Confiance Moyenne", f"{avg_confidence:.2f}")
-        with col4:
-            metrics_pct = statistics.get('metrics_percentage', 0)
-            st.metric("Avec Métriques", f"{metrics_pct:.1f}%")
-        
-        # Statistics
-        if show_statistics and statistics:
-            st.markdown("#### Statistiques Détaillées")
-            
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                st.markdown("**Distribution des Niveaux d'Obligation:**")
-                obligation_dist = statistics.get('obligation_distribution', {})
-                for level, count in obligation_dist.items():
-                    st.write(f"• {level}: {count}")
-            
-            with col2:
-                st.markdown("**Contextes des Métriques:**")
-                metric_contexts = statistics.get('metric_contexts', {})
-                for context, count in metric_contexts.items():
-                    st.write(f"• {context}: {count}")
-        
-        # Requirements display
-        st.markdown("#### Requirements Extraits")
-        
-        if filtered_requirements:
-            for i, req in enumerate(filtered_requirements, 1):
-                with st.container():
-                    st.markdown(f"""
-                    <div class="requirement-item">
-                        <div class="requirement-header">Requirement {i}</div>
-                        <div class="requirement-description">{req.text}</div>
-                    </div>
-                    """, unsafe_allow_html=True)
-                    
-                    # Details in expandable section
-                    with st.expander(f"Détails du Requirement {i}"):
-                        col1, col2 = st.columns(2)
-                        
-                        with col1:
-                            st.write(f"**Niveau d'obligation:** {req.obligation_level.value}")
-                            st.write(f"**Verbe:** {req.obligation_verb}")
-                            if req.system_entity:
-                                st.write(f"**Entité système:** {req.system_entity}")
-                            if req.action:
-                                st.write(f"**Action:** {req.action}")
-                        
-                        with col2:
-                            st.write(f"**Score de confiance:** {req.confidence_score:.2f}")
-                            
-                            if req.conditions:
-                                st.write("**Conditions:**")
-                                for condition in req.conditions:
-                                    st.write(f"• {condition}")
-                            
-                            if req.constraints:
-                                st.write("**Contraintes:**")
-                                for constraint in req.constraints:
-                                    st.write(f"• {constraint}")
-                        
-                        if req.metrics:
-                            st.markdown("**Métriques Quantifiables:**")
-                            for metric in req.metrics:
-                                st.write(f"• {metric['full_match']} (contexte: {metric['context']})")
-        else:
-            st.info("Aucun requirement trouvé avec le seuil de confiance sélectionné.")
-        
-        # Raw formatted output
-        if show_raw_output:
-            st.markdown("#### Sortie Formatée")
-            formatted_output = results.get('formatted_output', '')
-            st.text_area("Texte formaté", formatted_output, height=300, key="formatted_output_display")
-        
-        # Export options
-        st.markdown("#### Export")
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            if st.button("Exporter en JSON"):
-                import json
-                export_data = {
-                    "analysis_timestamp": time.time(),
-                    "input_text": st.session_state.get('enhanced_analysis_text', ''),
-                    "requirements": [
-                        {
-                            "text": req.text,
-                            "obligation_level": req.obligation_level.value,
-                            "obligation_verb": req.obligation_verb,
-                            "system_entity": req.system_entity,
-                            "action": req.action,
-                            "conditions": req.conditions,
-                            "constraints": req.constraints,
-                            "metrics": req.metrics,
-                            "confidence_score": req.confidence_score
-                        }
-                        for req in filtered_requirements
-                    ],
-                    "statistics": statistics
-                }
-                
-                json_content = json.dumps(export_data, indent=2, ensure_ascii=False)
-                st.download_button(
-                    "Télécharger JSON",
-                    json_content,
-                    "enhanced_requirements_analysis.json",
-                    "application/json"
-                )
-        
-        with col2:
-            if st.button("Exporter en Markdown"):
-                formatted_output = results.get('formatted_output', '')
-                st.download_button(
-                    "Télécharger Markdown",
-                    formatted_output,
-                    "enhanced_requirements_analysis.md",
-                    "text/markdown"
-                )
 
 if __name__ == "__main__":
     main()

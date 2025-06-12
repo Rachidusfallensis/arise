@@ -2,9 +2,9 @@ import os
 from typing import Dict, List, Any
 
 # Ollama Configuration
-OLLAMA_BASE_URL = "http://chat-eva.univ-pau.fr:11434"
-DEFAULT_MODEL = "gemma:7b"
-EMBEDDING_MODEL = "nomic-embed-text"
+OLLAMA_BASE_URL = "http://llm-eva.univ-pau.fr:11434"
+DEFAULT_MODEL = "gemma3:27b"
+EMBEDDING_MODEL = "nomic-embed-text:latest"
 
 # Vector Database Configuration
 VECTORDB_PATH = "./data/vectordb"
@@ -35,17 +35,17 @@ EVALUATION_METRICS = [
 # AI Model Configuration
 AI_MODELS = {
     "requirements_generation": {
-        "model": "gemma:7b",
+        "model": "gemma3:27b",
         "temperature": 0.3,
         "max_tokens": 2000
     },
     "validation": {
-        "model": "gemma:7b", 
+        "model": "gemma3:12b", 
         "temperature": 0.1,
         "max_tokens": 1000
     },
     "evaluation": {
-        "model": "gemma:7b",
+        "model": "llama3:instruct",
         "temperature": 0.2,
         "max_tokens": 1500
     }

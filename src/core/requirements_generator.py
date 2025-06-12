@@ -2,11 +2,15 @@ from typing import List, Dict, Any, Optional
 import re
 from config import arcadia_config, requirements_templates
 import logging
+from .priority_analyzer import ARCADIAPriorityAnalyzer
+from .component_analyzer import ComponentAnalyzer
 
 class RequirementsGenerator:
     def __init__(self, ollama_client):
         self.ollama_client = ollama_client
         self.logger = logging.getLogger(__name__)
+        self.priority_analyzer = ARCADIAPriorityAnalyzer()
+        self.component_analyzer = ComponentAnalyzer()
         self.requirement_counters = {
             "functional": 1,
             "non_functional": 1,
@@ -34,6 +38,13 @@ class RequirementsGenerator:
         template = requirements_templates.REQUIREMENT_TEMPLATES["functional_template"]
         phase_info = arcadia_config.ARCADIA_PHASES.get(phase, {})
         
+        # Analyze components mentioned in the proposal
+        components = self.component_analyzer.analyze_components(proposal_text)
+        self.logger.info(f"Identified {len(components)} components for {phase} phase: {[c.name for c in components[:5]]}")
+        
+        # Get component-specific focus
+        component_focus = self.component_analyzer.get_component_requirements_focus(components, phase)
+        
         prompt = template["prompts"]["generation"].format(
             phase=phase,
             context=self._prepare_context_text(context),
@@ -43,8 +54,17 @@ class RequirementsGenerator:
             phase_keywords=", ".join(phase_info.get("keywords", []))
         )
         
+        # Add component-specific guidance
+        prompt += f"\n\nCOMPONENT-SPECIFIC GUIDANCE:\n{component_focus}"
+        
         response = self._call_ai_model(prompt, "requirements_generation")
-        requirements = self._parse_requirements_response(response, "functional", phase)
+        
+        # Extract stakeholder needs for priority analysis
+        stakeholder_needs = self._extract_stakeholder_needs_from_context(context)
+        
+        requirements = self._parse_requirements_response(
+            response, "functional", phase, None, context, stakeholder_needs
+        )
         
         return requirements
     
@@ -56,11 +76,17 @@ class RequirementsGenerator:
         template = requirements_templates.REQUIREMENT_TEMPLATES["non_functional_template"]
         phase_info = arcadia_config.ARCADIA_PHASES.get(phase, {})
         
+        # Analyze components mentioned in the proposal
+        components = self.component_analyzer.analyze_components(proposal_text)
+        
         # Generate for each NFR category
         all_nf_requirements = []
         nfr_categories = arcadia_config.REQUIREMENT_CATEGORIES["non_functional"]["subcategories"]
         
         for category, prefix in nfr_categories.items():
+            # Get component-specific focus for this category
+            component_focus = self.component_analyzer.get_component_requirements_focus(components, phase)
+            
             prompt = template["prompts"]["generation"].format(
                 phase=phase,
                 context=self._prepare_context_text(context),
@@ -68,8 +94,17 @@ class RequirementsGenerator:
                 phase_keywords=", ".join(phase_info.get("keywords", []))
             )
             
+            # Add component-specific guidance
+            prompt += f"\n\nCOMPONENT-SPECIFIC GUIDANCE for {category}:\n{component_focus}"
+            
             response = self._call_ai_model(prompt, "requirements_generation")
-            reqs = self._parse_requirements_response(response, "non_functional", phase, category)
+            
+            # Extract stakeholder needs for priority analysis
+            stakeholder_needs = self._extract_stakeholder_needs_from_context(context)
+            
+            reqs = self._parse_requirements_response(
+                response, "non_functional", phase, category, context, stakeholder_needs
+            )
             all_nf_requirements.extend(reqs)
         
         return all_nf_requirements
@@ -120,6 +155,25 @@ class RequirementsGenerator:
         
         return ", ".join(list(stakeholders)[:10])  # Limit to 10 stakeholders
     
+    def _extract_stakeholder_needs_from_context(self, context: List[Dict]) -> List[str]:
+        """Extract stakeholder needs and requirements from context"""
+        needs = []
+        needs_patterns = [
+            r"need[s]?\s+([^.\n]+)",
+            r"require[s]?\s+([^.\n]+)",
+            r"want[s]?\s+([^.\n]+)",
+            r"expect[s]?\s+([^.\n]+)",
+            r"demand[s]?\s+([^.\n]+)"
+        ]
+        
+        for chunk in context:
+            content = chunk["content"].lower()
+            for pattern in needs_patterns:
+                matches = re.findall(pattern, content)
+                needs.extend([match.strip() for match in matches if len(match.strip()) > 5])
+        
+        return needs[:15]  # Limit to 15 needs
+    
     def _parse_stakeholder_response(self, response: str) -> Dict:
         """Parse AI response to extract structured stakeholder data"""
         stakeholders = {}
@@ -156,7 +210,9 @@ class RequirementsGenerator:
                                    response: str, 
                                    req_type: str, 
                                    phase: str, 
-                                   category: str = None) -> List[Dict]:
+                                   category: str = None,
+                                   context: List[Dict] = None,
+                                   stakeholder_needs: List[str] = None) -> List[Dict]:
         """Parse AI response to extract structured requirements"""
         requirements = []
         
@@ -188,11 +244,20 @@ class RequirementsGenerator:
                     req_id = f"NFR-{cat_prefix}-{self.requirement_counters['non_functional']:03d}"
                     self.requirement_counters['non_functional'] += 1
                 
-                # Extract priority from same line or context
-                priority = "SHOULD"  # Default
+                # Use priority analyzer for intelligent priority assignment
+                context_text = self._prepare_context_text(context or [])
+                priority, confidence, analysis_details = self.priority_analyzer.analyze_requirement_priority(
+                    requirement_text, context_text, phase, stakeholder_needs
+                )
+                
+                # Check if AI model provided explicit priority
                 priority_match = re.search(r"Priority:\s*(MUST|SHOULD|COULD)", line)
                 if priority_match:
-                    priority = priority_match.group(1)
+                    explicit_priority = priority_match.group(1)
+                    # Use explicit priority if it's more restrictive than analyzed priority
+                    priority_order = {"MUST": 3, "SHOULD": 2, "COULD": 1}
+                    if priority_order.get(explicit_priority, 0) > priority_order.get(priority, 0):
+                        priority = explicit_priority
                 
                 # Extract verification method
                 verification = "Review and testing"  # Default
@@ -200,16 +265,21 @@ class RequirementsGenerator:
                 if verification_match:
                     verification = verification_match.group(1).strip()
                 
+                # Generate priority rationale
+                priority_rationale = self.priority_analyzer.generate_priority_rationale(priority, analysis_details)
+                
                 requirement = {
                     "id": req_id,
                     "type": req_type.title(),
                     "title": f"{requirement_text[:50]}..." if len(requirement_text) > 50 else requirement_text,
                     "description": f"The system shall {requirement_text}",
                     "priority": priority,
+                    "priority_confidence": confidence,
+                    "priority_analysis": analysis_details,
                     "phase": phase,
                     "verification_method": verification,
                     "dependencies": [],
-                    "rationale": f"Generated from {phase} phase analysis"
+                    "rationale": priority_rationale
                 }
                 
                 if req_type == "non_functional" and category:

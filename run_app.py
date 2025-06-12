@@ -358,7 +358,13 @@ def launch_streamlit():
     print("💡 Features included:")
     print("  • 🧠 AI-Powered Requirements Generation")
     print("  • 🏗️ ARCADIA Methodology Integration")
+    print("💡 Logging:")
+    print("  • 📺 Terminal logs: Check this terminal for application logs")
+    print("  • 📄 File logs: logs/requirements_generation.log")
     print("=" * 60)
+    
+    # Set environment variable to enable logging in Streamlit
+    os.environ["STREAMLIT_LOGGER_LEVEL"] = "INFO"
     
     try:
         subprocess.run([
@@ -366,7 +372,8 @@ def launch_streamlit():
             "--server.port", "8501",
             "--server.address", "localhost",
             "--browser.gatherUsageStats", "false",
-            "--server.headless", "false"
+            "--server.headless", "false",
+            "--logger.level", "info"
         ])
     except KeyboardInterrupt:
         print("\n🛑 Application stopped by user")
