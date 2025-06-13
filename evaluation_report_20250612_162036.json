@@ -1,0 +1,154 @@
+{
+  "evaluation_metadata": {
+    "timestamp": "2025-06-12T16:02:15.031488",
+    "system_version": "SAFE MBSE RAG v1.0",
+    "evaluator_version": "1.0",
+    "evaluation_duration": "0:18:21.046817"
+  },
+  "results": {
+    "connectivity": {
+      "server_accessible": true,
+      "models_available": [
+        "nomic-embed-text:latest",
+        "gemma3:27b",
+        "gemma3:12b",
+        "gemma3:4b",
+        "deepseek-r1:7b",
+        "llama3:instruct",
+        "mistral:latest"
+      ],
+      "embedding_model_working": true,
+      "chat_model_working": true
+    },
+    "requirement_generation": {
+      "generation_successful": true,
+      "generation_time": 1086.82,
+      "requirements_generated": 229,
+      "phases_covered": [
+        "operational",
+        "system",
+        "logical",
+        "physical",
+        "building_strategy"
+      ],
+      "requirement_types": [
+        "functional",
+        "non_functional"
+      ],
+      "quality_metrics": {
+        "total_requirements": 229,
+        "by_priority": {
+          "MUST": 1,
+          "SHOULD": 5,
+          "COULD": 223
+        },
+        "by_phase": {
+          "operational": {
+            "functional": 13,
+            "non_functional": 30,
+            "total": 43
+          },
+          "system": {
+            "functional": 14,
+            "non_functional": 29,
+            "total": 43
+          },
+          "logical": {
+            "functional": 10,
+            "non_functional": 38,
+            "total": 48
+          },
+          "physical": {
+            "functional": 11,
+            "non_functional": 40,
+            "total": 51
+          },
+          "building_strategy": {
+            "functional": 5,
+            "non_functional": 39,
+            "total": 44
+          }
+        },
+        "by_type": {
+          "functional": 53,
+          "non_functional": 176
+        }
+      }
+    },
+    "export_functionality": {
+      "formats_tested": [
+        "JSON",
+        "DOORS",
+        "ReqIF",
+        "Excel",
+        "Markdown"
+      ],
+      "successful_exports": [
+        "JSON",
+        "DOORS",
+        "ReqIF",
+        "Excel",
+        "Markdown"
+      ],
+      "failed_exports": [],
+      "export_sizes": {
+        "JSON": 640,
+        "DOORS": 524,
+        "ReqIF": 5641,
+        "Excel": 337,
+        "Markdown": 447
+      }
+    },
+    "chat_functionality": {
+      "queries_tested": 4,
+      "successful_responses": 4,
+      "failed_responses": 0,
+      "average_response_time": 2.88,
+      "response_lengths": [
+        906,
+        1571,
+        1438,
+        1352
+      ],
+      "errors": []
+    },
+    "cyderco_compliance": {
+      "evaluation_successful": true,
+      "coverage_score": 80.0,
+      "missing_requirements": [],
+      "additional_requirements": [],
+      "quality_metrics": {
+        "completeness": 0.85,
+        "consistency": 0.9,
+        "traceability": 0.8,
+        "testability": 0.75
+      }
+    },
+    "performance_metrics": {
+      "vectorstore_stats": {
+        "total_chunks": 450,
+        "unique_sources": 4,
+        "sources_breakdown": {
+          "test_chat_upload.txt": 2,
+          "test_simple.txt": 1,
+          "/var/folders/8g/9y3kwvgx747dbjd3fj07_8zm0000gn/T/tmpxq74e8m8.txt": 1,
+          "temp_Proposal-SEP-211043552.pdf": 446
+        }
+      },
+      "memory_usage": "N/A",
+      "processing_speed": {
+        "text_analysis_time": 0.0,
+        "text_length": 6400,
+        "processing_rate": 1603557.08
+      },
+      "system_health": {}
+    }
+  },
+  "summary": {
+    "overall_health": "Excellent (90/100 - 90.0%)",
+    "critical_issues": [],
+    "recommendations": [
+      "Consider optimizing generation speed"
+    ]
+  }
+}
