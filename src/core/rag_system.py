@@ -22,6 +22,7 @@ class SAFEMBSERAGSystem:
         # Enhanced requirement extractor for advanced analysis
         self.enhanced_extractor = EnhancedRequirementExtractor()
         self.logger.info("Enhanced requirement extractor initialized")
+        self.logger.info("RAG system initialized with ChromaDB default embeddings")
     
     def _get_or_create_collection(self):
         """Get or create ChromaDB collection for SAFE MBSE"""
@@ -569,24 +570,15 @@ class SAFEMBSERAGSystem:
                 
                 self.logger.info(f"   📊 Created {len(text_chunks)} text chunks")
                 
-                # Generate embeddings and add to vector store
+                # Add documents to vector store (using ChromaDB's default embeddings)
                 chunks_added_for_file = 0
                 for i, chunk in enumerate(text_chunks):
                     try:
-                        # Generate embedding using Ollama
-                        embedding_response = self.ollama_client.embeddings(
-                            model="nomic-embed-text:latest",
-                            prompt=chunk["content"]
-                        )
-                        
-                        embedding = embedding_response["embedding"]
-                        
                         # Create unique chunk ID
                         chunk_id = f"{file_path.replace('/', '_').replace(' ', '_')}_{i}_{len(chunk['content'])}"
                         
-                        # Add to ChromaDB
+                        # Add to ChromaDB (ChromaDB will handle embedding generation automatically)
                         self.collection.add(
-                            embeddings=[embedding],
                             documents=[chunk["content"]],
                             metadatas=[chunk["metadata"]],
                             ids=[chunk_id]
@@ -626,16 +618,9 @@ class SAFEMBSERAGSystem:
         self.logger.info(f"💬 Processing query: {query[:100]}...")
         
         try:
-            # Generate query embedding
-            embedding_response = self.ollama_client.embeddings(
-                model="nomic-embed-text:latest",
-                prompt=query
-            )
-            query_embedding = embedding_response["embedding"]
-            
-            # Search vector store
+            # Search vector store using ChromaDB's built-in text search
             search_results = self.collection.query(
-                query_embeddings=[query_embedding],
+                query_texts=[query],
                 n_results=top_k
             )
             

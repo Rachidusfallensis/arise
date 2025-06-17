@@ -11,6 +11,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from src.core.rag_system import SAFEMBSERAGSystem
+from src.core.enhanced_structured_rag_system import EnhancedStructuredRAGSystem
 from src.services.evaluation_service import EvaluationService
 from config import config, arcadia_config
 import pandas as pd
@@ -208,6 +209,96 @@ st.markdown("""
         font-weight: 400;
     }
     
+    /* Structured analysis styling */
+    .analysis-overview {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 1rem 0;
+        border: 1px solid #dee2e6;
+    }
+    
+    .actor-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid #28a745;
+        margin: 1rem 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .capability-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid #007bff;
+        margin: 1rem 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .function-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid #ffc107;
+        margin: 1rem 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .traceability-link {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+    }
+    
+    .gap-analysis {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+    }
+    
+    .gap-critical {
+        background: #f8d7da;
+        border-color: #f5c6cb;
+    }
+    
+    .gap-major {
+        background: #fff3cd;
+        border-color: #ffeaa7;
+    }
+    
+    .gap-minor {
+        background: #d1ecf1;
+        border-color: #bee5eb;
+    }
+    
+    /* Enhanced metrics */
+    .enhanced-metric {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        margin: 0.5rem 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .enhanced-metric h3 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 300;
+    }
+    
+    .enhanced-metric p {
+        margin: 0.5rem 0 0 0;
+        opacity: 0.9;
+        font-size: 1.1rem;
+    }
+    
     /* Buttons */
     .stButton > button {
         background: linear-gradient(90deg, #667eea 0%, #2c5aa0 100%);
@@ -288,17 +379,24 @@ MBSE_CONTEXT_PROMPTS = {
 
 # Initialize services
 @st.cache_resource
-def init_services():
+def init_services(use_enhanced=True):
     """Initialize and cache the RAG system and evaluation service"""
     try:
-        rag_system = SAFEMBSERAGSystem()
+        if use_enhanced:
+            rag_system = EnhancedStructuredRAGSystem()
+            logger.info("Enhanced Structured RAG System initialized successfully")
+        else:
+            rag_system = SAFEMBSERAGSystem()
+            logger.info("Traditional RAG System initialized successfully")
+        
         eval_service = EvaluationService()
         logger.info("Services initialized successfully with caching")
-        return rag_system, eval_service
+        return rag_system, eval_service, use_enhanced
     except Exception as e:
-        logger.error(f"Error initializing services: {str(e)}")
-        # Return fresh instances without caching if there's an error
-        return SAFEMBSERAGSystem(), EvaluationService()
+        logger.error(f"Error initializing enhanced services: {str(e)}")
+        logger.info("Falling back to traditional RAG system")
+        # Fallback to traditional system if enhanced fails
+        return SAFEMBSERAGSystem(), EvaluationService(), False
 
 def load_chats():
     """Load saved chats from file"""
@@ -447,7 +545,7 @@ def main():
     logger.info("=== ARCADIA Requirements Generator Started ===")
     
     # Initialize services
-    rag_system, eval_service = init_services()
+    rag_system, eval_service, is_enhanced = init_services(use_enhanced=True)
     logger.info("Core services initialized successfully")
     
     # Initialize chat system in session state
@@ -474,10 +572,28 @@ def main():
             default=["functional", "non_functional"]
         )
         
+        # Enhanced Analysis Options (only if enhanced system is available)
+        if is_enhanced:
+            st.markdown("#### Enhanced Analysis")
+            enable_structured_analysis = st.checkbox(
+                "Enable Structured ARCADIA Analysis",
+                value=True,
+                help="Generate structured analysis with actors, capabilities, and cross-phase traceability"
+            )
+            enable_cross_phase_analysis = st.checkbox(
+                "Enable Cross-Phase Analysis", 
+                value=True,
+                help="Perform traceability analysis, gap detection, and quality metrics across ARCADIA phases"
+            )
+        else:
+            enable_structured_analysis = False
+            enable_cross_phase_analysis = False
+        
         # Export format
+        export_formats = config.REQUIREMENTS_OUTPUT_FORMATS + ["ARCADIA_JSON", "Structured_Markdown"]
         export_format = st.selectbox(
             "Export Format",
-            config.REQUIREMENTS_OUTPUT_FORMATS
+            export_formats
         )
         
         st.markdown("---")
@@ -501,30 +617,45 @@ def main():
                 st.error(f"RAG system error: {str(e)}")
     
     # Main interface tabs
-    tab1, tab2, tab3, tab4, tab5 = st.tabs([
-        "Generate Requirements", 
-        "Chat with Documents", 
-        "Analysis", 
-        "Evaluation", 
-        "Dashboard"
-    ])
-    
-    with tab1:
-        generate_requirements_tab(rag_system, target_phase, req_types, export_format)
-    
-    with tab2:
-        chat_tab(rag_system)
-    
-    with tab3:
-        analysis_tab(rag_system)
-    
-    with tab4:
-        evaluation_tab(rag_system, eval_service)
-    
-    with tab5:
-        dashboard_tab()
+    if is_enhanced:
+        tab1, tab2, tab3, tab4 = st.tabs([
+            "Generate Requirements", 
+            "Structured ARCADIA Analysis",
+            "Chat with Documents", 
+            "Evaluation"
+        ])
+        
+        with tab1:
+            generate_requirements_tab(rag_system, target_phase, req_types, export_format, 
+                                    enable_structured_analysis, enable_cross_phase_analysis, is_enhanced)
+        
+        with tab2:
+            structured_arcadia_tab(rag_system)
+        
+        with tab3:
+            chat_tab(rag_system)
+        
+        with tab4:
+            evaluation_tab(rag_system, eval_service)
+    else:
+        tab1, tab2, tab3 = st.tabs([
+            "Generate Requirements", 
+            "Chat with Documents", 
+            "Evaluation"
+        ])
+        
+        with tab1:
+            generate_requirements_tab(rag_system, target_phase, req_types, export_format, 
+                                    False, False, is_enhanced)
+        
+        with tab2:
+            chat_tab(rag_system)
+        
+        with tab3:
+            evaluation_tab(rag_system, eval_service)
 
-def generate_requirements_tab(rag_system, target_phase, req_types, export_format):
+def generate_requirements_tab(rag_system, target_phase, req_types, export_format, 
+                             enable_structured_analysis=False, enable_cross_phase_analysis=False, is_enhanced=False):
     st.markdown("### Requirements Generation")
     
     # Clear any previous file upload errors
@@ -792,9 +923,24 @@ def generate_requirements_tab(rag_system, target_phase, req_types, export_format
             progress_bar.progress(60)
             
             try:
-                results = rag_system.generate_requirements_from_proposal(
-                    proposal_text, target_phase, req_types
-                )
+                if is_enhanced and hasattr(rag_system, 'generate_enhanced_requirements_from_proposal'):
+                    # Use enhanced generation with structured analysis
+                    results = rag_system.generate_enhanced_requirements_from_proposal(
+                        proposal_text=proposal_text,
+                        target_phase=target_phase,
+                        requirement_types=req_types,
+                        enable_structured_analysis=enable_structured_analysis,
+                        enable_cross_phase_analysis=enable_cross_phase_analysis
+                    )
+                    # Store enhanced results for the new tab
+                    st.session_state['enhanced_results'] = results
+                    logger.info(f"Enhanced generation completed - Traditional requirements: {len(results.get('requirements', {}))}")
+                else:
+                    # Use traditional generation
+                    results = rag_system.generate_requirements_from_proposal(
+                        proposal_text, target_phase, req_types
+                    )
+                    logger.info(f"Traditional generation completed - Requirements: {len(results.get('requirements', {}))}")
                 
                 step3_start = time.time()
                 step2_duration = step3_start - step2_start
@@ -977,7 +1123,15 @@ def display_generation_results(results, export_format, rag_system):
     col1, col2 = st.columns([2, 1])
     with col1:
         if st.button("Export Requirements"):
-            exported_content = rag_system.export_requirements(results, export_format)
+            # Check if we have enhanced results and the format is ARCADIA-specific
+            enhanced_results = st.session_state.get('enhanced_results')
+            
+            if export_format in ["ARCADIA_JSON", "Structured_Markdown"] and enhanced_results and hasattr(rag_system, 'export_structured_requirements'):
+                exported_content = rag_system.export_structured_requirements(enhanced_results, export_format)
+            else:
+                # Use traditional export for regular results
+                export_results = enhanced_results.get('traditional_requirements', results) if enhanced_results else results
+                exported_content = rag_system.export_requirements(export_results, export_format)
             
             if export_format == "JSON":
                 st.download_button(
@@ -985,6 +1139,20 @@ def display_generation_results(results, export_format, rag_system):
                     exported_content,
                     "requirements.json",
                     "application/json"
+                )
+            elif export_format == "ARCADIA_JSON":
+                st.download_button(
+                    "Download ARCADIA JSON",
+                    exported_content,
+                    "arcadia_analysis.json",
+                    "application/json"
+                )
+            elif export_format == "Structured_Markdown":
+                st.download_button(
+                    "Download Structured Report",
+                    exported_content,
+                    "arcadia_structured_report.md",
+                    "text/markdown"
                 )
             elif export_format == "Markdown":
                 st.download_button(
@@ -1086,52 +1254,7 @@ def display_requirements_list(requirements, req_type):
                         st.write(f"• **{indicator['keyword']}** ({indicator['category']}) - Weight: {indicator['weight']:.2f}")
         
 
-def analysis_tab(rag_system):
-    st.markdown("### Proposal Analysis")
-    
-    if 'proposal_text' in st.session_state:
-        proposal_text = st.session_state['proposal_text']
-        
-        # Analyze the proposal
-        analysis = rag_system.doc_processor.process_project_proposal(proposal_text)
-        
-        # Display analysis results
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.markdown("#### Objectives")
-            objectives_df = pd.DataFrame(analysis['objectives'])
-            if not objectives_df.empty:
-                st.dataframe(objectives_df[['number', 'description', 'arcadia_phase']])
-            
-            st.markdown("#### Stakeholders")
-            stakeholders_df = pd.DataFrame(analysis['stakeholders'])
-            if not stakeholders_df.empty:
-                st.dataframe(stakeholders_df[['description', 'type', 'phase']])
-        
-        with col2:
-            st.markdown("#### ARCADIA Phase Mapping")
-            phase_mapping = analysis['arcadia_mapping']
-            
-            # Create visualization
-            phases = list(phase_mapping.keys())
-            scores = [phase_mapping[phase]['relevance_score'] for phase in phases]
-            
-            fig = px.bar(
-                x=phases,
-                y=scores,
-                title="Content Relevance by ARCADIA Phase",
-                labels={'x': 'ARCADIA Phase', 'y': 'Relevance Score'}
-            )
-            st.plotly_chart(fig)
-            
-            # Phase details
-            for phase, data in phase_mapping.items():
-                if data['relevance_score'] > 0:
-                    st.write(f"**{phase.title()}**: {data['found_keywords']}")
-    
-    else:
-        st.info("Generate requirements first to see analysis")
+
 
 def evaluation_tab(rag_system, eval_service):
     st.markdown("### System Evaluation")
@@ -1208,128 +1331,7 @@ def evaluation_tab(rag_system, eval_service):
     else:
         st.info("Generate requirements first to see evaluation results")
 
-def dashboard_tab():
-    st.markdown("### System Dashboard")
-    
-    # Performance metrics
-    st.markdown("#### System Performance")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.metric(
-            "Documents Processed",
-            "42",
-            delta="5 this week"
-        )
-    
-    with col2:
-        st.metric(
-            "Requirements Generated",
-            "1,247",
-            delta="156 this week"
-        )
-    
-    with col3:
-        st.metric(
-            "Average Quality Score",
-            "87.3%",
-            delta="2.1%"
-        )
-    
-    with col4:
-        st.metric(
-            "Processing Time",
-            "2.3s",
-            delta="-0.5s"
-        )
-    
-    # Usage analytics
-    st.markdown("#### Usage Analytics")
-    
-    # Sample data for demonstration
-    usage_data = pd.DataFrame({
-        'Date': pd.date_range('2024-01-01', periods=30, freq='D'),
-        'Documents': [5, 8, 3, 12, 7, 9, 15, 6, 11, 4, 13, 8, 10, 7, 14, 
-                     9, 6, 12, 8, 11, 5, 16, 9, 7, 13, 10, 8, 14, 6, 12],
-        'Requirements': [67, 112, 45, 167, 89, 134, 201, 78, 156, 52, 178, 
-                        103, 145, 87, 189, 123, 76, 162, 98, 148, 63, 215, 
-                        117, 92, 171, 138, 102, 183, 81, 159]
-    })
-    
-    # Charts
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        fig1 = px.line(
-            usage_data,
-            x='Date',
-            y='Documents',
-            title='Daily Document Processing'
-        )
-        st.plotly_chart(fig1, use_container_width=True)
-    
-    with col2:
-        fig2 = px.line(
-            usage_data,
-            x='Date',
-            y='Requirements',
-            title='Daily Requirements Generation'
-        )
-        st.plotly_chart(fig2, use_container_width=True)
-    
-    # ARCADIA phase distribution
-    st.markdown("#### ARCADIA Phase Distribution")
-    
-    phase_data = pd.DataFrame({
-        'Phase': ['Operational Analysis', 'System Analysis', 'Logical Architecture', 
-                 'Physical Architecture', 'EPBS Architecture'],
-        'Requirements': [234, 189, 156, 203, 145],
-        'Quality Score': [0.89, 0.85, 0.92, 0.87, 0.84]
-    })
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        fig3 = px.pie(
-            phase_data,
-            values='Requirements',
-            names='Phase',
-            title='Requirements by ARCADIA Phase'
-        )
-        st.plotly_chart(fig3, use_container_width=True)
-    
-    with col2:
-        fig4 = px.bar(
-            phase_data,
-            x='Phase',
-            y='Quality Score',
-            title='Quality Score by Phase',
-            color='Quality Score',
-            color_continuous_scale='RdYlGn'
-        )
-        fig4.update_layout(xaxis_tickangle=45)
-        st.plotly_chart(fig4, use_container_width=True)
-    
-    # Recent activity
-    st.markdown("#### Recent Activity")
-    
-    activity_data = [
-        {"Time": "2 minutes ago", "Action": "Generated 15 requirements for SAFE project", "Status": "Completed"},
-        {"Time": "15 minutes ago", "Action": "Processed stakeholder analysis document", "Status": "Completed"},
-        {"Time": "1 hour ago", "Action": "Exported requirements to JSON format", "Status": "Completed"},
-        {"Time": "3 hours ago", "Action": "Quality assessment completed", "Status": "Completed"},
-        {"Time": "Yesterday", "Action": "CYDERCO compatibility evaluation", "Status": "Completed"}
-    ]
-    
-    for activity in activity_data:
-        col1, col2, col3 = st.columns([2, 4, 2])
-        with col1:
-            st.text(activity["Time"])
-        with col2:
-            st.text(activity["Action"])
-        with col3:
-            st.text(activity["Status"])
+
 
 def chat_tab(rag_system):
     """Enhanced chat interface with document interaction"""
@@ -1641,6 +1643,707 @@ def chat_tab(rag_system):
                 current_chat = st.session_state.chats[st.session_state.current_chat_id]
                 current_messages = len(current_chat.get('messages', []))
                 st.metric("Current Chat Messages", current_messages)
+
+def structured_arcadia_tab(rag_system):
+    """Enhanced tab for structured ARCADIA analysis with visualizations"""
+    st.markdown("### 🏗️ Structured ARCADIA Analysis")
+    
+    # Check if we have enhanced results
+    enhanced_results = st.session_state.get('enhanced_results')
+    
+    if not enhanced_results:
+        st.info("""
+        **No structured analysis available yet.**
+        
+        To generate structured ARCADIA analysis:
+        1. Go to the **Generate Requirements** tab
+        2. Enable **"Structured ARCADIA Analysis"** in the sidebar
+        3. Upload a document or paste text and generate requirements
+        4. Return here to view detailed structured insights
+        """)
+        
+        # Add example of what will be available
+        st.markdown("#### What you'll see here:")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("""
+            **🎭 Operational Analysis**
+            - Stakeholder identification
+            - Operational capabilities
+            - Mission scenarios
+            - Activity processes
+            
+            **🏗️ System Analysis**  
+            - System boundary definition
+            - System functions & interfaces
+            - Capability realization
+            - Functional chains
+            """)
+        with col2:
+            st.markdown("""
+            **🧩 Logical Architecture**
+            - Logical components & hierarchies
+            - Logical functions & behaviors
+            - Logical interfaces & data flows
+            - Logical scenarios & interactions
+            
+            **🔧 Physical Architecture**
+            - Physical components & platforms
+            - Implementation constraints
+            - Deployment configurations
+            - Performance characteristics
+            """)
+        
+        st.markdown("""
+        **🔗 Cross-Phase Analysis**
+        - Bidirectional traceability between all phases
+        - Gap identification across architecture levels
+        - Architecture consistency validation
+        - Quality metrics and recommendations
+        """)
+        return
+    
+    # Get structured analysis summary
+    if hasattr(rag_system, 'get_structured_analysis_summary'):
+        try:
+            analysis_summary = rag_system.get_structured_analysis_summary(enhanced_results)
+        except Exception as e:
+            st.error(f"Error getting analysis summary: {str(e)}")
+            analysis_summary = {}
+    else:
+        analysis_summary = {}
+    
+    # Main content tabs for structured analysis (All ARCADIA phases)
+    struct_tab1, struct_tab2, struct_tab3, struct_tab4, struct_tab5, struct_tab6 = st.tabs([
+        "📊 Analysis Overview",
+        "🎭 Operational Analysis", 
+        "🏗️ System Analysis",
+        "🧩 Logical Architecture",
+        "🔧 Physical Architecture",
+        "🔗 Cross-Phase Insights"
+    ])
+    
+    with struct_tab1:
+        display_analysis_overview(enhanced_results, analysis_summary)
+    
+    with struct_tab2:
+        display_operational_analysis(enhanced_results)
+    
+    with struct_tab3:
+        display_system_analysis(enhanced_results)
+    
+    with struct_tab4:
+        display_logical_analysis(enhanced_results)
+    
+    with struct_tab5:
+        display_physical_analysis(enhanced_results)
+    
+    with struct_tab6:
+        display_cross_phase_analysis(enhanced_results, analysis_summary)
+
+def display_analysis_overview(enhanced_results, analysis_summary):
+    """Display high-level overview of the structured analysis"""
+    st.markdown("#### Analysis Overview")
+    
+    # Enhancement summary
+    enhancement_summary = enhanced_results.get('enhancement_summary', {})
+    
+    # Key metrics - All ARCADIA phases
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    
+    with col1:
+        st.metric(
+            "Phases Analyzed", 
+            len(enhancement_summary.get('phases_analyzed', [])),
+            help="Number of ARCADIA phases successfully analyzed"
+        )
+    
+    with col2:
+        st.metric(
+            "Total Actors", 
+            enhancement_summary.get('total_actors_identified', 0),
+            help="Actors identified in operational and system phases"
+        )
+    
+    with col3:
+        st.metric(
+            "Total Capabilities", 
+            enhancement_summary.get('total_capabilities_identified', 0),
+            help="Capabilities identified in operational and system phases"
+        )
+    
+    with col4:
+        st.metric(
+            "Total Components", 
+            enhancement_summary.get('total_components_identified', 0),
+            help="Components identified in logical and physical phases"
+        )
+    
+    with col5:
+        st.metric(
+            "Total Functions", 
+            enhancement_summary.get('total_functions_identified', 0),
+            help="Functions identified across system, logical, and physical phases"
+        )
+    
+    with col6:
+        st.metric(
+            "Cross-Phase Links", 
+            enhancement_summary.get('cross_phase_links', 0),
+            help="Traceability links between phases"
+        )
+    
+    # Phase coverage visualization
+    if 'extraction_statistics' in analysis_summary:
+        st.markdown("#### Phase Coverage Analysis")
+        
+        extraction_stats = analysis_summary['extraction_statistics']
+        
+        # Create coverage data for visualization (all ARCADIA phases)
+        coverage_data = []
+        for phase, stats in extraction_stats.items():
+            total_elements = sum(stats.values())
+            phase_data = {
+                'Phase': phase.title(),
+                'Elements': total_elements,
+                'Actors': stats.get('actors', 0),
+                'Capabilities': stats.get('capabilities', 0),
+                'Functions': stats.get('functions', 0),
+                'Scenarios': stats.get('scenarios', 0)
+            }
+            
+            # Add phase-specific metrics
+            if phase == 'logical':
+                phase_data.update({
+                    'Components': stats.get('components', 0),
+                    'Interfaces': stats.get('interfaces', 0)
+                })
+            elif phase == 'physical':
+                phase_data.update({
+                    'Components': stats.get('components', 0),
+                    'Constraints': stats.get('implementation_constraints', 0)
+                })
+            
+            coverage_data.append(phase_data)
+        
+        if coverage_data:
+            coverage_df = pd.DataFrame(coverage_data)
+            
+            # Create stacked bar chart
+            fig = px.bar(
+                coverage_df, 
+                x='Phase', 
+                y=['Actors', 'Capabilities', 'Functions', 'Scenarios'],
+                title="Elements Extracted by Phase",
+                color_discrete_sequence=['#667eea', '#2c5aa0', '#5a67d8', '#4c51bf']
+            )
+            fig.update_layout(height=400)
+            st.plotly_chart(fig, use_container_width=True)
+    
+    # Quality scores
+    if 'quality_scores' in analysis_summary:
+        st.markdown("#### Quality Assessment")
+        
+        quality_scores = analysis_summary['quality_scores']
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            # Quality metrics as gauge charts
+            for metric_name, score_info in quality_scores.items():
+                percentage = score_info['percentage']
+                
+                # Color based on score
+                if percentage >= 80:
+                    color = "green"
+                elif percentage >= 60:
+                    color = "orange"
+                else:
+                    color = "red"
+                
+                st.metric(
+                    metric_name, 
+                    f"{percentage:.1f}%",
+                    help=f"Score: {score_info['score']:.2f}/{score_info['max_score']}"
+                )
+        
+        with col2:
+            # Quality score visualization
+            quality_data = []
+            for metric_name, score_info in quality_scores.items():
+                quality_data.append({
+                    'Metric': metric_name,
+                    'Score': score_info['percentage']
+                })
+            
+            if quality_data:
+                quality_df = pd.DataFrame(quality_data)
+                fig = px.bar(
+                    quality_df,
+                    x='Score',
+                    y='Metric',
+                    orientation='h',
+                    title="Quality Metrics",
+                    color='Score',
+                    color_continuous_scale='RdYlGn',
+                    range_color=[0, 100]
+                )
+                fig.update_layout(height=300)
+                st.plotly_chart(fig, use_container_width=True)
+    
+    # Recommendations
+    if 'recommendations' in analysis_summary:
+        st.markdown("#### Recommendations")
+        recommendations = analysis_summary['recommendations']
+        
+        if recommendations:
+            for i, rec in enumerate(recommendations, 1):
+                st.info(f"**{i}.** {rec}")
+        else:
+            st.success("✅ Analysis completed successfully with good quality scores!")
+
+def display_operational_analysis(enhanced_results):
+    """Display detailed operational analysis results"""
+    st.markdown("#### 🎭 Operational Analysis Details")
+    
+    structured_analysis = enhanced_results.get('structured_analysis')
+    if not structured_analysis or not structured_analysis.operational_analysis:
+        st.warning("No operational analysis data available")
+        return
+    
+    op_analysis = structured_analysis.operational_analysis
+    
+    # Operational Actors Section
+    with st.expander("👥 Operational Actors", expanded=True):
+        if op_analysis.actors:
+            for i, actor in enumerate(op_analysis.actors):
+                with st.container():
+                    st.markdown(f"""
+                    <div class="requirement-item">
+                        <div class="requirement-header">{actor.name} ({actor.id})</div>
+                        <div class="requirement-description">
+                            <strong>Role:</strong> {actor.role_definition}<br>
+                            <strong>Description:</strong> {actor.description}
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
+                    if actor.responsibilities:
+                        st.markdown("**Responsibilities:**")
+                        for resp in actor.responsibilities:
+                            st.markdown(f"• {resp}")
+                    
+                    if actor.capabilities:
+                        st.markdown("**Capabilities:**")
+                        for cap in actor.capabilities:
+                            st.markdown(f"• {cap}")
+                    
+                    if i < len(op_analysis.actors) - 1:
+                        st.markdown("---")
+        else:
+            st.info("No operational actors identified")
+    
+    # Operational Capabilities Section
+    with st.expander("🎯 Operational Capabilities", expanded=True):
+        if op_analysis.capabilities:
+            for i, capability in enumerate(op_analysis.capabilities):
+                with st.container():
+                    st.markdown(f"""
+                    <div class="requirement-item">
+                        <div class="requirement-header">{capability.name} ({capability.id})</div>
+                        <div class="requirement-description">
+                            <strong>Mission:</strong> {capability.mission_statement}<br>
+                            <strong>Description:</strong> {capability.description}
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
+                    if capability.involved_actors:
+                        st.markdown(f"**Involved Actors:** {', '.join(capability.involved_actors)}")
+                    
+                    if capability.performance_constraints:
+                        st.markdown("**Performance Constraints:**")
+                        for constraint in capability.performance_constraints:
+                            st.markdown(f"• {constraint}")
+                    
+                    if i < len(op_analysis.capabilities) - 1:
+                        st.markdown("---")
+        else:
+            st.info("No operational capabilities identified")
+    
+    # Operational Scenarios Section
+    with st.expander("📋 Operational Scenarios", expanded=False):
+        if op_analysis.scenarios:
+            for scenario in op_analysis.scenarios:
+                st.markdown(f"**{scenario.name} ({scenario.id})**")
+                st.write(f"Type: {scenario.scenario_type}")
+                st.write(f"Description: {scenario.description}")
+                st.markdown("---")
+        else:
+            st.info("No operational scenarios identified")
+
+def display_system_analysis(enhanced_results):
+    """Display detailed system analysis results"""
+    st.markdown("#### 🏗️ System Analysis Details")
+    
+    structured_analysis = enhanced_results.get('structured_analysis')
+    if not structured_analysis or not structured_analysis.system_analysis:
+        st.warning("No system analysis data available")
+        return
+    
+    sys_analysis = structured_analysis.system_analysis
+    
+    # System Boundary Section
+    with st.expander("🔲 System Boundary", expanded=True):
+        boundary = sys_analysis.system_boundary
+        st.markdown(f"""
+        <div class="info-card">
+            <h4>Scope Definition</h4>
+            <p>{boundary.scope_definition}</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            if boundary.included_elements:
+                st.markdown("**Included Elements:**")
+                for element in boundary.included_elements:
+                    st.markdown(f"✅ {element}")
+        
+        with col2:
+            if boundary.excluded_elements:
+                st.markdown("**Excluded Elements:**")
+                for element in boundary.excluded_elements:
+                    st.markdown(f"❌ {element}")
+    
+    # System Functions Section
+    with st.expander("⚙️ System Functions", expanded=True):
+        if sys_analysis.functions:
+            for i, function in enumerate(sys_analysis.functions):
+                with st.container():
+                    st.markdown(f"""
+                    <div class="requirement-item">
+                        <div class="requirement-header">{function.name} ({function.id})</div>
+                        <div class="requirement-description">
+                            <strong>Type:</strong> {function.function_type}<br>
+                            <strong>Description:</strong> {function.description}
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
+                    if function.allocated_actors:
+                        st.markdown(f"**Allocated Actors:** {', '.join(function.allocated_actors)}")
+                    
+                    if function.performance_requirements:
+                        st.markdown("**Performance Requirements:**")
+                        for req in function.performance_requirements:
+                            st.markdown(f"• {req}")
+                    
+                    if i < len(sys_analysis.functions) - 1:
+                        st.markdown("---")
+        else:
+            st.info("No system functions identified")
+    
+    # System Capabilities Section
+    with st.expander("🎯 System Capabilities", expanded=False):
+        if sys_analysis.capabilities:
+            for capability in sys_analysis.capabilities:
+                st.markdown(f"**{capability.name} ({capability.id})**")
+                st.write(f"Description: {capability.description}")
+                if capability.implementing_functions:
+                    st.write(f"Implementing Functions: {', '.join(capability.implementing_functions)}")
+                st.markdown("---")
+        else:
+            st.info("No system capabilities identified")
+
+def display_logical_analysis(enhanced_results):
+    """Display detailed logical architecture results"""
+    st.markdown("#### 🧩 Logical Architecture Details")
+    
+    structured_analysis = enhanced_results.get('structured_analysis')
+    if not structured_analysis or not structured_analysis.logical_architecture:
+        st.warning("No logical architecture data available. Please ensure logical architecture extraction is enabled.")
+        return
+    
+    logical_arch = structured_analysis.logical_architecture
+    
+    # Logical Components Section
+    with st.expander("🧩 Logical Components", expanded=True):
+        if logical_arch.components:
+            for i, component in enumerate(logical_arch.components):
+                with st.container():
+                    st.markdown(f"""
+                    <div class="requirement-item">
+                        <div class="requirement-header">{component.name} ({component.id})</div>
+                        <div class="requirement-description">
+                            <strong>Type:</strong> {component.component_type}<br>
+                            <strong>Description:</strong> {component.description}
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
+                    if component.responsibilities:
+                        st.markdown("**Responsibilities:**")
+                        for resp in component.responsibilities:
+                            st.markdown(f"• {resp}")
+                    
+                    if component.sub_components:
+                        st.markdown(f"**Sub-components:** {', '.join(component.sub_components)}")
+                    
+                    if i < len(logical_arch.components) - 1:
+                        st.markdown("---")
+        else:
+            st.info("No logical components identified")
+    
+    # Logical Functions Section
+    with st.expander("⚙️ Logical Functions", expanded=True):
+        if logical_arch.functions:
+            for i, function in enumerate(logical_arch.functions):
+                with st.container():
+                    st.markdown(f"""
+                    <div class="requirement-item">
+                        <div class="requirement-header">{function.name} ({function.id})</div>
+                        <div class="requirement-description">
+                            <strong>Behavior:</strong> {function.behavioral_specification}<br>
+                            <strong>Description:</strong> {function.description}
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
+                    if function.allocated_components:
+                        st.markdown(f"**Allocated Components:** {', '.join(function.allocated_components)}")
+                    
+                    if function.input_flows:
+                        st.markdown("**Input Flows:**")
+                        for flow in function.input_flows:
+                            st.markdown(f"• {flow}")
+                    
+                    if function.output_flows:
+                        st.markdown("**Output Flows:**")
+                        for flow in function.output_flows:
+                            st.markdown(f"• {flow}")
+                    
+                    if i < len(logical_arch.functions) - 1:
+                        st.markdown("---")
+        else:
+            st.info("No logical functions identified")
+    
+    # Logical Interfaces Section
+    with st.expander("🔌 Logical Interfaces", expanded=False):
+        if logical_arch.interfaces:
+            for interface in logical_arch.interfaces:
+                st.markdown(f"**{interface.name} ({interface.id})**")
+                st.write(f"Protocol: {interface.protocol}")
+                st.write(f"Provider: {interface.provider} → Consumer: {interface.consumer}")
+                if interface.data_elements:
+                    st.write(f"Data Elements: {', '.join(interface.data_elements)}")
+                st.markdown("---")
+        else:
+            st.info("No logical interfaces identified")
+    
+    # Logical Scenarios Section
+    with st.expander("📋 Logical Scenarios", expanded=False):
+        if logical_arch.scenarios:
+            for scenario in logical_arch.scenarios:
+                st.markdown(f"**{scenario.name} ({scenario.id})**")
+                st.write(f"Context: {scenario.scenario_context}")
+                st.write(f"Description: {scenario.description}")
+                if scenario.component_interactions:
+                    st.markdown("**Component Interactions:**")
+                    for interaction in scenario.component_interactions:
+                        st.markdown(f"• {interaction}")
+                st.markdown("---")
+        else:
+            st.info("No logical scenarios identified")
+
+def display_physical_analysis(enhanced_results):
+    """Display detailed physical architecture results"""
+    st.markdown("#### 🔧 Physical Architecture Details")
+    
+    structured_analysis = enhanced_results.get('structured_analysis')
+    if not structured_analysis or not structured_analysis.physical_architecture:
+        st.warning("No physical architecture data available. Please ensure physical architecture extraction is enabled.")
+        return
+    
+    physical_arch = structured_analysis.physical_architecture
+    
+    # Physical Components Section
+    with st.expander("🔧 Physical Components", expanded=True):
+        if physical_arch.components:
+            for i, component in enumerate(physical_arch.components):
+                with st.container():
+                    st.markdown(f"""
+                    <div class="requirement-item">
+                        <div class="requirement-header">{component.name} ({component.id})</div>
+                        <div class="requirement-description">
+                            <strong>Type:</strong> {component.component_type}<br>
+                            <strong>Technology Platform:</strong> {component.technology_platform}<br>
+                            <strong>Description:</strong> {component.description}
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
+                    if component.resource_requirements:
+                        st.markdown("**Resource Requirements:**")
+                        for req in component.resource_requirements:
+                            st.markdown(f"• {req}")
+                    
+                    if component.deployment_location:
+                        st.markdown(f"**Deployment Location:** {component.deployment_location}")
+                    
+                    if i < len(physical_arch.components) - 1:
+                        st.markdown("---")
+        else:
+            st.info("No physical components identified")
+    
+    # Implementation Constraints Section
+    with st.expander("⚠️ Implementation Constraints", expanded=True):
+        if physical_arch.constraints:
+            # Group constraints by type
+            constraint_types = {}
+            for constraint in physical_arch.constraints:
+                constraint_type = constraint.constraint_type
+                if constraint_type not in constraint_types:
+                    constraint_types[constraint_type] = []
+                constraint_types[constraint_type].append(constraint)
+            
+            for constraint_type, constraints in constraint_types.items():
+                st.markdown(f"**{constraint_type.title()} Constraints:**")
+                for constraint in constraints:
+                    st.markdown(f"• **{constraint.description}**")
+                    if hasattr(constraint, 'rationale') and constraint.rationale:
+                        st.markdown(f"  💡 *{constraint.rationale}*")
+                st.markdown("---")
+        else:
+            st.info("No implementation constraints identified")
+    
+    # Physical Functions Section
+    with st.expander("⚙️ Physical Functions", expanded=False):
+        if physical_arch.functions:
+            for function in physical_arch.functions:
+                st.markdown(f"**{function.name} ({function.id})**")
+                st.write(f"Description: {function.description}")
+                if function.resource_requirements:
+                    st.write(f"Resource Requirements: {', '.join(function.resource_requirements)}")
+                if function.timing_constraints:
+                    st.write(f"Timing Constraints: {', '.join(function.timing_constraints)}")
+                st.markdown("---")
+        else:
+            st.info("No physical functions identified")
+    
+    # Physical Scenarios Section
+    with st.expander("📋 Physical Scenarios", expanded=False):
+        if physical_arch.scenarios:
+            for scenario in physical_arch.scenarios:
+                st.markdown(f"**{scenario.name} ({scenario.id})**")
+                st.write(f"Type: {scenario.scenario_type}")
+                st.write(f"Description: {scenario.description}")
+                if scenario.involved_components:
+                    st.write(f"Involved Components: {', '.join(scenario.involved_components)}")
+                st.markdown("---")
+        else:
+            st.info("No physical scenarios identified")
+
+def display_cross_phase_analysis(enhanced_results, analysis_summary):
+    """Display cross-phase analysis insights"""
+    st.markdown("#### 🔗 Cross-Phase Analysis Insights")
+    
+    structured_analysis = enhanced_results.get('structured_analysis')
+    if not structured_analysis or not structured_analysis.cross_phase_analysis:
+        st.warning("No cross-phase analysis data available")
+        return
+    
+    cross_phase = structured_analysis.cross_phase_analysis
+    
+    # Traceability Links Section
+    with st.expander("🔗 Traceability Links", expanded=True):
+        if cross_phase.traceability_links:
+            st.markdown(f"**Total Links:** {len(cross_phase.traceability_links)}")
+            
+            # Create traceability visualization
+            trace_data = []
+            for link in cross_phase.traceability_links:
+                trace_data.append({
+                    'Source': link.source_element,
+                    'Target': link.target_element,
+                    'Relationship': link.relationship_type,
+                    'Confidence': link.confidence_score,
+                    'Source Phase': link.source_phase.value,
+                    'Target Phase': link.target_phase.value
+                })
+            
+            if trace_data:
+                trace_df = pd.DataFrame(trace_data)
+                
+                # Display as table
+                st.dataframe(trace_df, use_container_width=True)
+                
+                # Create sankey diagram would be nice here, but simpler for now
+                st.markdown("**Traceability Summary:**")
+                for link in cross_phase.traceability_links[:5]:  # Show first 5
+                    confidence_color = "🟢" if link.confidence_score > 0.7 else "🟡" if link.confidence_score > 0.5 else "🔴"
+                    st.markdown(f"{confidence_color} {link.source_element} → {link.target_element} ({link.relationship_type})")
+        else:
+            st.info("No traceability links identified")
+    
+    # Gap Analysis Section
+    with st.expander("🔍 Gap Analysis", expanded=True):
+        if cross_phase.gap_analysis:
+            st.markdown(f"**Gaps Identified:** {len(cross_phase.gap_analysis)}")
+            
+            # Group by severity
+            gaps_by_severity = {}
+            for gap in cross_phase.gap_analysis:
+                severity = gap.severity
+                if severity not in gaps_by_severity:
+                    gaps_by_severity[severity] = []
+                gaps_by_severity[severity].append(gap)
+            
+            # Display by severity
+            severity_colors = {
+                'critical': '🔴',
+                'major': '🟠', 
+                'medium': '🟡',
+                'minor': '🟢'
+            }
+            
+            for severity in ['critical', 'major', 'medium', 'minor']:
+                if severity in gaps_by_severity:
+                    st.markdown(f"**{severity_colors[severity]} {severity.title()} ({len(gaps_by_severity[severity])})**")
+                    for gap in gaps_by_severity[severity]:
+                        st.markdown(f"• **{gap.gap_type.upper()}**: {gap.description}")
+                        if gap.recommendations:
+                            for rec in gap.recommendations:
+                                st.markdown(f"  💡 {rec}")
+        else:
+            st.success("✅ No gaps identified - analysis appears complete!")
+    
+    # Coverage Matrix
+    if cross_phase.coverage_matrix:
+        with st.expander("📊 Coverage Matrix", expanded=False):
+            st.markdown("**Phase-to-Phase Coverage:**")
+            
+            coverage_data = []
+            for source_target, coverage_info in cross_phase.coverage_matrix.items():
+                for coverage_type, score in coverage_info.items():
+                    coverage_data.append({
+                        'Relationship': source_target.replace('_', ' → ').title(),
+                        'Coverage Type': coverage_type.replace('_', ' ').title(),
+                        'Coverage %': score * 100
+                    })
+            
+            if coverage_data:
+                coverage_df = pd.DataFrame(coverage_data)
+                fig = px.bar(
+                    coverage_df,
+                    x='Relationship',
+                    y='Coverage %',
+                    color='Coverage Type',
+                    title="Cross-Phase Coverage Analysis",
+                    color_discrete_sequence=['#667eea', '#2c5aa0']
+                )
+                fig.update_layout(height=400)
+                st.plotly_chart(fig, use_container_width=True)
 
 if __name__ == "__main__":
     main()

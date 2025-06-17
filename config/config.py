@@ -4,7 +4,7 @@ from typing import Dict, List, Any
 # Ollama Configuration
 OLLAMA_BASE_URL = "http://llm-eva.univ-pau.fr:11434"
 DEFAULT_MODEL = "gemma3:12b"
-EMBEDDING_MODEL = "nomic-embed-text:latest"
+EMBEDDING_MODEL = "nomic-embed-text:latest"  # NOTE: Not used - ChromaDB handles embeddings internally
 
 # Vector Database Configuration
 VECTORDB_PATH = "./data/vectordb"

@@ -1,0 +1,451 @@
+{
+  "stakeholders": {
+    "STK-001": {
+      "id": "STK-001",
+      "name": "SOC Analysts",
+      "type": "technical",
+      "role": "SOC Analysts - technical responsible for monitoring security events an",
+      "interests": [
+        "security",
+        "maintenance"
+      ],
+      "responsibilities": [
+        "monitoring security events an"
+      ],
+      "influence": "Medium",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 2,
+      "extraction_confidence": 0.7999999999999999,
+      "contexts": [
+        "reat detection and response system. \n    \n    The SOC Analysts are responsible for monitoring security events an",
+        "reat detection and response system. \n    \n    The SOC Analysts are responsible for monitoring security events an"
+      ]
+    },
+    "STK-002": {
+      "id": "STK-002",
+      "name": "Network Engineers",
+      "type": "technical",
+      "role": "Network Engineers - technical stakeholder",
+      "interests": [
+        "security"
+      ],
+      "responsibilities": [],
+      "influence": "Medium",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 2,
+      "extraction_confidence": 0.7,
+      "contexts": [
+        "s and investigating potential incidents. \n    The Network Engineers maintain the network infrastructure and ensure pr",
+        "s and investigating potential incidents. \n    The Network Engineers maintain the network infrastructure and ensure pr"
+      ]
+    },
+    "STK-003": {
+      "id": "STK-003",
+      "name": "Security Manager",
+      "type": "management",
+      "role": "Security Manager - management responsible for the entire security operations and coord, the entire security operations and coordinates wi",
+      "interests": [
+        "security"
+      ],
+      "responsibilities": [
+        "the entire security operations and coord",
+        "the entire security operations and coordinates wi"
+      ],
+      "influence": "High",
+      "requirements": [],
+      "phase": "operational",
+      "mentions_count": 3,
+      "extraction_confidence": 1.0,
+      "contexts": [
+        "tructure and ensure proper connectivity. \n    The Security Manager oversees the entire security operations and coord",
+        "tructure and ensure proper connectivity. \n    The Security Manager oversees the entire security operations and coord"
+      ]
+    },
+    "STK-004": {
+      "id": "STK-004",
+      "name": "Database Administrator",
+      "type": "technical",
+      "role": "Database Administrator - technical responsible for the central repository and ensures data integrity, the central repository and ensures data i",
+      "interests": [],
+      "responsibilities": [
+        "the central repository and ensures data integrity",
+        "the central repository and ensures data i"
+      ],
+      "influence": "High",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 4,
+      "extraction_confidence": 1.0,
+      "contexts": [
+        "and coordinates with external teams.\n    \n    The Database Administrator manages the central repository and ensures data i",
+        "and coordinates with external teams.\n    \n    The Database Administrator manages the central repository and ensures data i"
+      ]
+    },
+    "STK-005": {
+      "id": "STK-005",
+      "name": "System Administrator",
+      "type": "technical",
+      "role": "System Administrator - technical responsible for server maintenance and system updates",
+      "interests": [
+        "maintenance"
+      ],
+      "responsibilities": [
+        "server maintenance and system updates"
+      ],
+      "influence": "High",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 4,
+      "extraction_confidence": 0.9,
+      "contexts": [
+        "l repository and ensures data integrity. \n    The System Administrator handles server maintenance and system updates.\n  ",
+        "l repository and ensures data integrity. \n    The System Administrator handles server maintenance and system updates.\n  "
+      ]
+    },
+    "STK-006": {
+      "id": "STK-006",
+      "name": "Compliance Officer",
+      "type": "management",
+      "role": "Compliance Officer - management stakeholder",
+      "interests": [
+        "security",
+        "functionality",
+        "maintenance",
+        "compliance"
+      ],
+      "responsibilities": [],
+      "influence": "High",
+      "requirements": [],
+      "phase": "operational",
+      "mentions_count": 2,
+      "extraction_confidence": 0.7,
+      "contexts": [
+        "IT Department provides technical support.\n    The Compliance Officer ensures adherence to regulatory requirements. \n  ",
+        "IT Department provides technical support.\n    The Compliance Officer ensures adherence to regulatory requirements. \n  "
+      ]
+    },
+    "STK-007": {
+      "id": "STK-007",
+      "name": "Network Administrator",
+      "type": "technical",
+      "role": "Network Administrator - technical stakeholder",
+      "interests": [
+        "functionality"
+      ],
+      "responsibilities": [],
+      "influence": "High",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 3,
+      "extraction_confidence": 0.8,
+      "contexts": [
+        "es adherence to regulatory requirements. \n    The Network Administrator configures firewall rules and network policies.\n ",
+        "es adherence to regulatory requirements. \n    The Network Administrator configures firewall rules and network policies.\n "
+      ]
+    },
+    "STK-008": {
+      "id": "STK-008",
+      "name": "DevOps Engineer",
+      "type": "technical",
+      "role": "DevOps Engineer - technical responsible for CI/CD",
+      "interests": [],
+      "responsibilities": [
+        "CI/CD"
+      ],
+      "influence": "Medium",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 2,
+      "extraction_confidence": 0.7999999999999999,
+      "contexts": [
+        "firewall rules and network policies.\n    \n    The DevOps Engineer automates deployment processes and manages CI/CD ",
+        "firewall rules and network policies.\n    \n    The DevOps Engineer automates deployment processes and manages CI/CD "
+      ]
+    },
+    "STK-009": {
+      "id": "STK-009",
+      "name": "Project Manager",
+      "type": "management",
+      "role": "Project Manager - management stakeholder",
+      "interests": [
+        "performance",
+        "functionality"
+      ],
+      "responsibilities": [],
+      "influence": "High",
+      "requirements": [],
+      "phase": "operational",
+      "mentions_count": 2,
+      "extraction_confidence": 0.7,
+      "contexts": [
+        "ystem functionality and performance.\n    \n    The Project Manager coordinates development activities and stakeholde",
+        "ystem functionality and performance.\n    \n    The Project Manager coordinates development activities and stakeholde"
+      ]
+    },
+    "STK-010": {
+      "id": "STK-010",
+      "name": "Security Engineers",
+      "type": "technical",
+      "role": "Security Engineers - technical stakeholder",
+      "interests": [
+        "security"
+      ],
+      "responsibilities": [],
+      "influence": "Medium",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 2,
+      "extraction_confidence": 0.7,
+      "contexts": [
+        "nt activities and stakeholder communications.\n    Security Engineers design and implement security controls and monito",
+        "nt activities and stakeholder communications.\n    Security Engineers design and implement security controls and monito"
+      ]
+    },
+    "STK-011": {
+      "id": "STK-011",
+      "name": "Quality Assurance",
+      "type": "technical",
+      "role": "Quality Assurance - technical stakeholder",
+      "interests": [
+        "security",
+        "functionality"
+      ],
+      "responsibilities": [],
+      "influence": "Low",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 1,
+      "extraction_confidence": 0.6,
+      "contexts": [
+        "ecurity services and threat intelligence.\n    The Quality Assurance Team validates system functionality and performan"
+      ]
+    },
+    "STK-012": {
+      "id": "STK-012",
+      "name": "Business Users",
+      "type": "business",
+      "role": "Business Users - business stakeholder",
+      "interests": [
+        "functionality",
+        "maintenance"
+      ],
+      "responsibilities": [],
+      "influence": "Low",
+      "requirements": [
+        "seamless access to critical business appl"
+      ],
+      "phase": "operational",
+      "mentions_count": 1,
+      "extraction_confidence": 0.65,
+      "contexts": [
+        "ecurity controls and monitoring capabilities.\n    Business Users require seamless access to critical business appl"
+      ]
+    },
+    "STK-013": {
+      "id": "STK-013",
+      "name": "external teams",
+      "type": "organizational",
+      "role": "external teams - organizational responsible for the",
+      "interests": [
+        "security"
+      ],
+      "responsibilities": [
+        "the"
+      ],
+      "influence": "Low",
+      "requirements": [],
+      "phase": "operational",
+      "mentions_count": 1,
+      "extraction_confidence": 0.7,
+      "contexts": [
+        "e entire security operations and coordinates with external teams.\n    \n    The Database Administrator manages the "
+      ]
+    },
+    "STK-014": {
+      "id": "STK-014",
+      "name": "Response Team",
+      "type": "organizational",
+      "role": "Response Team - organizational responsible for rapid containment and remediation activi",
+      "interests": [
+        "security",
+        "maintenance"
+      ],
+      "responsibilities": [
+        "rapid containment and remediation activi"
+      ],
+      "influence": "Low",
+      "requirements": [],
+      "phase": "operational",
+      "mentions_count": 1,
+      "extraction_confidence": 0.7,
+      "contexts": [
+        " maintenance and system updates.\n    The Incident Response Team performs rapid containment and remediation activi"
+      ]
+    },
+    "STK-015": {
+      "id": "STK-015",
+      "name": "IT Department",
+      "type": "organizational",
+      "role": "IT Department - organizational stakeholder",
+      "interests": [
+        "security",
+        "usability",
+        "maintenance",
+        "compliance"
+      ],
+      "responsibilities": [],
+      "influence": "Low",
+      "requirements": [],
+      "phase": "operational",
+      "mentions_count": 2,
+      "extraction_confidence": 0.7,
+      "contexts": [
+        " the system through authenticated interfaces. The IT Department provides technical support.\n    The Compliance Of",
+        " the system through authenticated interfaces. The IT Department provides technical support.\n    The Compliance Of"
+      ]
+    },
+    "STK-016": {
+      "id": "STK-016",
+      "name": "security services",
+      "type": "security",
+      "role": "security services - security stakeholder",
+      "interests": [
+        "security"
+      ],
+      "responsibilities": [],
+      "influence": "Low",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 1,
+      "extraction_confidence": 0.6,
+      "contexts": [
+        "pelines.\n    External Vendors provide specialized security services and threat intelligence.\n    The Quality Assuranc"
+      ]
+    },
+    "STK-017": {
+      "id": "STK-017",
+      "name": "Assurance Team",
+      "type": "organizational",
+      "role": "Assurance Team - organizational stakeholder",
+      "interests": [
+        "security",
+        "performance",
+        "functionality"
+      ],
+      "responsibilities": [],
+      "influence": "Low",
+      "requirements": [],
+      "phase": "operational",
+      "mentions_count": 1,
+      "extraction_confidence": 0.6,
+      "contexts": [
+        "services and threat intelligence.\n    The Quality Assurance Team validates system functionality and performance.\n "
+      ]
+    },
+    "STK-018": {
+      "id": "STK-018",
+      "name": "End Users",
+      "type": "business",
+      "role": "End Users - business stakeholder",
+      "interests": [
+        "usability"
+      ],
+      "responsibilities": [],
+      "influence": "Low",
+      "requirements": [],
+      "phase": "operational",
+      "mentions_count": 1,
+      "extraction_confidence": 0.6,
+      "contexts": [
+        " containment and remediation activities.\n    \n    End Users access the system through authenticated interface"
+      ]
+    },
+    "STK-019": {
+      "id": "STK-019",
+      "name": "Vendors",
+      "type": "external",
+      "role": "Vendors - external responsible for CI/CD pipelines",
+      "interests": [
+        "security"
+      ],
+      "responsibilities": [
+        "CI/CD pipelines"
+      ],
+      "influence": "Low",
+      "requirements": [],
+      "phase": "operational",
+      "mentions_count": 1,
+      "extraction_confidence": 0.7,
+      "contexts": [
+        "ocesses and manages CI/CD pipelines.\n    External Vendors provide specialized security services and threat "
+      ]
+    },
+    "STK-020": {
+      "id": "STK-020",
+      "name": "Incident Response",
+      "type": "security",
+      "role": "Incident Response - security responsible for rapid containment and remediation activities, rapid containment and remediation a",
+      "interests": [
+        "security",
+        "maintenance"
+      ],
+      "responsibilities": [
+        "rapid containment and remediation activities",
+        "rapid containment and remediation a"
+      ],
+      "influence": "Low",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 2,
+      "extraction_confidence": 0.8999999999999999,
+      "contexts": [
+        "es server maintenance and system updates.\n    The Incident Response Team performs rapid containment and remediation a",
+        "andles server maintenance and system updates.\n    The Incident Response Team performs rapid containment and remediation activities.\n   "
+      ]
+    },
+    "STK-021": {
+      "id": "STK-021",
+      "name": "DevOps Engineer automates deployment processes and",
+      "type": "technical",
+      "role": "DevOps Engineer automates deployment processes and - technical responsible for CI/CD pipelines",
+      "interests": [],
+      "responsibilities": [
+        "CI/CD pipelines"
+      ],
+      "influence": "Medium",
+      "requirements": [],
+      "phase": "system",
+      "mentions_count": 1,
+      "extraction_confidence": 0.7,
+      "contexts": [
+        "res firewall rules and network policies.\n    \n    The DevOps Engineer automates deployment processes and manages CI/CD pipelines.\n    External Vendors provide spe"
+      ]
+    }
+  },
+  "statistics": {
+    "total_stakeholders": 21,
+    "by_type": {
+      "technical": 9,
+      "management": 3,
+      "business": 2,
+      "organizational": 4,
+      "security": 2,
+      "external": 1
+    },
+    "by_influence": {
+      "Medium": 5,
+      "High": 6,
+      "Low": 10
+    },
+    "by_phase": {
+      "system": 11,
+      "operational": 10
+    },
+    "average_confidence": 0.7404761904761904,
+    "total_mentions": 39,
+    "stakeholders_with_requirements": 1,
+    "stakeholders_with_responsibilities": 10
+  }
+}

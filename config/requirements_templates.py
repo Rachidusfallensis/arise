@@ -89,16 +89,25 @@ Focus on specific components mentioned in the context."""
             "phase": "operational"
         },
         "prompts": {
-            "identification": """From the following project description, identify and analyze stakeholders:
+            "identification": """From the following technical document, identify and analyze ALL stakeholders, actors, and users:
             
-Project Context: {context}
+Technical Context: {context}
 
-For each stakeholder, provide:
-- Name/Role
-- Primary interests in the system
-- Influence level (High/Medium/Low)
-- Specific requirements or needs
-- ARCADIA phase relevance"""
+Look for:
+1. ROLES: Engineers, Managers, Analysts, Administrators, Operators, Architects, etc.
+2. ORGANIZATIONAL UNITS: Teams, Departments, Groups, Organizations, etc.
+3. ACTORS: Primary/Secondary users, System actors, External entities, etc.
+4. TECHNICAL ROLES: SOC Analysts, DevOps Engineers, System Admins, Security Officers, etc.
+5. CONTEXTUAL MENTIONS: Anyone who "manages", "operates", "maintains", "monitors", "supervises", etc.
+
+For EACH stakeholder found, provide in this exact format:
+- [STAKEHOLDER NAME]: [Role description]
+  Interests: [Primary system interests]
+  Influence: High/Medium/Low
+  Requirements: [Specific needs or expectations]
+  Phase: operational/system/logical/physical
+
+Extract ALL mentioned stakeholders, even if briefly referenced. Be thorough and comprehensive."""
         }
     }
 }
