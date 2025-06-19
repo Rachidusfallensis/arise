@@ -1,4 +1,4 @@
-# 🏗️ SAFE MBSE RAG System
+# 🏗️  ARISE
 
 **AI-Driven Requirements Generation using ARCADIA Methodology**
 
@@ -6,7 +6,7 @@ A comprehensive **Retrieval-Augmented Generation (RAG) System** that transforms 
 
 ## 🎯 Overview
 
-The SAFE MBSE RAG System bridges the gap between informal project documentation and formal requirements specification. It combines advanced AI capabilities with proven systems engineering methodologies to accelerate and improve the requirements engineering process.
+The MBSE RAG System bridges the gap between informal project documentation and formal requirements specification. It combines advanced AI capabilities with proven systems engineering methodologies to accelerate and improve the requirements engineering process.
 
 ### ✨ Key Features
 
