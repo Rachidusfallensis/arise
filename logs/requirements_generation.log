@@ -153,3 +153,164 @@
 2025-06-19 16:27:05,997 - src.core.requirements_generator - INFO - Identified 27 components for logical phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
 2025-06-19 16:27:30,073 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
 2025-06-19 16:27:30,277 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-06-19 16:44:05,152 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:44:05,157 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:44:05,158 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:44:05,310 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:44:05,312 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:44:05,312 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:44:05,364 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:44:21,327 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:44:21,332 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:44:21,333 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:44:21,388 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:44:48,967 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:44:48,970 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:44:48,971 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:44:49,040 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:44:50,996 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:44:50,998 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:44:50,999 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:44:51,050 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:45:56,499 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:45:56,506 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:45:56,506 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:45:56,642 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:45:56,644 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:45:56,644 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:45:56,685 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:48:26,174 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:48:26,178 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:48:26,178 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:48:26,646 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:48:26,649 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:48:26,649 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:48:26,718 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:48:53,577 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:48:53,583 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:48:53,583 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:48:53,729 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:48:53,731 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:48:53,731 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:48:53,774 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:53:58,181 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:53:58,183 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:53:58,184 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:53:58,282 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:53:58,283 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:53:58,283 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:53:58,294 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:56:52,647 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:56:52,651 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:56:52,651 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:56:52,810 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:56:52,811 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:56:52,811 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:56:52,823 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:58:30,766 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:58:30,771 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:58:30,771 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:58:30,939 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:58:30,940 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:58:30,940 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:58:30,955 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:58:41,042 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:58:41,043 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:58:41,044 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:58:41,175 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:58:41,176 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:58:41,176 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:58:41,185 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 17:06:08,696 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:06:08,722 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:06:08,723 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:06:08,807 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 17:06:22,854 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:06:22,857 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:06:22,858 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:06:22,907 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 17:06:30,872 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:06:30,874 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:06:30,874 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:06:30,899 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 17:06:36,059 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:06:36,063 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:06:36,064 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:06:36,102 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 17:06:38,323 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:06:38,328 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:06:38,328 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:06:38,356 - ARCADIA_RAG_System - INFO - Starting requirements generation from 1 project documents...
+2025-06-19 17:06:38,357 - ARCADIA_RAG_System - INFO - Selected documents: ['Proposal-SEP-211043552.pdf']
+2025-06-19 17:06:38,357 - src.core.enhanced_persistent_rag_system - INFO - Starting enhanced requirements generation with structured analysis
+2025-06-19 17:06:38,357 - src.core.enhanced_persistent_rag_system - INFO - Step 1: Generating traditional requirements
+2025-06-19 17:06:38,359 - src.core.enhanced_persistent_rag_system - INFO - Created 517 context chunks from proposal
+2025-06-19 17:06:38,550 - src.core.requirements_generator - INFO - Identified 27 components for system phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
+2025-06-19 17:07:15,312 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 17:07:15,546 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-06-19 17:07:29,884 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 17:07:53,788 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 17:08:10,843 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 17:08:30,730 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 17:08:30,770 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 1, 'COULD': 0}
+2025-06-19 17:08:30,771 - src.core.enhanced_persistent_rag_system - INFO - Step 2: Generating structured ARCADIA analysis
+2025-06-19 17:08:30,772 - src.core.enhanced_persistent_rag_system - INFO - Created 517 context chunks from proposal
+2025-06-19 17:08:30,772 - src.core.structured_arcadia_service - INFO - Starting complete ARCADIA structured analysis
+2025-06-19 17:08:30,773 - src.core.structured_arcadia_service - INFO - Phase 2: Extracting System Analysis
+2025-06-19 17:08:30,773 - src.core.system_analysis_extractor - INFO - Starting system analysis extraction
+2025-06-19 17:08:30,773 - src.core.system_analysis_extractor - INFO - Step 1: Defining system boundary and context
+2025-06-19 17:08:36,991 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 17:08:36,995 - src.core.system_analysis_extractor - INFO - Step 2: Extracting system actors and interfaces
+2025-06-19 17:08:39,963 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 17:08:39,965 - src.core.system_analysis_extractor - INFO - Extracted 0 system actors
+2025-06-19 17:08:39,965 - src.core.system_analysis_extractor - INFO - Step 3: Extracting system functions
+2025-06-19 17:08:43,932 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 17:08:43,934 - src.core.system_analysis_extractor - INFO - Extracted 3 system functions
+2025-06-19 17:08:43,934 - src.core.system_analysis_extractor - INFO - Step 4: Extracting system capabilities
+2025-06-19 17:08:45,603 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 17:08:45,604 - src.core.system_analysis_extractor - INFO - Extracted 1 system capabilities
+2025-06-19 17:08:45,605 - src.core.system_analysis_extractor - INFO - Step 5: Extracting functional chains
+2025-06-19 17:08:48,757 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 17:08:48,759 - src.core.system_analysis_extractor - INFO - Extracted 1 functional chains
+2025-06-19 17:08:48,760 - src.core.system_analysis_extractor - INFO - System analysis extraction completed: 0 actors, 3 functions, 1 capabilities, 1 functional chains
+2025-06-19 17:08:48,760 - src.core.structured_arcadia_service - INFO - System analysis completed: 0 actors, 3 functions
+2025-06-19 17:08:48,760 - src.core.structured_arcadia_service - INFO - Performing cross-phase analysis
+2025-06-19 17:08:48,760 - src.core.structured_arcadia_service - INFO - Starting cross-phase analysis
+2025-06-19 17:08:48,760 - src.core.structured_arcadia_service - INFO - Generated 0 total traceability links across all phases
+2025-06-19 17:08:48,760 - src.core.structured_arcadia_service - INFO - Identified 0 gaps in analysis
+2025-06-19 17:08:48,760 - src.core.structured_arcadia_service - INFO - Performed 2 consistency checks
+2025-06-19 17:08:48,760 - src.core.structured_arcadia_service - INFO - Calculated 1 quality metrics
+2025-06-19 17:08:48,760 - src.core.structured_arcadia_service - INFO - Cross-phase analysis completed: 0 links, 0 gaps
+2025-06-19 17:08:48,761 - src.core.structured_arcadia_service - INFO - Complete ARCADIA analysis finished in 18.0 seconds
+2025-06-19 17:08:48,761 - src.core.enhanced_persistent_rag_system - INFO - Structured analysis completed for phases: ['system']
+2025-06-19 17:08:48,761 - src.core.enhanced_persistent_rag_system - INFO - Enhanced requirements generation completed in 130.4 seconds
+2025-06-19 17:08:48,795 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 17:16:05,638 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:16:05,642 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:16:05,642 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:16:05,736 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:16:05,737 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:16:05,737 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:16:05,751 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 17:20:25,310 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:20:25,398 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:20:25,402 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:20:25,674 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:20:25,675 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:20:25,676 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:20:25,692 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 17:23:12,869 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:23:12,874 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:23:12,874 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:23:13,029 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:23:13,030 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:23:13,030 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:23:13,041 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 17:23:27,256 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:23:27,258 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:23:27,259 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:23:27,291 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 17:24:32,213 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 17:24:32,233 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 17:24:32,233 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 17:24:32,291 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range

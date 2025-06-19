@@ -299,6 +299,84 @@ st.markdown("""
         font-size: 1.1rem;
     }
     
+    /* Component alignment improvements */
+    .stColumn {
+        padding: 0.5rem;
+    }
+    
+    .stColumn > div {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Enhanced ARCADIA analysis layout */
+    .arcadia-overview {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .arcadia-metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .arcadia-metric-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 1px solid #e1e5e9;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .arcadia-metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    /* Phase tabs styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 4px;
+        margin: 1rem 0;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background: #f8f9fa;
+        border-radius: 8px 8px 0 0;
+        padding: 1rem 1.5rem;
+        font-weight: 500;
+        border: 1px solid #dee2e6;
+        border-bottom: none;
+        transition: all 0.2s ease;
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        background: #e9ecef;
+        transform: translateY(-1px);
+    }
+    
+    .stTabs [data-baseweb="tab"][aria-selected="true"] {
+        background: linear-gradient(90deg, #667eea 0%, #2c5aa0 100%);
+        color: white;
+        border-color: #667eea;
+    }
+    
+    .stTabs [data-baseweb="tab-panel"] {
+        border: 1px solid #dee2e6;
+        border-radius: 0 0 8px 8px;
+        padding: 1.5rem;
+        background: white;
+        min-height: 400px;
+    }
+    
     /* Buttons */
     .stButton > button {
         background: linear-gradient(90deg, #667eea 0%, #2c5aa0 100%);
@@ -3622,47 +3700,97 @@ def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types,
                     except Exception as e:
                         logger.warning(f"Could not log session activity: {str(e)}")
                 
-                # Display results in two panels
-                left_panel, right_panel = st.columns([1, 1])
+                # Display results in full-width structured analysis layout
+                st.markdown("#### 🏗️ Structured ARCADIA Analysis")
                 
-                with left_panel:
-                    st.markdown("#### 📋 Traditional Requirements")
+                if is_enhanced and 'enhanced_results' in st.session_state:
+                    enhanced_results = st.session_state['enhanced_results']
+                    
+                    # Analysis overview with improved layout
+                    enhancement_summary = enhanced_results.get('enhancement_summary', {})
+                    
+                    # Main metrics in a clean layout with improved styling
+                    st.markdown("""
+                    <div class="arcadia-overview">
+                        <h3 style="margin-bottom: 1rem; color: #2c5aa0;">📊 Analysis Overview</h3>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
+                    overview_col1, overview_col2, overview_col3, overview_col4 = st.columns(4)
+                    with overview_col1:
+                        actors_count = enhancement_summary.get('total_actors_identified', 0)
+                        st.markdown(f"""
+                        <div class="arcadia-metric-card">
+                            <div style="font-size: 2rem; color: #28a745; margin-bottom: 0.5rem;">🎭</div>
+                            <div style="font-size: 1.8rem; font-weight: 600; color: #2c5aa0;">{actors_count}</div>
+                            <div style="color: #6c757d; font-size: 0.9rem;">Actors</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                        
+                    with overview_col2:
+                        capabilities_count = enhancement_summary.get('total_capabilities_identified', 0)
+                        st.markdown(f"""
+                        <div class="arcadia-metric-card">
+                            <div style="font-size: 2rem; color: #007bff; margin-bottom: 0.5rem;">🚀</div>
+                            <div style="font-size: 1.8rem; font-weight: 600; color: #2c5aa0;">{capabilities_count}</div>
+                            <div style="color: #6c757d; font-size: 0.9rem;">Capabilities</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                        
+                    with overview_col3:
+                        components_count = enhancement_summary.get('total_components_identified', 0)
+                        st.markdown(f"""
+                        <div class="arcadia-metric-card">
+                            <div style="font-size: 2rem; color: #ffc107; margin-bottom: 0.5rem;">🧩</div>
+                            <div style="font-size: 1.8rem; font-weight: 600; color: #2c5aa0;">{components_count}</div>
+                            <div style="color: #6c757d; font-size: 0.9rem;">Components</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                        
+                    with overview_col4:
+                        # Calculate total requirements from enhanced results
+                        total_enhanced_reqs = 0
+                        if 'traditional_requirements' in enhanced_results:
+                            for phase_reqs in enhanced_results['traditional_requirements'].get('requirements', {}).values():
+                                for reqs in phase_reqs.values():
+                                    total_enhanced_reqs += len(reqs)
+                        st.markdown(f"""
+                        <div class="arcadia-metric-card">
+                            <div style="font-size: 2rem; color: #6f42c1; margin-bottom: 0.5rem;">📝</div>
+                            <div style="font-size: 1.8rem; font-weight: 600; color: #2c5aa0;">{total_enhanced_reqs}</div>
+                            <div style="color: #6c757d; font-size: 0.9rem;">Requirements</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    
+                    # Phase tabs for detailed analysis with better spacing
+                    st.markdown("---")
+                    analysis_tab1, analysis_tab2, analysis_tab3, analysis_tab4 = st.tabs([
+                        "🎭 Operational", 
+                        "🏗️ System",
+                        "🧩 Logical",
+                        "🔧 Physical"
+                    ])
+                    
+                    with analysis_tab1:
+                        display_operational_analysis(enhanced_results)
+                    with analysis_tab2:
+                        display_system_analysis(enhanced_results)
+                    with analysis_tab3:
+                        display_logical_analysis(enhanced_results)
+                    with analysis_tab4:
+                        display_physical_analysis(enhanced_results)
+                    
+                    # Show generated requirements at the bottom in a clean format
+                    if 'traditional_requirements' in enhanced_results and enhanced_results['traditional_requirements'].get('requirements'):
+                        st.markdown("---")
+                        st.markdown("#### 📝 Generated Requirements")
+                        display_generation_results(enhanced_results['traditional_requirements'], export_format_local, rag_system)
+                else:
+                    st.info("Structured analysis not available. Enable enhanced analysis options in configuration.")
+                    # Fallback to traditional requirements if enhanced is not available
+                    st.markdown("---")
+                    st.markdown("#### 📝 Generated Requirements")
                     display_generation_results(results, export_format_local, rag_system)
-                
-                with right_panel:
-                    st.markdown("#### 🏗️ Structured ARCADIA Analysis")
-                    if is_enhanced and 'enhanced_results' in st.session_state:
-                        enhanced_results = st.session_state['enhanced_results']
-                        
-                        # Analysis overview
-                        enhancement_summary = enhanced_results.get('enhancement_summary', {})
-                        
-                        col1, col2, col3 = st.columns(3)
-                        with col1:
-                            st.metric("Actors", enhancement_summary.get('total_actors_identified', 0))
-                        with col2:
-                            st.metric("Capabilities", enhancement_summary.get('total_capabilities_identified', 0))
-                        with col3:
-                            st.metric("Components", enhancement_summary.get('total_components_identified', 0))
-                        
-                        # Phase tabs for detailed analysis
-                        analysis_tab1, analysis_tab2, analysis_tab3, analysis_tab4 = st.tabs([
-                            "🎭 Operational", 
-                            "🏗️ System",
-                            "🧩 Logical",
-                            "🔧 Physical"
-                        ])
-                        
-                        with analysis_tab1:
-                            display_operational_analysis(enhanced_results)
-                        with analysis_tab2:
-                            display_system_analysis(enhanced_results)
-                        with analysis_tab3:
-                            display_logical_analysis(enhanced_results)
-                        with analysis_tab4:
-                            display_physical_analysis(enhanced_results)
-                    else:
-                        st.info("Structured analysis not available. Enable enhanced analysis options in configuration.")
                 
                 # Quality metrics and evaluation inline
                 st.markdown("#### 📊 Quality Metrics & Evaluation")
@@ -3788,8 +3916,8 @@ def project_insights_tab(rag_system, current_project, has_project_management):
     if current_project.description:
         st.info(current_project.description)
     
-    # Key metrics header
-    metric_col1, metric_col2, metric_col3, metric_col4, metric_col5 = st.columns(5)
+    # Key metrics header - Most important statistics only
+    metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
     
     with metric_col1:
         st.metric("📄 Documents", current_project.documents_count)
@@ -3799,78 +3927,47 @@ def project_insights_tab(rag_system, current_project, has_project_management):
         days_active = (datetime.now() - current_project.created_at).days
         st.metric("📅 Days Active", days_active)
     with metric_col4:
-        st.metric("🔄 Last Updated", current_project.updated_at.strftime("%d/%m"))
-    with metric_col5:
         # Calculate project health score
         health_score = min(100, (current_project.documents_count * 20) + (current_project.requirements_count * 5))
-        st.metric("💪 Health Score", f"{health_score}%")
+        health_color = "🟢" if health_score >= 80 else "🟡" if health_score >= 50 else "🔴"
+        st.metric("💪 Health", f"{health_color} {health_score}%")
     
     # Main insights sections
     insights_section1, insights_section2 = st.columns([2, 1])
     
     with insights_section1:
-        # Activity timeline
-        st.markdown("#### 📈 Activity Timeline")
+        # Recent activity - Compact view
+        st.markdown("#### 📈 Recent Activity")
         
         try:
-            sessions = rag_system.persistence_service.get_project_sessions(current_project.id, limit=20)
+            sessions = rag_system.persistence_service.get_project_sessions(current_project.id, limit=5)
             
             if sessions:
-                # Create timeline data
-                timeline_data = []
-                for session in sessions:
-                    timeline_data.append({
-                        'Date': pd.to_datetime(session['created_at']).date(),
-                        'Action': session['action_type'].replace('_', ' ').title(),
-                        'Description': session['action_description'][:50] + "..." if len(session['action_description']) > 50 else session['action_description']
-                    })
-                
-                timeline_df = pd.DataFrame(timeline_data)
-                
-                # Activity chart
-                activity_counts = timeline_df.groupby(['Date', 'Action']).size().reset_index(name='Count')
-                
-                if not activity_counts.empty:
-                    fig = px.bar(
-                        activity_counts, 
-                        x='Date', 
-                        y='Count', 
-                        color='Action',
-                        title="Project Activity Over Time",
-                        color_discrete_sequence=['#667eea', '#2c5aa0', '#764ba2', '#f093fb']
-                    )
-                    fig.update_layout(height=400)
-                    st.plotly_chart(fig, use_container_width=True)
-                
-                # Recent activities list
-                st.markdown("##### Recent Activities")
-                for i, session in enumerate(sessions[:5]):
-                    with st.container():
-                        col1, col2 = st.columns([3, 1])
-                        with col1:
-                            action_icon = {
-                                'document_upload': '📄',
-                                'requirements_generation': '📝',
-                                'project_update': '🔄',
-                                'chat_session': '💬',
-                                'analysis_run': '🏗️'
-                            }.get(session['action_type'], '📊')
-                            
-                            st.write(f"{action_icon} **{session['action_type'].replace('_', ' ').title()}**")
-                            st.caption(session['action_description'])
-                        with col2:
-                            st.caption(pd.to_datetime(session['created_at']).strftime("%d/%m %H:%M"))
+                # Compact recent activities list
+                for session in sessions[:3]:  # Show only last 3 activities
+                    col1, col2 = st.columns([4, 1])
+                    with col1:
+                        action_icon = {
+                            'document_upload': '📄',
+                            'requirements_generation': '📝',
+                            'project_update': '🔄',
+                            'chat_session': '💬',
+                            'analysis_run': '🏗️'
+                        }.get(session['action_type'], '📊')
                         
-                        if i < 4:  # Don't add separator after last item
-                            st.markdown("---")
+                        # Compact description (max 40 chars)
+                        description = session['action_description'][:40] + "..." if len(session['action_description']) > 40 else session['action_description']
+                        st.markdown(f"{action_icon} **{session['action_type'].replace('_', ' ').title()}** - {description}")
+                    with col2:
+                        st.caption(pd.to_datetime(session['created_at']).strftime("%d/%m %H:%M"))
             else:
-                st.info("No activity recorded yet. Start using your project to see the timeline!")
+                st.info("No recent activity")
                 
         except Exception as e:
-            st.error(f"❌ Error loading activity timeline: {str(e)}")
+            st.error(f"❌ Error loading activities: {str(e)}")
         
-        # Cross-phase traceability visualization
-        st.markdown("#### 🔗 Cross-Phase Traceability")
+        # Requirements overview - Compact
+        st.markdown("#### 📊 Requirements Overview")
         
         try:
             requirements_data = rag_system.persistence_service.get_project_requirements(current_project.id)
@@ -3887,53 +3984,25 @@ def project_insights_tab(rag_system, current_project, has_project_management):
                     total_requirements += phase_total
                 
                 if phase_coverage:
-                    # Create phase coverage chart
-                    coverage_data = []
-                    for phase, count in phase_coverage.items():
-                        phase_info = arcadia_config.ARCADIA_PHASES.get(phase, {})
-                        coverage_data.append({
-                            'Phase': phase_info.get('name', phase.title()),
-                            'Requirements': count,
-                            'Percentage': (count / total_requirements) * 100 if total_requirements > 0 else 0
-                        })
+                    # Compact phase summary
+                    req_col1, req_col2 = st.columns(2)
                     
-                    coverage_df = pd.DataFrame(coverage_data)
+                    with req_col1:
+                        st.markdown("**Phase Distribution:**")
+                        for phase, count in phase_coverage.items():
+                            percentage = (count / total_requirements) * 100 if total_requirements > 0 else 0
+                            st.write(f"• **{phase.title()}**: {count} ({percentage:.0f}%)")
                     
-                    # Donut chart for phase distribution
-                    fig = px.pie(
-                        coverage_df, 
-                        values='Requirements', 
-                        names='Phase',
-                        title="Requirements Distribution Across ARCADIA Phases",
-                        hole=0.4,
-                        color_discrete_sequence=['#667eea', '#2c5aa0', '#764ba2', '#f093fb']
-                    )
-                    fig.update_layout(height=400)
-                    st.plotly_chart(fig, use_container_width=True)
-                    
-                    # Traceability matrix
-                    st.markdown("##### Traceability Matrix")
-                    traceability_col1, traceability_col2 = st.columns(2)
-                    
-                    with traceability_col1:
-                        st.markdown("**Phase Connections**")
-                        phases = list(phase_coverage.keys())
-                        for i, phase1 in enumerate(phases):
-                            for phase2 in phases[i+1:]:
-                                # Simulate traceability score
-                                score = min(100, (phase_coverage[phase1] + phase_coverage[phase2]) * 2)
-                                st.progress(score / 100, text=f"{phase1.title()} → {phase2.title()}: {score}%")
-                    
-                    with traceability_col2:
-                        st.markdown("**Coverage Quality**")
+                    with req_col2:
+                        st.markdown("**Quality Status:**")
                         for phase, count in phase_coverage.items():
                             quality = "🟢 Good" if count >= 10 else "🟡 Moderate" if count >= 5 else "🔴 Low"
-                            st.write(f"**{phase.title()}**: {count} requirements - {quality}")
+                            st.write(f"• **{phase.title()}**: {quality}")
             else:
-                st.info("No requirements generated yet. Generate requirements to see traceability analysis!")
+                st.info("No requirements generated yet")
                 
         except Exception as e:
-            st.error(f"❌ Error loading traceability data: {str(e)}")
+            st.error(f"❌ Error loading requirements: {str(e)}")
     
     with insights_section2:
         # Project settings and management
@@ -3950,36 +4019,33 @@ def project_insights_tab(rag_system, current_project, has_project_management):
                 proposal_preview = current_project.proposal_text[:500] + "..." if len(current_project.proposal_text) > 500 else current_project.proposal_text
                 st.text_area("", value=proposal_preview, disabled=True, height=100, key="project_proposal_preview")
         
-        # Project statistics
-        st.markdown("#### 📊 Project Statistics")
+        # Compact project statistics
+        st.markdown("#### 📊 Key Stats")
         
         try:
             documents = rag_system.persistence_service.get_project_documents(current_project.id)
             stakeholders = rag_system.persistence_service.get_project_stakeholders(current_project.id)
             
-            # Document statistics
             if documents:
                 total_size = sum(doc.file_size for doc in documents) / (1024 * 1024)  # MB
                 total_chunks = sum(doc.chunks_count for doc in documents)
                 
-                st.metric("📁 Total Size", f"{total_size:.1f} MB")
-                st.metric("🧩 Text Chunks", total_chunks)
-                st.metric("👥 Stakeholders", len(stakeholders))
+                # Compact metrics in single line format
+                st.write(f"📁 **Size**: {total_size:.1f} MB | 🧩 **Chunks**: {total_chunks} | 👥 **Stakeholders**: {len(stakeholders)}")
                 
-                # Document types breakdown
+                # Document types in compact format
                 doc_types = {}
                 for doc in documents:
                     ext = doc.filename.split('.')[-1].upper()
                     doc_types[ext] = doc_types.get(ext, 0) + 1
                 
-                st.markdown("**Document Types:**")
-                for doc_type, count in doc_types.items():
-                    st.write(f"• {doc_type}: {count}")
+                types_text = " | ".join([f"{dtype}: {count}" for dtype, count in doc_types.items()])
+                st.caption(f"**Types**: {types_text}")
             else:
-                st.info("No documents uploaded yet")
+                st.info("No documents uploaded")
                 
         except Exception as e:
-            st.error(f"❌ Error loading statistics: {str(e)}")
+            st.error(f"❌ Error loading stats: {str(e)}")
         
         # Quick actions
         st.markdown("#### 🚀 Quick Actions")
@@ -4022,21 +4088,21 @@ def project_insights_tab(rag_system, current_project, has_project_management):
             if st.button("🔄 Refresh Data", use_container_width=True):
                 st.rerun()
         
-        # Project health indicators
+        # Compact project health
         st.markdown("#### 💪 Project Health")
         
-        # Calculate various health metrics
-        doc_health = min(100, current_project.documents_count * 20)  # 20% per document, max 100%
-        req_health = min(100, current_project.requirements_count * 5)   # 5% per requirement, max 100%
-        activity_health = min(100, days_active * 10) if days_active <= 10 else 100  # Active for 10+ days = 100%
-        
-        st.progress(doc_health / 100, text=f"Documents: {doc_health}%")
-        st.progress(req_health / 100, text=f"Requirements: {req_health}%")
-        st.progress(activity_health / 100, text=f"Activity: {activity_health}%")
-        
+        # Calculate overall health score
+        doc_health = min(100, current_project.documents_count * 20)
+        req_health = min(100, current_project.requirements_count * 5)
+        activity_health = min(100, days_active * 10) if days_active <= 10 else 100
         overall_health = (doc_health + req_health + activity_health) / 3
+        
+        # Single comprehensive health indicator
         health_color = "🟢" if overall_health >= 80 else "🟡" if overall_health >= 50 else "🔴"
-        st.metric("Overall Health", f"{health_color} {overall_health:.0f}%")
+        st.progress(overall_health / 100, text=f"{health_color} Overall: {overall_health:.0f}%")
+        
+        # Compact breakdown
+        st.caption(f"Docs: {doc_health:.0f}% | Reqs: {req_health:.0f}% | Activity: {activity_health:.0f}%")
 
 if __name__ == "__main__":
     main()

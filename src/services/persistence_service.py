@@ -209,29 +209,36 @@ class PersistenceService:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
-                    SELECT p.*, 
+                    SELECT p.id, p.name, p.description, p.proposal_text, p.created_at, p.updated_at,
+                           p.documents_count, p.requirements_count, p.status,
                            COUNT(DISTINCT pd.id) as docs_count,
                            COUNT(DISTINCT r.id) as reqs_count
                     FROM projects p
                     LEFT JOIN processed_documents pd ON p.id = pd.project_id
                     LEFT JOIN requirements r ON p.id = r.project_id
                     WHERE p.status = 'active'
-                    GROUP BY p.id
+                    GROUP BY p.id, p.name, p.description, p.proposal_text, p.created_at, p.updated_at,
+                             p.documents_count, p.requirements_count, p.status
                     ORDER BY p.updated_at DESC
                 """)
                 
                 projects = []
                 for row in cursor.fetchall():
+                    # Safe access with bounds checking
+                    if len(row) < 11:
+                        self.logger.warning(f"Incomplete project record found: {len(row)} columns instead of 11")
+                        continue
+                        
                     projects.append(Project(
-                        id=row[0],
-                        name=row[1],
-                        description=row[2] or "",
-                        proposal_text=row[3] or "",
-                        created_at=datetime.fromisoformat(row[4]),
-                        updated_at=datetime.fromisoformat(row[5]),
-                        documents_count=row[9] or 0,
-                        requirements_count=row[10] or 0,
-                        status=row[8] or "active"
+                        id=row[0] if row[0] else "",
+                        name=row[1] if row[1] else "",
+                        description=row[2] if row[2] else "",
+                        proposal_text=row[3] if row[3] else "",
+                        created_at=datetime.fromisoformat(row[4]) if row[4] else datetime.now(),
+                        updated_at=datetime.fromisoformat(row[5]) if row[5] else datetime.now(),
+                        documents_count=row[9] if len(row) > 9 and row[9] is not None else 0,
+                        requirements_count=row[10] if len(row) > 10 and row[10] is not None else 0,
+                        status=row[8] if len(row) > 8 and row[8] else "active"
                     ))
                 
                 return projects
@@ -246,28 +253,35 @@ class PersistenceService:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
-                    SELECT p.*, 
+                    SELECT p.id, p.name, p.description, p.proposal_text, p.created_at, p.updated_at,
+                           p.documents_count, p.requirements_count, p.status,
                            COUNT(DISTINCT pd.id) as docs_count,
                            COUNT(DISTINCT r.id) as reqs_count
                     FROM projects p
                     LEFT JOIN processed_documents pd ON p.id = pd.project_id
                     LEFT JOIN requirements r ON p.id = r.project_id
                     WHERE p.id = ?
-                    GROUP BY p.id
+                    GROUP BY p.id, p.name, p.description, p.proposal_text, p.created_at, p.updated_at,
+                             p.documents_count, p.requirements_count, p.status
                 """, (project_id,))
                 
                 row = cursor.fetchone()
                 if row:
+                    # Safe access with bounds checking
+                    if len(row) < 11:
+                        self.logger.warning(f"Incomplete project record found: {len(row)} columns instead of 11")
+                        return None
+                        
                     return Project(
-                        id=row[0],
-                        name=row[1],
-                        description=row[2] or "",
-                        proposal_text=row[3] or "",
-                        created_at=datetime.fromisoformat(row[4]),
-                        updated_at=datetime.fromisoformat(row[5]),
-                        documents_count=row[9] or 0,
-                        requirements_count=row[10] or 0,
-                        status=row[8] or "active"
+                        id=row[0] if row[0] else "",
+                        name=row[1] if row[1] else "",
+                        description=row[2] if row[2] else "",
+                        proposal_text=row[3] if row[3] else "",
+                        created_at=datetime.fromisoformat(row[4]) if row[4] else datetime.now(),
+                        updated_at=datetime.fromisoformat(row[5]) if row[5] else datetime.now(),
+                        documents_count=row[9] if len(row) > 9 and row[9] is not None else 0,
+                        requirements_count=row[10] if len(row) > 10 and row[10] is not None else 0,
+                        status=row[8] if len(row) > 8 and row[8] else "active"
                     )
                 return None
                 
@@ -407,24 +421,31 @@ class PersistenceService:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
-                    SELECT * FROM processed_documents 
+                    SELECT id, filename, file_path, file_hash, file_size, processed_at,
+                           project_id, chunks_count, embedding_model, processing_status
+                    FROM processed_documents 
                     WHERE project_id = ?
                     ORDER BY processed_at DESC
                 """, (project_id,))
                 
                 documents = []
                 for row in cursor.fetchall():
+                    # Safe access with bounds checking
+                    if len(row) < 10:
+                        self.logger.warning(f"Incomplete document record found: {len(row)} columns instead of 10")
+                        continue
+                        
                     documents.append(ProcessedDocument(
-                        id=row[0],
-                        filename=row[1],
-                        file_path=row[2],
-                        file_hash=row[3],
-                        file_size=row[4],
-                        processed_at=datetime.fromisoformat(row[5]),
-                        project_id=row[6],
-                        chunks_count=row[7] or 0,
-                        embedding_model=row[8] or "nomic-embed-text",
-                        processing_status=row[9] or "pending"
+                        id=row[0] if row[0] else "",
+                        filename=row[1] if row[1] else "",
+                        file_path=row[2] if row[2] else "",
+                        file_hash=row[3] if row[3] else "",
+                        file_size=row[4] if row[4] and isinstance(row[4], (int, float)) else 0,
+                        processed_at=datetime.fromisoformat(row[5]) if row[5] else datetime.now(),
+                        project_id=row[6] if row[6] else "",
+                        chunks_count=row[7] if row[7] is not None else 0,
+                        embedding_model=row[8] if row[8] else "nomic-embed-text",
+                        processing_status=row[9] if row[9] else "pending"
                     ))
                 
                 return documents
@@ -498,38 +519,86 @@ class PersistenceService:
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
-                cursor.execute("""
-                    SELECT * FROM requirements 
+                
+                # First check which columns exist in the requirements table
+                cursor.execute("PRAGMA table_info(requirements)")
+                columns = [row[1] for row in cursor.fetchall()]
+                
+                # Build query based on available columns
+                base_columns = ["id", "project_id", "phase", "type", "title", "description", "priority"]
+                optional_columns = ["verification_method", "rationale", "priority_confidence", "created_at", "updated_at"]
+                
+                # Only select columns that exist
+                select_columns = []
+                for col in base_columns:
+                    if col in columns:
+                        select_columns.append(col)
+                
+                for col in optional_columns:
+                    if col in columns:
+                        select_columns.append(col)
+                
+                if not select_columns:
+                    self.logger.error("No valid columns found in requirements table")
+                    return {"requirements": {}}
+                
+                query = f"""
+                    SELECT {', '.join(select_columns)}
+                    FROM requirements 
                     WHERE project_id = ?
                     ORDER BY phase, type, title
-                """, (project_id,))
+                """
+                
+                cursor.execute(query, (project_id,))
                 
                 # Organiser par phase et type
                 requirements: Dict[str, Dict[str, List[Dict[str, Any]]]] = {}
                 for row in cursor.fetchall():
-                    # Correct column indices based on table schema:
-                    # 0:id, 1:project_id, 2:phase, 3:type, 4:title, 5:description, 
-                    # 6:priority, 7:verification_method, 8:rationale, 9:priority_confidence, 
-                    # 10:created_at, 11:updated_at
-                    phase = row[2]
-                    req_type = row[3]
+                    # Safe access to row elements with bounds checking
+                    if len(row) < len(base_columns):  # Ensure we have at least basic columns
+                        self.logger.warning(f"Incomplete requirement record found: {len(row)} columns")
+                        continue
+                    
+                    # Create column mapping
+                    col_map = {col: idx for idx, col in enumerate(select_columns)}
+                    
+                    phase = row[col_map.get("phase", 2)] if "phase" in col_map else "unknown"
+                    req_type = row[col_map.get("type", 3)] if "type" in col_map else "unknown"
                     
                     if phase not in requirements:
                         requirements[phase] = {}
                     if req_type not in requirements[phase]:
                         requirements[phase][req_type] = []
                     
-                    requirements[phase][req_type].append({
-                        "id": row[0],
-                        "title": row[4],
-                        "description": row[5],
-                        "priority": row[6],
-                        "verification_method": row[7] or "",
-                        "rationale": row[8] or "",
-                        "priority_confidence": row[9] or 0.0,
-                        "created_at": row[10],
-                        "updated_at": row[11]
-                    })
+                    # Build requirement object based on available columns
+                    req_obj = {}
+                    
+                    # Basic required fields
+                    req_obj["id"] = row[col_map.get("id", 0)] if "id" in col_map and row[col_map["id"]] else ""
+                    req_obj["title"] = row[col_map.get("title", 4)] if "title" in col_map and row[col_map["title"]] else ""
+                    req_obj["description"] = row[col_map.get("description", 5)] if "description" in col_map and row[col_map["description"]] else ""
+                    req_obj["priority"] = row[col_map.get("priority", 6)] if "priority" in col_map and row[col_map["priority"]] else "SHOULD"
+                    
+                    # Optional fields with defaults
+                    req_obj["verification_method"] = ""
+                    req_obj["rationale"] = ""
+                    req_obj["priority_confidence"] = 0.0
+                    req_obj["created_at"] = ""
+                    req_obj["updated_at"] = ""
+                    
+                    # Update with actual values if columns exist
+                    if "verification_method" in col_map and col_map["verification_method"] < len(row):
+                        req_obj["verification_method"] = row[col_map["verification_method"]] or ""
+                    if "rationale" in col_map and col_map["rationale"] < len(row):
+                        req_obj["rationale"] = row[col_map["rationale"]] or ""
+                    if "priority_confidence" in col_map and col_map["priority_confidence"] < len(row):
+                        req_obj["priority_confidence"] = row[col_map["priority_confidence"]] if row[col_map["priority_confidence"]] is not None else 0.0
+                    if "created_at" in col_map and col_map["created_at"] < len(row):
+                        req_obj["created_at"] = row[col_map["created_at"]] or ""
+                    if "updated_at" in col_map and col_map["updated_at"] < len(row):
+                        req_obj["updated_at"] = row[col_map["updated_at"]] or ""
+                    
+                    requirements[phase][req_type].append(req_obj)
                 
                 return {"requirements": requirements}
                 
@@ -573,27 +642,34 @@ class PersistenceService:
                 
                 if phase_type:
                     cursor.execute("""
-                        SELECT * FROM arcadia_analyses 
+                        SELECT id, project_id, phase_type, analysis_data, metadata, created_at, updated_at
+                        FROM arcadia_analyses 
                         WHERE project_id = ? AND phase_type = ?
                         ORDER BY created_at DESC
                     """, (project_id, phase_type))
                 else:
                     cursor.execute("""
-                        SELECT * FROM arcadia_analyses 
+                        SELECT id, project_id, phase_type, analysis_data, metadata, created_at, updated_at
+                        FROM arcadia_analyses 
                         WHERE project_id = ?
                         ORDER BY phase_type, created_at DESC
                     """, (project_id,))
                 
                 analyses = []
                 for row in cursor.fetchall():
+                    # Safe access with bounds checking
+                    if len(row) < 7:
+                        self.logger.warning(f"Incomplete analysis record found: {len(row)} columns instead of 7")
+                        continue
+                        
                     analyses.append({
-                        "id": row[0],
-                        "project_id": row[1],
-                        "phase_type": row[2],
+                        "id": row[0] if row[0] else "",
+                        "project_id": row[1] if row[1] else "",
+                        "phase_type": row[2] if row[2] else "",
                         "analysis_data": json.loads(row[3]) if row[3] else {},
                         "metadata": json.loads(row[4]) if row[4] else {},
-                        "created_at": row[5],
-                        "updated_at": row[6]
+                        "created_at": row[5] if row[5] else "",
+                        "updated_at": row[6] if row[6] else ""
                     })
                 
                 return analyses
@@ -641,22 +717,72 @@ class PersistenceService:
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
-                cursor.execute("""
-                    SELECT * FROM stakeholders 
+                
+                # First check which columns exist in the stakeholders table
+                cursor.execute("PRAGMA table_info(stakeholders)")
+                columns = [row[1] for row in cursor.fetchall()]
+                
+                # Build query based on available columns
+                base_columns = ["id", "project_id", "name"]
+                optional_columns = ["role", "category", "needs", "created_at"]
+                
+                # Only select columns that exist
+                select_columns = []
+                for col in base_columns:
+                    if col in columns:
+                        select_columns.append(col)
+                
+                for col in optional_columns:
+                    if col in columns:
+                        select_columns.append(col)
+                
+                if not select_columns:
+                    self.logger.error("No valid columns found in stakeholders table")
+                    return []
+                
+                query = f"""
+                    SELECT {', '.join(select_columns)}
+                    FROM stakeholders 
                     WHERE project_id = ?
                     ORDER BY name
-                """, (project_id,))
+                """
+                
+                cursor.execute(query, (project_id,))
                 
                 stakeholders = []
                 for row in cursor.fetchall():
-                    stakeholders.append({
-                        "id": row[0],
-                        "name": row[2],
-                        "role": row[3] or "",
-                        "category": row[4] or "",
-                        "needs": json.loads(row[5]) if row[5] else [],
-                        "created_at": row[6]
-                    })
+                    # Safe access with bounds checking
+                    if len(row) < len(base_columns):
+                        self.logger.warning(f"Incomplete stakeholder record found: {len(row)} columns")
+                        continue
+                    
+                    # Create column mapping
+                    col_map = {col: idx for idx, col in enumerate(select_columns)}
+                    
+                    # Build stakeholder object based on available columns
+                    stakeholder_obj = {}
+                    
+                    # Basic required fields
+                    stakeholder_obj["id"] = row[col_map.get("id", 0)] if "id" in col_map and row[col_map["id"]] else ""
+                    stakeholder_obj["name"] = row[col_map.get("name", 2)] if "name" in col_map and row[col_map["name"]] else ""
+                    
+                    # Optional fields with defaults
+                    stakeholder_obj["role"] = ""
+                    stakeholder_obj["category"] = ""
+                    stakeholder_obj["needs"] = []
+                    stakeholder_obj["created_at"] = ""
+                    
+                    # Update with actual values if columns exist
+                    if "role" in col_map and col_map["role"] < len(row):
+                        stakeholder_obj["role"] = row[col_map["role"]] if row[col_map["role"]] else ""
+                    if "category" in col_map and col_map["category"] < len(row):
+                        stakeholder_obj["category"] = row[col_map["category"]] if row[col_map["category"]] else ""
+                    if "needs" in col_map and col_map["needs"] < len(row):
+                        stakeholder_obj["needs"] = json.loads(row[col_map["needs"]]) if row[col_map["needs"]] else []
+                    if "created_at" in col_map and col_map["created_at"] < len(row):
+                        stakeholder_obj["created_at"] = row[col_map["created_at"]] if row[col_map["created_at"]] else ""
+                    
+                    stakeholders.append(stakeholder_obj)
                 
                 return stakeholders
                 
@@ -697,7 +823,8 @@ class PersistenceService:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
-                    SELECT * FROM project_sessions 
+                    SELECT id, project_id, action_type, action_description, result_data, user_id, created_at
+                    FROM project_sessions 
                     WHERE project_id = ?
                     ORDER BY created_at DESC
                     LIMIT ?
@@ -705,14 +832,19 @@ class PersistenceService:
                 
                 sessions = []
                 for row in cursor.fetchall():
+                    # Safe access with bounds checking
+                    if len(row) < 7:
+                        self.logger.warning(f"Incomplete session record found: {len(row)} columns instead of 7")
+                        continue
+                        
                     sessions.append({
-                        "id": row[0],
-                        "project_id": row[1],
-                        "action_type": row[2],
-                        "action_description": row[3],
+                        "id": row[0] if row[0] else "",
+                        "project_id": row[1] if row[1] else "",
+                        "action_type": row[2] if row[2] else "",
+                        "action_description": row[3] if row[3] else "",
                         "result_data": json.loads(row[4]) if row[4] else {},
-                        "user_id": row[5],
-                        "created_at": row[6]
+                        "user_id": row[5] if row[5] else "default_user",
+                        "created_at": row[6] if row[6] else ""
                     })
                 
                 return sessions
