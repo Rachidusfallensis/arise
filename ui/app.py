@@ -566,8 +566,8 @@ def main():
     # Header
     st.markdown("""
     <div class="main-header">
-        <h1>ARCADIA Requirements Generator</h1>
-        <p>AI-Driven Requirements Generation using ARCADIA Methodology & RAG with Project Management</p>
+        <h1>ARISE</h1>
+        <p>ARcadiaIntelligentSystemEngine, built by engineers for engineers</p>
     </div>
     """, unsafe_allow_html=True)
     
