@@ -1,0 +1,95 @@
+2025-06-19 12:04:54,408 - __main__ - INFO - Testing unified system configurations
+2025-06-19 12:04:54,408 - __main__ - INFO - Testing basic configuration...
+2025-06-19 12:04:54,425 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-19 12:04:54,449 - src.core.arcadia_context_enricher - INFO - Loaded 5 operational capabilities
+2025-06-19 12:04:54,449 - src.core.arcadia_context_enricher - INFO - Loaded 5 ARCADIA actors
+2025-06-19 12:04:54,449 - src.core.arcadia_context_enricher - INFO - Loaded 5 traceability links
+2025-06-19 12:04:54,449 - src.core.arcadia_context_enricher - INFO - Loaded phase-specific templates
+2025-06-19 12:04:54,449 - src.core.arcadia_context_enricher - INFO - ARCADIA knowledge base loaded successfully
+2025-06-19 12:04:54,449 - src.core.unified_rag_system - INFO - Context enrichment components initialized
+2025-06-19 12:04:54,449 - src.core.unified_rag_system - INFO - Validation components initialized
+2025-06-19 12:04:54,449 - src.core.unified_rag_system - INFO - Unified RAG System initialized with configuration: RAGConfiguration(enable_enhanced_generation=False, enable_structured_analysis=False, enable_persistence=False, enable_validation=True, enable_enrichment=True, enable_cross_phase_analysis=True, requirement_types=['functional', 'non_functional', 'stakeholder'], target_phases=['operational', 'system', 'logical', 'physical'], quality_threshold=0.7, enable_iterative_improvement=False, max_improvement_iterations=3)
+2025-06-19 12:04:54,449 - src.core.unified_rag_system - INFO - Starting requirements generation
+2025-06-19 12:04:54,449 - src.core.unified_rag_system - INFO - Generating traditional requirements
+2025-06-19 12:04:54,450 - src.core.requirements_generator - INFO - Identified 4 components for operational phase: ['security monitoring', 'data processing', 'network', 'monitoring system']
+2025-06-19 12:05:20,658 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:05:20,688 - src.core.requirements_generator - INFO - Priority rebalancing for functional: {'MUST': 1, 'SHOULD': 3, 'COULD': 1}
+2025-06-19 12:05:20,689 - src.core.unified_rag_system - INFO - Validating requirements and assessing quality
+2025-06-19 12:05:20,689 - src.core.requirements_validation_pipeline - INFO - Starting validation pipeline for operational phase requirements
+2025-06-19 12:05:20,689 - src.core.unified_rag_system - INFO - Requirements generation completed in 26.2s
+2025-06-19 12:05:20,689 - src.core.unified_rag_system - INFO - Final quality score: 0.48
+2025-06-19 12:05:20,689 - __main__ - INFO - ✅ basic configuration test passed
+2025-06-19 12:05:20,689 - __main__ - INFO -    Quality score: 0.48
+2025-06-19 12:05:20,689 - __main__ - INFO -    Generation time: 26.2s
+2025-06-19 12:05:20,729 - __main__ - INFO -    Enabled components: ['validation_pipeline', 'context_enrichment']
+2025-06-19 12:05:20,729 - __main__ - INFO - Testing enhanced configuration...
+2025-06-19 12:05:20,739 - src.core.unified_rag_system - INFO - Enhanced generation components initialized
+2025-06-19 12:05:20,739 - src.core.arcadia_context_enricher - INFO - Loaded 5 operational capabilities
+2025-06-19 12:05:20,739 - src.core.arcadia_context_enricher - INFO - Loaded 5 ARCADIA actors
+2025-06-19 12:05:20,739 - src.core.arcadia_context_enricher - INFO - Loaded 5 traceability links
+2025-06-19 12:05:20,739 - src.core.arcadia_context_enricher - INFO - Loaded phase-specific templates
+2025-06-19 12:05:20,739 - src.core.arcadia_context_enricher - INFO - ARCADIA knowledge base loaded successfully
+2025-06-19 12:05:20,739 - src.core.unified_rag_system - INFO - Context enrichment components initialized
+2025-06-19 12:05:20,739 - src.core.unified_rag_system - INFO - Validation components initialized
+2025-06-19 12:05:20,739 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-19 12:05:20,739 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-19 12:05:20,739 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-19 12:05:20,739 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-19 12:05:20,739 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-19 12:05:20,739 - src.core.unified_rag_system - INFO - Structured analysis components initialized
+2025-06-19 12:05:20,739 - src.core.unified_rag_system - INFO - Unified RAG System initialized with configuration: RAGConfiguration(enable_enhanced_generation=True, enable_structured_analysis=True, enable_persistence=False, enable_validation=True, enable_enrichment=True, enable_cross_phase_analysis=True, requirement_types=['functional', 'non_functional', 'stakeholder'], target_phases=['operational', 'system', 'logical', 'physical'], quality_threshold=0.7, enable_iterative_improvement=False, max_improvement_iterations=3)
+2025-06-19 12:05:20,740 - src.core.unified_rag_system - INFO - Starting requirements generation
+2025-06-19 12:05:20,740 - src.core.unified_rag_system - INFO - Generating traditional requirements
+2025-06-19 12:05:20,740 - src.core.requirements_generator - INFO - Identified 4 components for operational phase: ['security monitoring', 'data processing', 'network', 'monitoring system']
+2025-06-19 12:05:50,287 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:05:50,320 - src.core.requirements_generator - INFO - Priority rebalancing for functional: {'MUST': 1, 'SHOULD': 3, 'COULD': 1}
+2025-06-19 12:05:50,320 - src.core.unified_rag_system - INFO - Enhancing requirements with advanced generation
+2025-06-19 12:05:50,321 - src.core.arcadia_context_enricher - INFO - Enriched context with 4 ARCADIA knowledge chunks
+2025-06-19 12:05:50,322 - src.core.unified_rag_system - INFO - Generating structured ARCADIA analysis
+2025-06-19 12:05:50,322 - src.core.structured_arcadia_service - INFO - Starting complete ARCADIA structured analysis
+2025-06-19 12:05:50,322 - src.core.structured_arcadia_service - INFO - Phase 1: Extracting Operational Analysis
+2025-06-19 12:05:50,322 - src.core.operational_analysis_extractor - INFO - Starting operational analysis extraction
+2025-06-19 12:05:50,322 - src.core.operational_analysis_extractor - INFO - Step 1: Extracting operational actors and stakeholders
+2025-06-19 12:05:55,594 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:05:55,595 - src.core.operational_analysis_extractor - INFO - Extracted 4 operational actors
+2025-06-19 12:05:55,595 - src.core.operational_analysis_extractor - INFO - Step 2: Extracting operational capabilities
+2025-06-19 12:05:58,383 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:05:58,384 - src.core.operational_analysis_extractor - INFO - Extracted 3 operational capabilities
+2025-06-19 12:05:58,384 - src.core.operational_analysis_extractor - INFO - Step 3: Extracting operational scenarios
+2025-06-19 12:05:58,384 - src.core.operational_analysis_extractor - INFO - Step 4: Extracting operational processes
+2025-06-19 12:05:58,384 - src.core.operational_analysis_extractor - INFO - Operational analysis extraction completed: 4 actors, 3 capabilities, 2 scenarios, 2 processes
+2025-06-19 12:05:58,385 - src.core.structured_arcadia_service - INFO - Operational analysis completed: 4 actors, 3 capabilities
+2025-06-19 12:05:58,385 - src.core.structured_arcadia_service - INFO - Performing cross-phase analysis
+2025-06-19 12:05:58,385 - src.core.structured_arcadia_service - INFO - Starting cross-phase analysis
+2025-06-19 12:05:58,385 - src.core.structured_arcadia_service - INFO - Generated 0 total traceability links across all phases
+2025-06-19 12:05:58,385 - src.core.structured_arcadia_service - INFO - Identified 4 gaps in analysis
+2025-06-19 12:05:58,385 - src.core.structured_arcadia_service - INFO - Performed 2 consistency checks
+2025-06-19 12:05:58,385 - src.core.structured_arcadia_service - INFO - Calculated 1 quality metrics
+2025-06-19 12:05:58,385 - src.core.structured_arcadia_service - INFO - Cross-phase analysis completed: 0 links, 4 gaps
+2025-06-19 12:05:58,386 - src.core.structured_arcadia_service - INFO - Complete ARCADIA analysis finished in 8.1 seconds
+2025-06-19 12:05:58,386 - src.core.unified_rag_system - INFO - Validating requirements and assessing quality
+2025-06-19 12:05:58,386 - src.core.requirements_validation_pipeline - INFO - Starting validation pipeline for operational phase requirements
+2025-06-19 12:05:58,386 - src.core.unified_rag_system - INFO - Requirements generation completed in 37.6s
+2025-06-19 12:05:58,386 - src.core.unified_rag_system - INFO - Final quality score: 0.51
+2025-06-19 12:05:58,386 - __main__ - INFO - ✅ enhanced configuration test passed
+2025-06-19 12:05:58,386 - __main__ - INFO -    Quality score: 0.51
+2025-06-19 12:05:58,386 - __main__ - INFO -    Generation time: 37.6s
+2025-06-19 12:05:58,387 - __main__ - INFO -    Enabled components: ['enhanced_generation', 'structured_analysis', 'validation_pipeline', 'context_enrichment']
+2025-06-19 12:05:58,403 - src.core.unified_rag_system - INFO - Enhanced generation components initialized
+2025-06-19 12:05:58,403 - src.core.arcadia_context_enricher - INFO - Loaded 5 operational capabilities
+2025-06-19 12:05:58,403 - src.core.arcadia_context_enricher - INFO - Loaded 5 ARCADIA actors
+2025-06-19 12:05:58,403 - src.core.arcadia_context_enricher - INFO - Loaded 5 traceability links
+2025-06-19 12:05:58,404 - src.core.arcadia_context_enricher - INFO - Loaded phase-specific templates
+2025-06-19 12:05:58,404 - src.core.arcadia_context_enricher - INFO - ARCADIA knowledge base loaded successfully
+2025-06-19 12:05:58,404 - src.core.unified_rag_system - INFO - Context enrichment components initialized
+2025-06-19 12:05:58,404 - src.core.unified_rag_system - INFO - Validation components initialized
+2025-06-19 12:05:58,405 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-19 12:05:58,405 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-19 12:05:58,405 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-19 12:05:58,405 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-19 12:05:58,405 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-19 12:05:58,405 - src.core.unified_rag_system - INFO - Structured analysis components initialized
+2025-06-19 12:05:58,410 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-06-19 12:05:58,410 - src.core.unified_rag_system - INFO - Persistence service initialized
+2025-06-19 12:05:58,410 - src.core.unified_rag_system - INFO - Unified RAG System initialized with configuration: RAGConfiguration(enable_enhanced_generation=True, enable_structured_analysis=True, enable_persistence=True, enable_validation=True, enable_enrichment=True, enable_cross_phase_analysis=True, requirement_types=['functional', 'non_functional', 'stakeholder'], target_phases=['operational', 'system', 'logical', 'physical'], quality_threshold=0.7, enable_iterative_improvement=False, max_improvement_iterations=3)
+2025-06-19 12:05:58,411 - __main__ - INFO - Created compatibility classes: ['SAFEMBSERAGSystem', 'EnhancedPersistentRAGSystem']

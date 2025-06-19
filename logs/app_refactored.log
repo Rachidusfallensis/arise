@@ -1,0 +1,432 @@
+2025-06-17 17:42:32,167 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:43:26,389 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 17:43:26,389 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 17:43:26,396 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:44:13,466 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 17:44:13,466 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 17:44:13,467 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:45:02,483 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:45:52,298 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:46:59,324 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:47:26,134 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 17:47:26,135 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 17:47:26,138 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:48:12,880 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 17:48:12,889 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 17:48:12,909 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:49:20,394 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:50:11,988 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 17:50:11,988 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 17:50:11,992 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:50:15,179 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:51:13,239 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 17:51:13,239 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 17:51:13,241 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:51:17,277 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:51:18,266 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:51:20,086 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:51:22,161 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:52:31,409 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 17:58:01,501 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:30:09,369 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 18:30:09,370 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 18:30:09,372 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:30:49,632 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:30:53,858 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:30:59,733 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:31:00,895 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:31:02,732 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:31:04,505 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:31:46,347 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:31:49,597 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:35:47,288 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 18:35:47,289 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 18:35:47,292 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:35:48,889 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:35:55,906 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:40:46,442 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:49:38,745 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 18:49:38,745 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 18:49:38,746 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:51:45,197 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:51:45,343 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:51:45,349 - src.infrastructure.database - INFO - Created project: proj_20250617_185145
+2025-06-17 18:51:55,135 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:52:11,013 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:52:14,712 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 18:52:14,949 - src.infrastructure.database - INFO - Created project: proj_20250617_185214
+2025-06-17 18:52:14,965 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-17 18:52:15,002 - src.core.rag_system - INFO - Enhanced requirement extractor initialized
+2025-06-17 18:52:15,002 - src.core.rag_system - INFO - RAG system initialized with ChromaDB default embeddings
+2025-06-17 18:52:15,002 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-17 18:52:15,002 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-17 18:52:15,002 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-17 18:52:15,002 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-17 18:52:15,002 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-17 18:52:15,002 - src.core.rag_system - INFO - Enhanced Structured RAG System initialized
+2025-06-17 18:52:15,002 - src.core.rag_system - INFO - Starting enhanced requirements generation with structured analysis
+2025-06-17 18:52:15,002 - src.core.rag_system - INFO - Step 1: Generating traditional requirements
+2025-06-17 18:52:15,002 - src.core.rag_system - INFO - Created 40 context chunks from proposal
+2025-06-17 18:52:15,014 - src.core.requirements_generator - INFO - Identified 19 components for system phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-17 18:52:48,955 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 18:52:48,996 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-17 18:53:03,190 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 18:53:18,349 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 18:53:37,039 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 18:53:37,047 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 1, 'COULD': 0}
+2025-06-17 18:53:37,048 - src.core.rag_system - INFO - Step 2: Generating structured ARCADIA analysis
+2025-06-17 18:53:37,048 - src.core.rag_system - INFO - Created 40 context chunks from proposal
+2025-06-17 18:53:37,052 - src.core.structured_arcadia_service - INFO - Starting complete ARCADIA structured analysis
+2025-06-17 18:53:37,053 - src.core.structured_arcadia_service - INFO - Phase 2: Extracting System Analysis
+2025-06-17 18:53:37,056 - src.core.system_analysis_extractor - INFO - Starting system analysis extraction
+2025-06-17 18:53:37,056 - src.core.system_analysis_extractor - INFO - Step 1: Defining system boundary and context
+2025-06-17 18:53:43,977 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 18:53:43,979 - src.core.system_analysis_extractor - INFO - Step 2: Extracting system actors and interfaces
+2025-06-17 18:53:48,069 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 18:53:48,071 - src.core.system_analysis_extractor - INFO - Extracted 0 system actors
+2025-06-17 18:53:48,071 - src.core.system_analysis_extractor - INFO - Step 3: Extracting system functions
+2025-06-17 18:53:58,213 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 18:53:58,218 - src.core.system_analysis_extractor - INFO - Extracted 7 system functions
+2025-06-17 18:53:58,218 - src.core.system_analysis_extractor - INFO - Step 4: Extracting system capabilities
+2025-06-17 18:54:02,563 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 18:54:02,564 - src.core.system_analysis_extractor - INFO - Extracted 3 system capabilities
+2025-06-17 18:54:02,564 - src.core.system_analysis_extractor - INFO - Step 5: Extracting functional chains
+2025-06-17 18:54:06,121 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 18:54:06,123 - src.core.system_analysis_extractor - INFO - Extracted 1 functional chains
+2025-06-17 18:54:06,124 - src.core.system_analysis_extractor - INFO - System analysis extraction completed: 0 actors, 7 functions, 3 capabilities, 1 functional chains
+2025-06-17 18:54:06,125 - src.core.structured_arcadia_service - INFO - System analysis completed: 0 actors, 7 functions
+2025-06-17 18:54:06,125 - src.core.structured_arcadia_service - INFO - Performing cross-phase analysis
+2025-06-17 18:54:06,125 - src.core.structured_arcadia_service - INFO - Starting cross-phase analysis
+2025-06-17 18:54:06,125 - src.core.structured_arcadia_service - INFO - Generated 0 total traceability links across all phases
+2025-06-17 18:54:06,125 - src.core.structured_arcadia_service - INFO - Identified 0 gaps in analysis
+2025-06-17 18:54:06,125 - src.core.structured_arcadia_service - INFO - Performed 2 consistency checks
+2025-06-17 18:54:06,125 - src.core.structured_arcadia_service - INFO - Calculated 1 quality metrics
+2025-06-17 18:54:06,125 - src.core.structured_arcadia_service - INFO - Cross-phase analysis completed: 0 links, 0 gaps
+2025-06-17 18:54:06,126 - src.core.structured_arcadia_service - INFO - Complete ARCADIA analysis finished in 29.1 seconds
+2025-06-17 18:54:06,126 - src.core.rag_system - INFO - Structured analysis completed for phases: ['system']
+2025-06-17 18:54:06,126 - src.core.rag_system - INFO - Enhanced requirements generation completed in 111.1 seconds
+2025-06-17 18:54:06,130 - src.infrastructure.database - INFO - Saved requirements for project: proj_20250617_185214
+2025-06-17 18:54:06,131 - src.infrastructure.database - ERROR - Database error: Object of type ARCADIAStructuredOutput is not JSON serializable
+2025-06-17 18:54:06,131 - src.services.requirements_service - ERROR - Error creating project with requirements: Object of type ARCADIAStructuredOutput is not JSON serializable
+2025-06-17 19:04:02,044 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 19:04:02,044 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 19:04:02,047 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 19:05:33,126 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 19:05:38,354 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 19:05:38,590 - src.infrastructure.database - INFO - Created project: proj_20250617_190538
+2025-06-17 19:05:38,611 - src.core.rag_system - INFO - Enhanced requirement extractor initialized
+2025-06-17 19:05:38,611 - src.core.rag_system - INFO - RAG system initialized with ChromaDB default embeddings
+2025-06-17 19:05:38,611 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-17 19:05:38,611 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-17 19:05:38,611 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-17 19:05:38,611 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-17 19:05:38,611 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-17 19:05:38,611 - src.core.rag_system - INFO - Enhanced Structured RAG System initialized
+2025-06-17 19:05:38,611 - src.core.rag_system - INFO - Starting enhanced requirements generation with structured analysis
+2025-06-17 19:05:38,611 - src.core.rag_system - INFO - Step 1: Generating traditional requirements
+2025-06-17 19:05:38,611 - src.core.rag_system - INFO - Created 40 context chunks from proposal
+2025-06-17 19:05:38,624 - src.core.requirements_generator - INFO - Identified 19 components for operational phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-17 19:06:12,956 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:06:12,967 - src.core.requirements_generator - INFO - Priority rebalancing for functional: {'MUST': 1, 'SHOULD': 3, 'COULD': 1}
+2025-06-17 19:06:12,989 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-17 19:06:28,812 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:06:42,885 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:06:59,856 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:06:59,866 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 3, 'COULD': 0}
+2025-06-17 19:06:59,891 - src.core.requirements_generator - INFO - Identified 19 components for system phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-17 19:07:26,619 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:07:26,657 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-17 19:07:42,189 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:07:56,114 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:08:11,917 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:08:11,928 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 2, 'COULD': 0}
+2025-06-17 19:08:11,955 - src.core.requirements_generator - INFO - Identified 19 components for logical phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-17 19:08:36,455 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:08:36,493 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-17 19:08:53,733 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:09:08,097 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:09:26,642 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:09:26,656 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 2, 'COULD': 0}
+2025-06-17 19:09:26,684 - src.core.requirements_generator - INFO - Identified 19 components for physical phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-17 19:09:55,530 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:09:55,568 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-17 19:10:15,136 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:10:33,820 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:10:50,245 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:10:50,256 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 3, 'COULD': 0}
+2025-06-17 19:10:50,284 - src.core.requirements_generator - INFO - Identified 19 components for building_strategy phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-17 19:11:13,849 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:11:13,890 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-17 19:11:28,375 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:11:45,372 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:11:58,958 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:11:58,968 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 3, 'COULD': 0}
+2025-06-17 19:11:58,969 - src.core.rag_system - INFO - Step 2: Generating structured ARCADIA analysis
+2025-06-17 19:11:58,969 - src.core.rag_system - INFO - Created 40 context chunks from proposal
+2025-06-17 19:11:58,969 - src.core.structured_arcadia_service - INFO - Starting complete ARCADIA structured analysis
+2025-06-17 19:11:58,969 - src.core.structured_arcadia_service - INFO - Phase 1: Extracting Operational Analysis
+2025-06-17 19:11:58,969 - src.core.operational_analysis_extractor - INFO - Starting operational analysis extraction
+2025-06-17 19:11:58,969 - src.core.operational_analysis_extractor - INFO - Step 1: Extracting operational actors and stakeholders
+2025-06-17 19:12:04,695 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:12:04,697 - src.core.operational_analysis_extractor - INFO - Extracted 6 operational actors
+2025-06-17 19:12:04,697 - src.core.operational_analysis_extractor - INFO - Step 2: Extracting operational capabilities
+2025-06-17 19:12:07,583 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:12:07,585 - src.core.operational_analysis_extractor - INFO - Extracted 3 operational capabilities
+2025-06-17 19:12:07,585 - src.core.operational_analysis_extractor - INFO - Step 3: Extracting operational scenarios
+2025-06-17 19:12:07,585 - src.core.operational_analysis_extractor - INFO - Step 4: Extracting operational processes
+2025-06-17 19:12:07,585 - src.core.operational_analysis_extractor - INFO - Operational analysis extraction completed: 6 actors, 3 capabilities, 2 scenarios, 2 processes
+2025-06-17 19:12:07,586 - src.core.structured_arcadia_service - INFO - Operational analysis completed: 6 actors, 3 capabilities
+2025-06-17 19:12:07,586 - src.core.structured_arcadia_service - INFO - Phase 2: Extracting System Analysis
+2025-06-17 19:12:07,586 - src.core.system_analysis_extractor - INFO - Starting system analysis extraction
+2025-06-17 19:12:07,586 - src.core.system_analysis_extractor - INFO - Step 1: Defining system boundary and context
+2025-06-17 19:12:12,468 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:12:12,470 - src.core.system_analysis_extractor - INFO - Step 2: Extracting system actors and interfaces
+2025-06-17 19:12:23,326 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:12:23,335 - src.core.system_analysis_extractor - INFO - Extracted 5 system actors
+2025-06-17 19:12:23,336 - src.core.system_analysis_extractor - INFO - Step 3: Extracting system functions
+2025-06-17 19:12:30,102 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:12:30,104 - src.core.system_analysis_extractor - INFO - Extracted 4 system functions
+2025-06-17 19:12:30,104 - src.core.system_analysis_extractor - INFO - Step 4: Extracting system capabilities
+2025-06-17 19:12:35,471 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:12:35,476 - src.core.system_analysis_extractor - INFO - Extracted 4 system capabilities
+2025-06-17 19:12:35,476 - src.core.system_analysis_extractor - INFO - Step 5: Extracting functional chains
+2025-06-17 19:12:39,608 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:12:39,622 - src.core.system_analysis_extractor - INFO - Extracted 3 functional chains
+2025-06-17 19:12:39,625 - src.core.system_analysis_extractor - INFO - System analysis extraction completed: 5 actors, 4 functions, 4 capabilities, 3 functional chains
+2025-06-17 19:12:39,626 - src.core.structured_arcadia_service - INFO - System analysis completed: 5 actors, 4 functions
+2025-06-17 19:12:39,626 - src.core.structured_arcadia_service - INFO - Phase 3: Extracting Logical Architecture
+2025-06-17 19:12:39,628 - src.core.logical_architecture_extractor - INFO - Starting logical architecture extraction
+2025-06-17 19:12:39,631 - src.core.logical_architecture_extractor - INFO - Step 1: Extracting logical components
+2025-06-17 19:12:46,747 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:12:46,761 - src.core.logical_architecture_extractor - INFO - Extracted 2 logical components
+2025-06-17 19:12:46,761 - src.core.logical_architecture_extractor - INFO - Step 2: Extracting logical functions
+2025-06-17 19:12:56,654 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:12:56,663 - src.core.logical_architecture_extractor - INFO - Extracted 3 logical functions
+2025-06-17 19:12:56,663 - src.core.logical_architecture_extractor - INFO - Step 3: Extracting logical interfaces
+2025-06-17 19:13:03,525 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:13:03,527 - src.core.logical_architecture_extractor - WARNING - Failed to parse JSON response for interfaces: Extra data: line 2 column 1 (char 32)
+2025-06-17 19:13:03,527 - src.core.logical_architecture_extractor - INFO - Extracted 0 logical interfaces
+2025-06-17 19:13:03,527 - src.core.logical_architecture_extractor - INFO - Step 4: Extracting logical scenarios
+2025-06-17 19:13:09,638 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:13:09,639 - src.core.logical_architecture_extractor - INFO - Extracted 0 logical scenarios
+2025-06-17 19:13:09,640 - src.core.logical_architecture_extractor - INFO - Logical architecture extraction completed: 2 components, 3 functions, 0 interfaces, 0 scenarios
+2025-06-17 19:13:09,641 - src.core.structured_arcadia_service - INFO - Logical architecture completed: 2 components, 3 functions, 0 interfaces
+2025-06-17 19:13:09,641 - src.core.structured_arcadia_service - INFO - Phase 4: Extracting Physical Architecture
+2025-06-17 19:13:09,641 - src.core.physical_architecture_extractor - INFO - Starting physical architecture extraction
+2025-06-17 19:13:09,641 - src.core.physical_architecture_extractor - INFO - Step 1: Extracting physical components
+2025-06-17 19:13:15,880 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:13:15,889 - src.core.physical_architecture_extractor - INFO - Extracted 4 physical components
+2025-06-17 19:13:15,889 - src.core.physical_architecture_extractor - INFO - Step 2: Extracting implementation constraints
+2025-06-17 19:13:20,916 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:13:20,918 - src.core.physical_architecture_extractor - INFO - Extracted 0 implementation constraints
+2025-06-17 19:13:20,918 - src.core.physical_architecture_extractor - INFO - Step 3: Extracting physical functions
+2025-06-17 19:13:25,685 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:13:25,687 - src.core.physical_architecture_extractor - INFO - Extracted 0 physical functions
+2025-06-17 19:13:25,688 - src.core.physical_architecture_extractor - INFO - Step 4: Extracting physical scenarios
+2025-06-17 19:13:30,705 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:13:30,706 - src.core.physical_architecture_extractor - INFO - Extracted 0 physical scenarios
+2025-06-17 19:13:30,707 - src.core.physical_architecture_extractor - INFO - Physical architecture extraction completed: 4 components, 0 constraints, 0 functions, 0 scenarios
+2025-06-17 19:13:30,707 - src.core.structured_arcadia_service - INFO - Physical architecture completed: 4 components, 0 constraints
+2025-06-17 19:13:30,707 - src.core.structured_arcadia_service - INFO - Performing cross-phase analysis
+2025-06-17 19:13:30,707 - src.core.structured_arcadia_service - INFO - Starting cross-phase analysis
+2025-06-17 19:13:30,707 - src.core.structured_arcadia_service - INFO - Generating Operational -> System traceability links
+2025-06-17 19:13:30,711 - src.core.structured_arcadia_service - INFO - Generating System -> Logical traceability links
+2025-06-17 19:13:30,712 - src.core.structured_arcadia_service - INFO - Generating Logical -> Physical traceability links
+2025-06-17 19:13:30,713 - src.core.structured_arcadia_service - INFO - Generating End-to-End traceability links
+2025-06-17 19:13:30,714 - src.core.structured_arcadia_service - INFO - Generated 3 total traceability links across all phases
+2025-06-17 19:13:30,714 - src.core.structured_arcadia_service - INFO - Identified 4 gaps in analysis
+2025-06-17 19:13:30,714 - src.core.structured_arcadia_service - INFO - Performed 2 consistency checks
+2025-06-17 19:13:30,714 - src.core.structured_arcadia_service - INFO - Calculated 2 quality metrics
+2025-06-17 19:13:30,714 - src.core.structured_arcadia_service - INFO - Cross-phase analysis completed: 3 links, 4 gaps
+2025-06-17 19:13:30,714 - src.core.structured_arcadia_service - INFO - Complete ARCADIA analysis finished in 91.7 seconds
+2025-06-17 19:13:30,714 - src.core.rag_system - INFO - Structured analysis completed for phases: ['operational', 'system', 'logical', 'physical']
+2025-06-17 19:13:30,714 - src.core.rag_system - INFO - Enhanced requirements generation completed in 472.1 seconds
+2025-06-17 19:13:30,719 - src.infrastructure.database - ERROR - Database error: UNIQUE constraint failed: requirements.id
+2025-06-17 19:13:30,719 - src.services.requirements_service - ERROR - Error creating project with requirements: UNIQUE constraint failed: requirements.id
+2025-06-17 19:30:30,641 - src.infrastructure.database - INFO - Database initialized successfully
+2025-06-17 19:30:30,641 - src.infrastructure.container - INFO - Default services registered
+2025-06-17 19:30:30,646 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 19:30:45,532 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 19:30:48,788 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-17 19:30:49,006 - src.infrastructure.database - INFO - Created project: proj_20250617_193049
+2025-06-17 19:30:49,030 - src.core.rag_system - INFO - Enhanced requirement extractor initialized
+2025-06-17 19:30:49,030 - src.core.rag_system - INFO - RAG system initialized with ChromaDB default embeddings
+2025-06-17 19:30:49,030 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-17 19:30:49,030 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-17 19:30:49,030 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-17 19:30:49,030 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-17 19:30:49,030 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-17 19:30:49,030 - src.core.rag_system - INFO - Enhanced Structured RAG System initialized
+2025-06-17 19:30:49,030 - src.core.rag_system - INFO - Starting enhanced requirements generation with structured analysis
+2025-06-17 19:30:49,030 - src.core.rag_system - INFO - Step 1: Generating traditional requirements
+2025-06-17 19:30:49,030 - src.core.rag_system - INFO - Created 40 context chunks from proposal
+2025-06-17 19:30:49,045 - src.core.requirements_generator - INFO - Identified 19 components for operational phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-17 19:31:22,844 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:31:22,857 - src.core.requirements_generator - INFO - Priority rebalancing for functional: {'MUST': 1, 'SHOULD': 3, 'COULD': 1}
+2025-06-17 19:31:22,876 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-17 19:31:39,702 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:31:55,980 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:32:10,420 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:32:10,432 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 2, 'COULD': 0}
+2025-06-17 19:32:10,459 - src.core.requirements_generator - INFO - Identified 19 components for system phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-17 19:32:36,884 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:32:36,918 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-17 19:32:51,837 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:33:09,242 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:33:25,524 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:33:25,537 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 1, 'COULD': 0}
+2025-06-17 19:33:25,556 - src.core.requirements_generator - INFO - Identified 19 components for logical phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-17 19:33:49,475 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:33:49,521 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-17 19:34:05,547 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:34:20,852 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:34:38,028 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:34:38,040 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 2, 'COULD': 0}
+2025-06-17 19:34:38,070 - src.core.requirements_generator - INFO - Identified 19 components for physical phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-17 19:35:09,434 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:35:09,483 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-17 19:35:25,848 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-17 19:35:45,690 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-18 10:12:12,590 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-18 10:13:08,000 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-18 10:14:02,525 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-18 10:14:04,216 - src.infrastructure.database - INFO - Created project: proj_20250618_101404
+2025-06-18 10:14:04,231 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-18 10:14:04,592 - src.core.rag_system - INFO - Enhanced requirement extractor initialized
+2025-06-18 10:14:04,592 - src.core.rag_system - INFO - RAG system initialized with ChromaDB default embeddings
+2025-06-18 10:14:04,592 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-18 10:14:04,592 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-18 10:14:04,592 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-18 10:14:04,592 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-18 10:14:04,592 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-18 10:14:04,592 - src.core.rag_system - INFO - Enhanced Structured RAG System initialized
+2025-06-18 10:14:04,592 - src.core.rag_system - INFO - Starting enhanced requirements generation with structured analysis
+2025-06-18 10:14:04,592 - src.core.rag_system - INFO - Step 1: Generating traditional requirements
+2025-06-18 10:14:04,627 - src.core.rag_system - INFO - Created 438 context chunks from proposal
+2025-06-18 10:14:04,753 - src.core.requirements_generator - INFO - Identified 27 components for operational phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
+2025-06-18 10:14:37,975 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:14:38,134 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-06-18 10:14:51,498 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:15:09,922 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:15:27,699 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:15:44,491 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:15:44,504 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 1, 'COULD': 0}
+2025-06-18 10:15:44,717 - src.core.requirements_generator - INFO - Identified 27 components for system phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
+2025-06-18 10:16:11,739 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:16:11,911 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-06-18 10:16:24,520 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:16:41,674 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:16:58,232 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:17:14,854 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:17:14,867 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 1, 'COULD': 0}
+2025-06-18 10:17:15,022 - src.core.requirements_generator - INFO - Identified 27 components for logical phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
+2025-06-18 10:17:41,885 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:17:42,053 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-06-18 10:17:58,883 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:18:17,199 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:18:36,127 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:18:54,242 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:18:54,255 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 3, 'COULD': 0}
+2025-06-18 10:18:54,407 - src.core.requirements_generator - INFO - Identified 27 components for physical phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
+2025-06-18 10:19:21,415 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:19:21,660 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-06-18 10:19:38,025 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:19:56,938 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:20:15,340 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:20:34,329 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:20:34,527 - src.core.requirements_generator - INFO - Identified 27 components for building_strategy phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
+2025-06-18 10:21:01,948 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:21:01,959 - src.core.requirements_generator - INFO - Priority rebalancing for functional: {'MUST': 1, 'SHOULD': 3, 'COULD': 1}
+2025-06-18 10:21:02,127 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-06-18 10:21:15,411 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:21:31,999 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:21:47,645 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:03,264 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:03,273 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 1, 'SHOULD': 3, 'COULD': 1}
+2025-06-18 10:22:03,274 - src.core.rag_system - INFO - Step 2: Generating structured ARCADIA analysis
+2025-06-18 10:22:03,276 - src.core.rag_system - INFO - Created 438 context chunks from proposal
+2025-06-18 10:22:03,276 - src.core.structured_arcadia_service - INFO - Starting complete ARCADIA structured analysis
+2025-06-18 10:22:03,276 - src.core.structured_arcadia_service - INFO - Phase 1: Extracting Operational Analysis
+2025-06-18 10:22:03,276 - src.core.operational_analysis_extractor - INFO - Starting operational analysis extraction
+2025-06-18 10:22:03,276 - src.core.operational_analysis_extractor - INFO - Step 1: Extracting operational actors and stakeholders
+2025-06-18 10:22:08,855 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:08,857 - src.core.operational_analysis_extractor - INFO - Extracted 0 operational actors
+2025-06-18 10:22:08,857 - src.core.operational_analysis_extractor - INFO - Step 2: Extracting operational capabilities
+2025-06-18 10:22:12,141 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:12,142 - src.core.operational_analysis_extractor - INFO - Extracted 0 operational capabilities
+2025-06-18 10:22:12,143 - src.core.operational_analysis_extractor - INFO - Step 3: Extracting operational scenarios
+2025-06-18 10:22:12,143 - src.core.operational_analysis_extractor - INFO - Step 4: Extracting operational processes
+2025-06-18 10:22:12,143 - src.core.operational_analysis_extractor - INFO - Operational analysis extraction completed: 0 actors, 0 capabilities, 2 scenarios, 2 processes
+2025-06-18 10:22:12,143 - src.core.structured_arcadia_service - INFO - Operational analysis completed: 0 actors, 0 capabilities
+2025-06-18 10:22:12,143 - src.core.structured_arcadia_service - INFO - Phase 2: Extracting System Analysis
+2025-06-18 10:22:12,143 - src.core.system_analysis_extractor - INFO - Starting system analysis extraction
+2025-06-18 10:22:12,143 - src.core.system_analysis_extractor - INFO - Step 1: Defining system boundary and context
+2025-06-18 10:22:16,931 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:16,932 - src.core.system_analysis_extractor - INFO - Step 2: Extracting system actors and interfaces
+2025-06-18 10:22:20,207 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:20,209 - src.core.system_analysis_extractor - INFO - Extracted 0 system actors
+2025-06-18 10:22:20,209 - src.core.system_analysis_extractor - INFO - Step 3: Extracting system functions
+2025-06-18 10:22:26,464 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:26,466 - src.core.system_analysis_extractor - INFO - Extracted 4 system functions
+2025-06-18 10:22:26,467 - src.core.system_analysis_extractor - INFO - Step 4: Extracting system capabilities
+2025-06-18 10:22:29,987 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:29,989 - src.core.system_analysis_extractor - INFO - Extracted 0 system capabilities
+2025-06-18 10:22:29,989 - src.core.system_analysis_extractor - INFO - Step 5: Extracting functional chains
+2025-06-18 10:22:35,714 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:35,716 - src.core.system_analysis_extractor - INFO - Extracted 3 functional chains
+2025-06-18 10:22:35,716 - src.core.system_analysis_extractor - INFO - System analysis extraction completed: 0 actors, 4 functions, 0 capabilities, 3 functional chains
+2025-06-18 10:22:35,717 - src.core.structured_arcadia_service - INFO - System analysis completed: 0 actors, 4 functions
+2025-06-18 10:22:35,717 - src.core.structured_arcadia_service - INFO - Phase 3: Extracting Logical Architecture
+2025-06-18 10:22:35,717 - src.core.logical_architecture_extractor - INFO - Starting logical architecture extraction
+2025-06-18 10:22:35,717 - src.core.logical_architecture_extractor - INFO - Step 1: Extracting logical components
+2025-06-18 10:22:40,898 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:40,900 - src.core.logical_architecture_extractor - INFO - Extracted 5 logical components
+2025-06-18 10:22:40,900 - src.core.logical_architecture_extractor - INFO - Step 2: Extracting logical functions
+2025-06-18 10:22:49,951 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:49,960 - src.core.logical_architecture_extractor - WARNING - Failed to parse JSON response for functions: Expecting value: line 8 column 74 (char 350)
+2025-06-18 10:22:49,960 - src.core.logical_architecture_extractor - INFO - Extracted 0 logical functions
+2025-06-18 10:22:49,960 - src.core.logical_architecture_extractor - INFO - Step 3: Extracting logical interfaces
+2025-06-18 10:22:58,506 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:22:58,507 - src.core.logical_architecture_extractor - WARNING - Failed to parse JSON response for interfaces: Extra data: line 2 column 1 (char 20)
+2025-06-18 10:22:58,508 - src.core.logical_architecture_extractor - INFO - Extracted 0 logical interfaces
+2025-06-18 10:22:58,508 - src.core.logical_architecture_extractor - INFO - Step 4: Extracting logical scenarios
+2025-06-18 10:23:04,241 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:23:04,242 - src.core.logical_architecture_extractor - INFO - Extracted 0 logical scenarios
+2025-06-18 10:23:04,243 - src.core.logical_architecture_extractor - INFO - Logical architecture extraction completed: 5 components, 0 functions, 0 interfaces, 0 scenarios
+2025-06-18 10:23:04,243 - src.core.structured_arcadia_service - INFO - Logical architecture completed: 5 components, 0 functions, 0 interfaces
+2025-06-18 10:23:04,243 - src.core.structured_arcadia_service - INFO - Phase 4: Extracting Physical Architecture
+2025-06-18 10:23:04,243 - src.core.physical_architecture_extractor - INFO - Starting physical architecture extraction
+2025-06-18 10:23:04,244 - src.core.physical_architecture_extractor - INFO - Step 1: Extracting physical components
+2025-06-18 10:23:06,978 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:23:06,979 - src.core.physical_architecture_extractor - INFO - Extracted 1 physical components
+2025-06-18 10:23:06,980 - src.core.physical_architecture_extractor - INFO - Step 2: Extracting implementation constraints
+2025-06-18 10:23:09,081 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:23:09,082 - src.core.physical_architecture_extractor - INFO - Extracted 0 implementation constraints
+2025-06-18 10:23:09,082 - src.core.physical_architecture_extractor - INFO - Step 3: Extracting physical functions
+2025-06-18 10:23:13,240 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:23:13,241 - src.core.physical_architecture_extractor - INFO - Extracted 0 physical functions
+2025-06-18 10:23:13,241 - src.core.physical_architecture_extractor - INFO - Step 4: Extracting physical scenarios
+2025-06-18 10:23:17,303 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-18 10:23:17,304 - src.core.physical_architecture_extractor - INFO - Extracted 0 physical scenarios
+2025-06-18 10:23:17,305 - src.core.physical_architecture_extractor - INFO - Physical architecture extraction completed: 1 components, 0 constraints, 0 functions, 0 scenarios
+2025-06-18 10:23:17,305 - src.core.structured_arcadia_service - INFO - Physical architecture completed: 1 components, 0 constraints
+2025-06-18 10:23:17,305 - src.core.structured_arcadia_service - INFO - Performing cross-phase analysis
+2025-06-18 10:23:17,305 - src.core.structured_arcadia_service - INFO - Starting cross-phase analysis
+2025-06-18 10:23:17,305 - src.core.structured_arcadia_service - INFO - Generating Operational -> System traceability links
+2025-06-18 10:23:17,305 - src.core.structured_arcadia_service - INFO - Generating System -> Logical traceability links
+2025-06-18 10:23:17,305 - src.core.structured_arcadia_service - INFO - Generating Logical -> Physical traceability links
+2025-06-18 10:23:17,306 - src.core.structured_arcadia_service - INFO - Generating End-to-End traceability links
+2025-06-18 10:23:17,306 - src.core.structured_arcadia_service - INFO - Generated 0 total traceability links across all phases
+2025-06-18 10:23:17,306 - src.core.structured_arcadia_service - INFO - Identified 4 gaps in analysis
+2025-06-18 10:23:17,306 - src.core.structured_arcadia_service - INFO - Performed 2 consistency checks
+2025-06-18 10:23:17,307 - src.core.structured_arcadia_service - INFO - Calculated 2 quality metrics
+2025-06-18 10:23:17,307 - src.core.structured_arcadia_service - INFO - Cross-phase analysis completed: 0 links, 4 gaps
+2025-06-18 10:23:17,307 - src.core.structured_arcadia_service - INFO - Complete ARCADIA analysis finished in 74.0 seconds
+2025-06-18 10:23:17,307 - src.core.rag_system - INFO - Structured analysis completed for phases: ['operational', 'system', 'logical', 'physical']
+2025-06-18 10:23:17,307 - src.core.rag_system - INFO - Enhanced requirements generation completed in 552.7 seconds
+2025-06-18 10:23:17,311 - src.infrastructure.database - WARNING - ID collision detected, using fallback ID: req_eb71dc8d-d619-4259-a8c8-73a48a30f152
+2025-06-18 10:23:17,315 - src.infrastructure.database - INFO - Saved requirements for project: proj_20250618_101404
+2025-06-18 10:23:17,315 - src.infrastructure.database - ERROR - JSON serialization error for cache key enhanced_results_proj_20250618_101404: Object of type ARCADIAStructuredOutput is not JSON serializable
+2025-06-18 10:23:17,320 - src.services.requirements_service - INFO - Created project proj_20250618_101404 with requirements
+2025-06-18 10:24:37,380 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)
+2025-06-18 10:24:43,596 - ARCADIA_Clean - INFO - Starting ARCADIA Requirements Generator (Clean Version)

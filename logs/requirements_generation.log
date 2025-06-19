@@ -37140,3 +37140,566 @@
 2025-06-17 17:20:13,574 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
 2025-06-17 17:20:13,574 - ARCADIA_RAG_System - INFO - Core services initialized successfully
 2025-06-17 17:20:13,579 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:02:06,439 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:02:06,439 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:02:06,457 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:02:06,475 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-19 12:02:06,541 - src.core.rag_system - INFO - Enhanced requirement extractor initialized
+2025-06-19 12:02:06,542 - src.core.rag_system - INFO - RAG system initialized with ChromaDB default embeddings
+2025-06-19 12:02:06,542 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-19 12:02:06,542 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-19 12:02:06,542 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-19 12:02:06,542 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-19 12:02:06,542 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-19 12:02:06,542 - src.core.rag_system - INFO - Enhanced Structured RAG System initialized
+2025-06-19 12:02:06,542 - ARCADIA_RAG_System - INFO - Enhanced Structured RAG System initialized successfully
+2025-06-19 12:02:06,542 - ARCADIA_RAG_System - INFO - Services initialized successfully with caching
+2025-06-19 12:02:06,542 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:02:06,545 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:02:06,691 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:02:06,691 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:02:06,695 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:08:54,200 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:08:54,259 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:08:54,276 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-19 12:08:54,338 - src.core.rag_system - INFO - Enhanced requirement extractor initialized
+2025-06-19 12:08:54,338 - src.core.rag_system - INFO - RAG system initialized with ChromaDB default embeddings
+2025-06-19 12:08:54,338 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-19 12:08:54,338 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-19 12:08:54,338 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-19 12:08:54,338 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-19 12:08:54,339 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-19 12:08:54,339 - src.core.rag_system - INFO - Enhanced Structured RAG System initialized
+2025-06-19 12:08:54,339 - ARCADIA_RAG_System - INFO - Enhanced Structured RAG System initialized successfully
+2025-06-19 12:08:54,339 - ARCADIA_RAG_System - INFO - Services initialized successfully with caching
+2025-06-19 12:08:54,339 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:08:54,341 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:09:04,387 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:09:04,392 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:09:04,392 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:09:04,402 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:09:04,403 - ARCADIA_RAG_System - INFO - File upload initiated: Modélisation Irekia .pdf
+2025-06-19 12:09:04,403 - ARCADIA_RAG_System - INFO -    • File type: application/pdf
+2025-06-19 12:09:04,403 - ARCADIA_RAG_System - INFO -    • File size: 446219 bytes (0.43 MB)
+2025-06-19 12:09:04,403 - ARCADIA_RAG_System - INFO - Starting document processing...
+2025-06-19 12:09:04,403 - ARCADIA_RAG_System - INFO - Processing PDF file...
+2025-06-19 12:09:04,403 - ARCADIA_RAG_System - INFO -    • PDF raw size: 446219 bytes
+2025-06-19 12:09:04,408 - ARCADIA_RAG_System - INFO -    • PDF pages detected: 24
+2025-06-19 12:09:04,408 - ARCADIA_RAG_System - INFO -    • Processing page 1...
+2025-06-19 12:09:04,433 - ARCADIA_RAG_System - INFO -      - Page 1: 1930 characters extracted
+2025-06-19 12:09:04,434 - ARCADIA_RAG_System - INFO -    • Processing page 2...
+2025-06-19 12:09:04,450 - ARCADIA_RAG_System - INFO -      - Page 2: 1711 characters extracted
+2025-06-19 12:09:04,450 - ARCADIA_RAG_System - INFO -    • Processing page 3...
+2025-06-19 12:09:04,465 - ARCADIA_RAG_System - INFO -      - Page 3: 1994 characters extracted
+2025-06-19 12:09:04,465 - ARCADIA_RAG_System - INFO -    • Processing page 4...
+2025-06-19 12:09:04,477 - ARCADIA_RAG_System - INFO -      - Page 4: 1595 characters extracted
+2025-06-19 12:09:04,477 - ARCADIA_RAG_System - INFO -    • Processing page 5...
+2025-06-19 12:09:04,489 - ARCADIA_RAG_System - INFO -      - Page 5: 1650 characters extracted
+2025-06-19 12:09:04,490 - ARCADIA_RAG_System - INFO -    • Processing page 6...
+2025-06-19 12:09:04,510 - ARCADIA_RAG_System - INFO -      - Page 6: 1351 characters extracted
+2025-06-19 12:09:04,510 - ARCADIA_RAG_System - INFO -    • Processing page 7...
+2025-06-19 12:09:04,525 - ARCADIA_RAG_System - INFO -      - Page 7: 1251 characters extracted
+2025-06-19 12:09:04,526 - ARCADIA_RAG_System - INFO -    • Processing page 8...
+2025-06-19 12:09:04,534 - ARCADIA_RAG_System - INFO -      - Page 8: 1053 characters extracted
+2025-06-19 12:09:04,534 - ARCADIA_RAG_System - INFO -    • Processing page 9...
+2025-06-19 12:09:04,541 - ARCADIA_RAG_System - INFO -      - Page 9: 1244 characters extracted
+2025-06-19 12:09:04,542 - ARCADIA_RAG_System - INFO -    • Processing page 10...
+2025-06-19 12:09:04,547 - ARCADIA_RAG_System - INFO -      - Page 10: 1203 characters extracted
+2025-06-19 12:09:04,547 - ARCADIA_RAG_System - INFO -    • Processing page 11...
+2025-06-19 12:09:04,555 - ARCADIA_RAG_System - INFO -      - Page 11: 1437 characters extracted
+2025-06-19 12:09:04,555 - ARCADIA_RAG_System - INFO -    • Processing page 12...
+2025-06-19 12:09:04,561 - ARCADIA_RAG_System - INFO -      - Page 12: 1412 characters extracted
+2025-06-19 12:09:04,562 - ARCADIA_RAG_System - INFO -    • Processing page 13...
+2025-06-19 12:09:04,568 - ARCADIA_RAG_System - INFO -      - Page 13: 1558 characters extracted
+2025-06-19 12:09:04,568 - ARCADIA_RAG_System - INFO -    • Processing page 14...
+2025-06-19 12:09:04,579 - ARCADIA_RAG_System - INFO -      - Page 14: 1616 characters extracted
+2025-06-19 12:09:04,579 - ARCADIA_RAG_System - INFO -    • Processing page 15...
+2025-06-19 12:09:04,588 - ARCADIA_RAG_System - INFO -      - Page 15: 1170 characters extracted
+2025-06-19 12:09:04,588 - ARCADIA_RAG_System - INFO -    • Processing page 16...
+2025-06-19 12:09:04,594 - ARCADIA_RAG_System - INFO -      - Page 16: 1313 characters extracted
+2025-06-19 12:09:04,594 - ARCADIA_RAG_System - INFO -    • Processing page 17...
+2025-06-19 12:09:04,598 - ARCADIA_RAG_System - INFO -      - Page 17: 1085 characters extracted
+2025-06-19 12:09:04,598 - ARCADIA_RAG_System - INFO -    • Processing page 18...
+2025-06-19 12:09:04,603 - ARCADIA_RAG_System - INFO -      - Page 18: 1052 characters extracted
+2025-06-19 12:09:04,603 - ARCADIA_RAG_System - INFO -    • Processing page 19...
+2025-06-19 12:09:04,608 - ARCADIA_RAG_System - INFO -      - Page 19: 1010 characters extracted
+2025-06-19 12:09:04,608 - ARCADIA_RAG_System - INFO -    • Processing page 20...
+2025-06-19 12:09:04,613 - ARCADIA_RAG_System - INFO -      - Page 20: 942 characters extracted
+2025-06-19 12:09:04,613 - ARCADIA_RAG_System - INFO -    • Processing page 21...
+2025-06-19 12:09:04,618 - ARCADIA_RAG_System - INFO -      - Page 21: 993 characters extracted
+2025-06-19 12:09:04,618 - ARCADIA_RAG_System - INFO -    • Processing page 22...
+2025-06-19 12:09:04,625 - ARCADIA_RAG_System - INFO -      - Page 22: 1330 characters extracted
+2025-06-19 12:09:04,626 - ARCADIA_RAG_System - INFO -    • Processing page 23...
+2025-06-19 12:09:04,632 - ARCADIA_RAG_System - INFO -      - Page 23: 1098 characters extracted
+2025-06-19 12:09:04,632 - ARCADIA_RAG_System - INFO -    • Processing page 24...
+2025-06-19 12:09:04,634 - ARCADIA_RAG_System - INFO -      - Page 24: 541 characters extracted
+2025-06-19 12:09:04,634 - ARCADIA_RAG_System - INFO - PDF processed successfully: 24 pages, 31563 characters
+2025-06-19 12:09:04,635 - ARCADIA_RAG_System - INFO - Document processing completed successfully!
+2025-06-19 12:09:09,898 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:09:09,900 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:09:09,901 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:09:09,906 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:09:09,906 - ARCADIA_RAG_System - INFO - File upload initiated: Modélisation Irekia .pdf
+2025-06-19 12:09:09,907 - ARCADIA_RAG_System - INFO -    • File type: application/pdf
+2025-06-19 12:09:09,908 - ARCADIA_RAG_System - INFO -    • File size: 446219 bytes (0.43 MB)
+2025-06-19 12:09:09,909 - ARCADIA_RAG_System - INFO - Starting document processing...
+2025-06-19 12:09:09,909 - ARCADIA_RAG_System - INFO - Processing PDF file...
+2025-06-19 12:09:09,909 - ARCADIA_RAG_System - INFO -    • PDF raw size: 446219 bytes
+2025-06-19 12:09:09,913 - ARCADIA_RAG_System - INFO -    • PDF pages detected: 24
+2025-06-19 12:09:09,913 - ARCADIA_RAG_System - INFO -    • Processing page 1...
+2025-06-19 12:09:09,935 - ARCADIA_RAG_System - INFO -      - Page 1: 1930 characters extracted
+2025-06-19 12:09:09,935 - ARCADIA_RAG_System - INFO -    • Processing page 2...
+2025-06-19 12:09:09,953 - ARCADIA_RAG_System - INFO -      - Page 2: 1711 characters extracted
+2025-06-19 12:09:09,953 - ARCADIA_RAG_System - INFO -    • Processing page 3...
+2025-06-19 12:09:09,965 - ARCADIA_RAG_System - INFO -      - Page 3: 1994 characters extracted
+2025-06-19 12:09:09,965 - ARCADIA_RAG_System - INFO -    • Processing page 4...
+2025-06-19 12:09:09,976 - ARCADIA_RAG_System - INFO -      - Page 4: 1595 characters extracted
+2025-06-19 12:09:09,976 - ARCADIA_RAG_System - INFO -    • Processing page 5...
+2025-06-19 12:09:09,984 - ARCADIA_RAG_System - INFO -      - Page 5: 1650 characters extracted
+2025-06-19 12:09:09,985 - ARCADIA_RAG_System - INFO -    • Processing page 6...
+2025-06-19 12:09:09,998 - ARCADIA_RAG_System - INFO -      - Page 6: 1351 characters extracted
+2025-06-19 12:09:09,998 - ARCADIA_RAG_System - INFO -    • Processing page 7...
+2025-06-19 12:09:10,008 - ARCADIA_RAG_System - INFO -      - Page 7: 1251 characters extracted
+2025-06-19 12:09:10,008 - ARCADIA_RAG_System - INFO -    • Processing page 8...
+2025-06-19 12:09:10,018 - ARCADIA_RAG_System - INFO -      - Page 8: 1053 characters extracted
+2025-06-19 12:09:10,018 - ARCADIA_RAG_System - INFO -    • Processing page 9...
+2025-06-19 12:09:10,026 - ARCADIA_RAG_System - INFO -      - Page 9: 1244 characters extracted
+2025-06-19 12:09:10,027 - ARCADIA_RAG_System - INFO -    • Processing page 10...
+2025-06-19 12:09:10,034 - ARCADIA_RAG_System - INFO -      - Page 10: 1203 characters extracted
+2025-06-19 12:09:10,034 - ARCADIA_RAG_System - INFO -    • Processing page 11...
+2025-06-19 12:09:10,043 - ARCADIA_RAG_System - INFO -      - Page 11: 1437 characters extracted
+2025-06-19 12:09:10,043 - ARCADIA_RAG_System - INFO -    • Processing page 12...
+2025-06-19 12:09:10,051 - ARCADIA_RAG_System - INFO -      - Page 12: 1412 characters extracted
+2025-06-19 12:09:10,051 - ARCADIA_RAG_System - INFO -    • Processing page 13...
+2025-06-19 12:09:10,063 - ARCADIA_RAG_System - INFO -      - Page 13: 1558 characters extracted
+2025-06-19 12:09:10,063 - ARCADIA_RAG_System - INFO -    • Processing page 14...
+2025-06-19 12:09:10,075 - ARCADIA_RAG_System - INFO -      - Page 14: 1616 characters extracted
+2025-06-19 12:09:10,076 - ARCADIA_RAG_System - INFO -    • Processing page 15...
+2025-06-19 12:09:10,085 - ARCADIA_RAG_System - INFO -      - Page 15: 1170 characters extracted
+2025-06-19 12:09:10,085 - ARCADIA_RAG_System - INFO -    • Processing page 16...
+2025-06-19 12:09:10,091 - ARCADIA_RAG_System - INFO -      - Page 16: 1313 characters extracted
+2025-06-19 12:09:10,091 - ARCADIA_RAG_System - INFO -    • Processing page 17...
+2025-06-19 12:09:10,095 - ARCADIA_RAG_System - INFO -      - Page 17: 1085 characters extracted
+2025-06-19 12:09:10,095 - ARCADIA_RAG_System - INFO -    • Processing page 18...
+2025-06-19 12:09:10,101 - ARCADIA_RAG_System - INFO -      - Page 18: 1052 characters extracted
+2025-06-19 12:09:10,101 - ARCADIA_RAG_System - INFO -    • Processing page 19...
+2025-06-19 12:09:10,106 - ARCADIA_RAG_System - INFO -      - Page 19: 1010 characters extracted
+2025-06-19 12:09:10,106 - ARCADIA_RAG_System - INFO -    • Processing page 20...
+2025-06-19 12:09:10,111 - ARCADIA_RAG_System - INFO -      - Page 20: 942 characters extracted
+2025-06-19 12:09:10,111 - ARCADIA_RAG_System - INFO -    • Processing page 21...
+2025-06-19 12:09:10,117 - ARCADIA_RAG_System - INFO -      - Page 21: 993 characters extracted
+2025-06-19 12:09:10,117 - ARCADIA_RAG_System - INFO -    • Processing page 22...
+2025-06-19 12:09:10,124 - ARCADIA_RAG_System - INFO -      - Page 22: 1330 characters extracted
+2025-06-19 12:09:10,124 - ARCADIA_RAG_System - INFO -    • Processing page 23...
+2025-06-19 12:09:10,131 - ARCADIA_RAG_System - INFO -      - Page 23: 1098 characters extracted
+2025-06-19 12:09:10,131 - ARCADIA_RAG_System - INFO -    • Processing page 24...
+2025-06-19 12:09:10,134 - ARCADIA_RAG_System - INFO -      - Page 24: 541 characters extracted
+2025-06-19 12:09:10,134 - ARCADIA_RAG_System - INFO - PDF processed successfully: 24 pages, 31563 characters
+2025-06-19 12:09:10,134 - ARCADIA_RAG_System - INFO - Document processing completed successfully!
+2025-06-19 12:09:12,531 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:09:12,536 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:09:12,537 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:09:12,550 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:09:12,550 - ARCADIA_RAG_System - INFO - File upload initiated: Modélisation Irekia .pdf
+2025-06-19 12:09:12,550 - ARCADIA_RAG_System - INFO -    • File type: application/pdf
+2025-06-19 12:09:12,551 - ARCADIA_RAG_System - INFO -    • File size: 446219 bytes (0.43 MB)
+2025-06-19 12:09:12,551 - ARCADIA_RAG_System - INFO - Starting document processing...
+2025-06-19 12:09:12,551 - ARCADIA_RAG_System - INFO - Processing PDF file...
+2025-06-19 12:09:12,551 - ARCADIA_RAG_System - INFO -    • PDF raw size: 446219 bytes
+2025-06-19 12:09:12,555 - ARCADIA_RAG_System - INFO -    • PDF pages detected: 24
+2025-06-19 12:09:12,555 - ARCADIA_RAG_System - INFO -    • Processing page 1...
+2025-06-19 12:09:12,575 - ARCADIA_RAG_System - INFO -      - Page 1: 1930 characters extracted
+2025-06-19 12:09:12,575 - ARCADIA_RAG_System - INFO -    • Processing page 2...
+2025-06-19 12:09:12,589 - ARCADIA_RAG_System - INFO -      - Page 2: 1711 characters extracted
+2025-06-19 12:09:12,589 - ARCADIA_RAG_System - INFO -    • Processing page 3...
+2025-06-19 12:09:12,601 - ARCADIA_RAG_System - INFO -      - Page 3: 1994 characters extracted
+2025-06-19 12:09:12,601 - ARCADIA_RAG_System - INFO -    • Processing page 4...
+2025-06-19 12:09:12,609 - ARCADIA_RAG_System - INFO -      - Page 4: 1595 characters extracted
+2025-06-19 12:09:12,610 - ARCADIA_RAG_System - INFO -    • Processing page 5...
+2025-06-19 12:09:12,620 - ARCADIA_RAG_System - INFO -      - Page 5: 1650 characters extracted
+2025-06-19 12:09:12,620 - ARCADIA_RAG_System - INFO -    • Processing page 6...
+2025-06-19 12:09:12,631 - ARCADIA_RAG_System - INFO -      - Page 6: 1351 characters extracted
+2025-06-19 12:09:12,631 - ARCADIA_RAG_System - INFO -    • Processing page 7...
+2025-06-19 12:09:12,639 - ARCADIA_RAG_System - INFO -      - Page 7: 1251 characters extracted
+2025-06-19 12:09:12,640 - ARCADIA_RAG_System - INFO -    • Processing page 8...
+2025-06-19 12:09:12,649 - ARCADIA_RAG_System - INFO -      - Page 8: 1053 characters extracted
+2025-06-19 12:09:12,649 - ARCADIA_RAG_System - INFO -    • Processing page 9...
+2025-06-19 12:09:12,657 - ARCADIA_RAG_System - INFO -      - Page 9: 1244 characters extracted
+2025-06-19 12:09:12,657 - ARCADIA_RAG_System - INFO -    • Processing page 10...
+2025-06-19 12:09:12,664 - ARCADIA_RAG_System - INFO -      - Page 10: 1203 characters extracted
+2025-06-19 12:09:12,664 - ARCADIA_RAG_System - INFO -    • Processing page 11...
+2025-06-19 12:09:12,673 - ARCADIA_RAG_System - INFO -      - Page 11: 1437 characters extracted
+2025-06-19 12:09:12,673 - ARCADIA_RAG_System - INFO -    • Processing page 12...
+2025-06-19 12:09:12,680 - ARCADIA_RAG_System - INFO -      - Page 12: 1412 characters extracted
+2025-06-19 12:09:12,680 - ARCADIA_RAG_System - INFO -    • Processing page 13...
+2025-06-19 12:09:12,687 - ARCADIA_RAG_System - INFO -      - Page 13: 1558 characters extracted
+2025-06-19 12:09:12,687 - ARCADIA_RAG_System - INFO -    • Processing page 14...
+2025-06-19 12:09:12,698 - ARCADIA_RAG_System - INFO -      - Page 14: 1616 characters extracted
+2025-06-19 12:09:12,698 - ARCADIA_RAG_System - INFO -    • Processing page 15...
+2025-06-19 12:09:12,707 - ARCADIA_RAG_System - INFO -      - Page 15: 1170 characters extracted
+2025-06-19 12:09:12,707 - ARCADIA_RAG_System - INFO -    • Processing page 16...
+2025-06-19 12:09:12,713 - ARCADIA_RAG_System - INFO -      - Page 16: 1313 characters extracted
+2025-06-19 12:09:12,713 - ARCADIA_RAG_System - INFO -    • Processing page 17...
+2025-06-19 12:09:12,717 - ARCADIA_RAG_System - INFO -      - Page 17: 1085 characters extracted
+2025-06-19 12:09:12,717 - ARCADIA_RAG_System - INFO -    • Processing page 18...
+2025-06-19 12:09:12,722 - ARCADIA_RAG_System - INFO -      - Page 18: 1052 characters extracted
+2025-06-19 12:09:12,722 - ARCADIA_RAG_System - INFO -    • Processing page 19...
+2025-06-19 12:09:12,728 - ARCADIA_RAG_System - INFO -      - Page 19: 1010 characters extracted
+2025-06-19 12:09:12,728 - ARCADIA_RAG_System - INFO -    • Processing page 20...
+2025-06-19 12:09:12,733 - ARCADIA_RAG_System - INFO -      - Page 20: 942 characters extracted
+2025-06-19 12:09:12,733 - ARCADIA_RAG_System - INFO -    • Processing page 21...
+2025-06-19 12:09:12,739 - ARCADIA_RAG_System - INFO -      - Page 21: 993 characters extracted
+2025-06-19 12:09:12,739 - ARCADIA_RAG_System - INFO -    • Processing page 22...
+2025-06-19 12:09:12,745 - ARCADIA_RAG_System - INFO -      - Page 22: 1330 characters extracted
+2025-06-19 12:09:12,745 - ARCADIA_RAG_System - INFO -    • Processing page 23...
+2025-06-19 12:09:12,751 - ARCADIA_RAG_System - INFO -      - Page 23: 1098 characters extracted
+2025-06-19 12:09:12,751 - ARCADIA_RAG_System - INFO -    • Processing page 24...
+2025-06-19 12:09:12,754 - ARCADIA_RAG_System - INFO -      - Page 24: 541 characters extracted
+2025-06-19 12:09:12,754 - ARCADIA_RAG_System - INFO - PDF processed successfully: 24 pages, 31563 characters
+2025-06-19 12:09:12,754 - ARCADIA_RAG_System - INFO - Document processing completed successfully!
+2025-06-19 12:09:12,755 - ARCADIA_RAG_System - INFO - Starting requirements generation process...
+2025-06-19 12:09:12,755 - ARCADIA_RAG_System - INFO - Input: 31563 characters, Target Phase: system, Types: ['functional', 'non_functional']
+2025-06-19 12:09:12,755 - ARCADIA_RAG_System - INFO - Generation started at: 12:09:12
+2025-06-19 12:09:12,756 - ARCADIA_RAG_System - INFO - Step 1: Analyzing project proposal and extracting context...
+2025-06-19 12:09:12,756 - ARCADIA_RAG_System - INFO - Step 1 completed in 0.0 seconds
+2025-06-19 12:09:12,756 - ARCADIA_RAG_System - INFO - Step 2: Initiating AI-driven requirements generation...
+2025-06-19 12:09:12,756 - ARCADIA_RAG_System - INFO - Targeting ARCADIA phases: system
+2025-06-19 12:09:12,756 - ARCADIA_RAG_System - INFO - Requirement types: functional, non_functional
+2025-06-19 12:09:12,756 - ARCADIA_RAG_System - INFO - Note: This may take several minutes due to LLM processing time...
+2025-06-19 12:09:12,756 - ARCADIA_RAG_System - INFO - Estimated LLM calls: 3 (each may take 30-120 seconds)
+2025-06-19 12:09:12,756 - ARCADIA_RAG_System - INFO - Estimated total time: 3.0-6.0 minutes
+2025-06-19 12:09:12,756 - src.core.rag_system - INFO - Starting enhanced requirements generation with structured analysis
+2025-06-19 12:09:12,756 - src.core.rag_system - INFO - Step 1: Generating traditional requirements
+2025-06-19 12:09:12,757 - src.core.rag_system - INFO - Created 40 context chunks from proposal
+2025-06-19 12:09:12,769 - src.core.requirements_generator - INFO - Identified 19 components for system phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-06-19 12:09:42,363 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:09:42,425 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-06-19 12:09:59,935 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:10:19,086 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:10:33,859 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:10:33,893 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 1, 'COULD': 0}
+2025-06-19 12:10:33,894 - src.core.rag_system - INFO - Step 2: Generating structured ARCADIA analysis
+2025-06-19 12:10:33,895 - src.core.rag_system - INFO - Created 40 context chunks from proposal
+2025-06-19 12:10:33,895 - src.core.structured_arcadia_service - INFO - Starting complete ARCADIA structured analysis
+2025-06-19 12:10:33,895 - src.core.structured_arcadia_service - INFO - Phase 2: Extracting System Analysis
+2025-06-19 12:10:33,895 - src.core.system_analysis_extractor - INFO - Starting system analysis extraction
+2025-06-19 12:10:33,895 - src.core.system_analysis_extractor - INFO - Step 1: Defining system boundary and context
+2025-06-19 12:10:38,652 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:10:38,655 - src.core.system_analysis_extractor - INFO - Step 2: Extracting system actors and interfaces
+2025-06-19 12:10:43,362 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:10:43,364 - src.core.system_analysis_extractor - INFO - Extracted 6 system actors
+2025-06-19 12:10:43,364 - src.core.system_analysis_extractor - INFO - Step 3: Extracting system functions
+2025-06-19 12:10:49,463 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:10:49,465 - src.core.system_analysis_extractor - INFO - Extracted 4 system functions
+2025-06-19 12:10:49,465 - src.core.system_analysis_extractor - INFO - Step 4: Extracting system capabilities
+2025-06-19 12:10:53,705 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:10:53,706 - src.core.system_analysis_extractor - INFO - Extracted 3 system capabilities
+2025-06-19 12:10:53,706 - src.core.system_analysis_extractor - INFO - Step 5: Extracting functional chains
+2025-06-19 12:10:58,418 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-19 12:10:58,421 - src.core.system_analysis_extractor - INFO - Extracted 2 functional chains
+2025-06-19 12:10:58,421 - src.core.system_analysis_extractor - INFO - System analysis extraction completed: 6 actors, 4 functions, 3 capabilities, 2 functional chains
+2025-06-19 12:10:58,421 - src.core.structured_arcadia_service - INFO - System analysis completed: 6 actors, 4 functions
+2025-06-19 12:10:58,421 - src.core.structured_arcadia_service - INFO - Performing cross-phase analysis
+2025-06-19 12:10:58,421 - src.core.structured_arcadia_service - INFO - Starting cross-phase analysis
+2025-06-19 12:10:58,421 - src.core.structured_arcadia_service - INFO - Generated 0 total traceability links across all phases
+2025-06-19 12:10:58,421 - src.core.structured_arcadia_service - INFO - Identified 0 gaps in analysis
+2025-06-19 12:10:58,421 - src.core.structured_arcadia_service - INFO - Performed 2 consistency checks
+2025-06-19 12:10:58,421 - src.core.structured_arcadia_service - INFO - Calculated 1 quality metrics
+2025-06-19 12:10:58,421 - src.core.structured_arcadia_service - INFO - Cross-phase analysis completed: 0 links, 0 gaps
+2025-06-19 12:10:58,421 - src.core.structured_arcadia_service - INFO - Complete ARCADIA analysis finished in 24.5 seconds
+2025-06-19 12:10:58,422 - src.core.rag_system - INFO - Structured analysis completed for phases: ['system']
+2025-06-19 12:10:58,422 - src.core.rag_system - INFO - Enhanced requirements generation completed in 105.7 seconds
+2025-06-19 12:10:58,422 - ARCADIA_RAG_System - INFO - Enhanced generation completed - Traditional requirements: 1
+2025-06-19 12:10:58,422 - ARCADIA_RAG_System - INFO - Step 2 completed in 105.7 seconds (1.8 minutes)
+2025-06-19 12:10:58,422 - ARCADIA_RAG_System - INFO - Requirements generation completed successfully
+2025-06-19 12:10:58,422 - ARCADIA_RAG_System - INFO - Generation Statistics:
+2025-06-19 12:10:58,422 - ARCADIA_RAG_System - INFO -    • Total Requirements Generated: 1
+2025-06-19 12:10:58,422 - ARCADIA_RAG_System - INFO -    • Phases Covered: 1
+2025-06-19 12:10:58,422 - ARCADIA_RAG_System - INFO -    • Stakeholders Identified: 0
+2025-06-19 12:10:58,423 - ARCADIA_RAG_System - INFO -    • Priority Distribution:
+2025-06-19 12:10:58,423 - ARCADIA_RAG_System - INFO -      - MUST (Critical): 0
+2025-06-19 12:10:58,423 - ARCADIA_RAG_System - INFO -      - SHOULD (Important): 1
+2025-06-19 12:10:58,423 - ARCADIA_RAG_System - INFO -      - COULD (Nice-to-have): 0
+2025-06-19 12:10:58,423 - ARCADIA_RAG_System - INFO -    • SYSTEM Phase: 1 requirements
+2025-06-19 12:10:58,423 - ARCADIA_RAG_System - INFO -      - functional: 0 requirements
+2025-06-19 12:10:58,423 - ARCADIA_RAG_System - INFO -      - non_functional: 1 requirements
+2025-06-19 12:10:58,425 - ARCADIA_RAG_System - INFO - Step 3: Post-processing and quality validation...
+2025-06-19 12:10:58,425 - ARCADIA_RAG_System - INFO - Requirements generation process completed successfully!
+2025-06-19 12:10:58,425 - ARCADIA_RAG_System - INFO - Total generation time: 105.7 seconds (1.8 minutes)
+2025-06-19 12:10:58,426 - ARCADIA_RAG_System - INFO - Completed at: 12:10:58
+2025-06-19 12:19:39,215 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:19:39,218 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:19:39,218 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:19:39,223 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:20:44,899 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:20:44,902 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:20:44,902 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:20:44,906 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:44:30,711 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:44:30,713 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:44:30,731 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-06-19 12:44:30,748 - ARCADIA_RAG_System - WARNING - Enhanced Persistent system failed: An instance of Chroma already exists for ./data/vectordb with different settings
+2025-06-19 12:44:30,748 - ARCADIA_RAG_System - INFO - Falling back to Enhanced Structured system
+2025-06-19 12:44:30,779 - src.core.rag_system - INFO - Enhanced requirement extractor initialized
+2025-06-19 12:44:30,780 - src.core.rag_system - INFO - RAG system initialized with ChromaDB default embeddings
+2025-06-19 12:44:30,780 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-19 12:44:30,780 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-19 12:44:30,780 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-19 12:44:30,780 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-19 12:44:30,780 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-19 12:44:30,780 - src.core.rag_system - INFO - Enhanced Structured RAG System initialized
+2025-06-19 12:44:30,780 - ARCADIA_RAG_System - INFO - Enhanced Structured RAG System initialized successfully
+2025-06-19 12:44:30,781 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:44:30,782 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-06-19 12:44:30,788 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:46:43,573 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:46:43,630 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:46:43,632 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-06-19 12:46:43,650 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-19 12:46:43,713 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-06-19 12:46:44,717 - src.core.enhanced_persistent_rag_system - WARNING - Collection existante incompatible, recréation...
+2025-06-19 12:46:44,720 - src.core.enhanced_persistent_rag_system - INFO - Nouvelle collection créée : safe_mbse_requirements_persistent
+2025-06-19 12:46:44,720 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-19 12:46:44,720 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-19 12:46:44,720 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-19 12:46:44,720 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-19 12:46:44,720 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-19 12:46:44,720 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-06-19 12:46:44,720 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-06-19 12:46:44,721 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:46:44,722 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-06-19 12:46:44,729 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Demo Project 20250619_124456 (proj_20250619_124456_0328)
+2025-06-19 12:46:44,764 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:46:44,764 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:46:44,764 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:46:44,772 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 12:46:44,774 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 12:46:44,776 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:46:56,551 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:46:56,554 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:46:56,555 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:46:56,656 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 12:46:56,657 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 12:46:56,659 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 12:54:01,800 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:54:01,815 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:54:01,831 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:54:01,886 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : SAFE Project_test (proj_20250618_154509_5595)
+2025-06-19 12:54:02,067 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 12:54:02,067 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 12:54:02,067 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 12:54:02,080 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 12:54:02,082 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 12:54:02,083 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 13:22:40,614 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 13:22:40,698 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 13:22:40,703 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-06-19 13:22:40,720 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-19 13:22:40,782 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-06-19 13:22:41,851 - src.core.enhanced_persistent_rag_system - INFO - Collection existante compatible
+2025-06-19 13:22:41,851 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-19 13:22:41,851 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-19 13:22:41,851 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-19 13:22:41,851 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-19 13:22:41,851 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-19 13:22:41,851 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-06-19 13:22:41,851 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-06-19 13:22:41,851 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 13:22:41,858 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-06-19 13:35:52,147 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 13:35:52,167 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 13:35:52,167 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 13:35:52,168 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-06-19 13:40:23,565 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 13:40:23,646 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 13:40:23,660 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-06-19 13:40:23,684 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-19 13:40:23,763 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-06-19 13:40:24,775 - src.core.enhanced_persistent_rag_system - INFO - Collection existante compatible
+2025-06-19 13:40:24,775 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-19 13:40:24,775 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-19 13:40:24,775 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-19 13:40:24,775 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-19 13:40:24,775 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-19 13:40:24,775 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-06-19 13:40:24,775 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-06-19 13:40:24,775 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 13:40:24,777 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-06-19 13:40:24,785 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Demo Project 20250619_124456 (proj_20250619_124456_0328)
+2025-06-19 13:40:24,834 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 13:40:24,835 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 13:40:24,835 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 13:40:24,844 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 13:40:24,846 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 13:40:24,848 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 13:55:21,161 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 13:55:21,173 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 13:55:21,173 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 13:55:21,217 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 13:55:21,222 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 13:55:21,247 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 14:06:54,807 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 14:06:54,820 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 14:06:54,821 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 14:06:54,872 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 14:06:54,875 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 14:06:54,888 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 15:08:16,822 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:08:16,884 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:08:16,889 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-06-19 15:08:16,904 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-19 15:08:16,960 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-06-19 15:08:18,020 - src.core.enhanced_persistent_rag_system - INFO - Collection existante compatible
+2025-06-19 15:08:18,020 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-19 15:08:18,020 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-19 15:08:18,020 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-19 15:08:18,020 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-19 15:08:18,020 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-19 15:08:18,020 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-06-19 15:08:18,020 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-06-19 15:08:18,021 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:08:18,023 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-06-19 15:08:18,034 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Demo Project 20250619_124456 (proj_20250619_124456_0328)
+2025-06-19 15:08:18,091 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:08:18,092 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:08:18,092 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:08:18,101 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 15:08:18,103 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 15:08:18,105 - ARCADIA_RAG_System - INFO - File uploader component rendered successfully
+2025-06-19 15:35:47,533 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:35:47,538 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:35:47,539 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:38:02,141 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:38:02,144 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:38:02,144 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:38:04,868 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:38:04,869 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:38:04,870 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:38:04,923 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:38:04,925 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:38:04,925 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:44:48,270 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:44:48,330 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:44:48,332 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-06-19 15:44:48,349 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-06-19 15:44:48,408 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-06-19 15:44:49,406 - src.core.enhanced_persistent_rag_system - INFO - Collection existante compatible
+2025-06-19 15:44:49,407 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-06-19 15:44:49,407 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-06-19 15:44:49,407 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-06-19 15:44:49,407 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-06-19 15:44:49,407 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-06-19 15:44:49,407 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-06-19 15:44:49,407 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-06-19 15:44:49,407 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:44:49,412 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-06-19 15:44:49,419 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Demo Project 20250619_124456 (proj_20250619_124456_0328)
+2025-06-19 15:44:49,466 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:44:49,467 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:44:49,467 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:44:49,507 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:44:49,507 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:44:49,508 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:44:49,619 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 15:45:57,997 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:45:58,002 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:45:58,002 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:45:58,138 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:45:58,139 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:45:58,140 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:45:58,184 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 15:46:24,562 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:46:24,583 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:46:24,584 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:46:24,591 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : SAFE Project_test (proj_20250618_154509_5595)
+2025-06-19 15:46:24,672 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:46:24,673 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:46:24,675 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:46:24,708 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 15:48:41,329 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:48:41,331 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:48:41,332 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:48:41,557 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:48:41,559 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:48:41,559 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:49:16,703 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:49:16,707 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:49:16,708 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:49:16,860 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:49:16,861 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:49:16,862 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:49:49,103 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:49:49,112 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:49:49,113 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:49:52,304 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:49:52,307 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:49:52,307 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:56:30,065 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:56:30,077 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:56:30,078 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:56:30,221 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:56:30,222 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:56:30,223 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:56:30,257 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 15:56:39,633 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:56:39,638 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:56:39,638 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:56:39,657 - ARCADIA_RAG_System - INFO - Saved 2 chat sessions
+2025-06-19 15:56:39,751 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:56:39,752 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:56:39,753 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:56:39,789 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 15:57:35,483 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:57:35,487 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:57:35,487 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:57:35,637 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 15:57:35,638 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 15:57:35,638 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 15:57:35,665 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:00:14,660 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:00:14,674 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:00:14,675 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:00:14,698 - ARCADIA_RAG_System - INFO - New integrated chat message: Who are the stakeholders in the WP2 ? ...
+2025-06-19 16:00:14,698 - src.core.enhanced_persistent_rag_system - INFO - 💬 Processing query: Who are the stakeholders in the WP2 ? ...
+2025-06-19 16:00:20,472 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/chat "HTTP/1.1 200 OK"
+2025-06-19 16:00:20,473 - ARCADIA_RAG_System - INFO - Generated response with 0 context sources
+2025-06-19 16:00:20,478 - ARCADIA_RAG_System - INFO - Saved 2 chat sessions
+2025-06-19 16:00:20,555 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:00:20,555 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:00:20,555 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:00:20,579 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:01:32,727 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:01:32,733 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:01:32,734 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:01:32,868 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:01:37,762 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:01:37,764 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:01:37,764 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:01:37,808 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:08:12,489 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:08:12,495 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:08:12,495 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:08:12,594 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:08:12,595 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:08:12,595 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:08:12,619 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:08:29,832 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:08:29,845 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:08:29,846 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:08:29,924 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:08:34,689 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:08:34,695 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:08:34,695 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:08:34,751 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:08:42,500 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:08:42,502 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:08:42,502 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:08:42,550 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:09:02,929 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:09:02,947 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:09:02,992 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:09:03,066 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
+2025-06-19 16:09:04,987 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-19 16:09:04,989 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-19 16:09:04,989 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-19 16:09:05,052 - src.services.persistence_service - ERROR - Erreur lors de la récupération des requirements : tuple index out of range
