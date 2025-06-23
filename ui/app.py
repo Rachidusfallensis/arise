@@ -505,29 +505,67 @@ def init_project_manager(_rag_system):
         logger.error(f"Error initializing Project Manager: {str(e)}")
         return None
 
-def load_chats():
-    """Load saved chats from file"""
-    chats_file = Path("data/saved_chats.json")
+def load_project_chats(project_id=None):
+    """Load saved chats for a specific project"""
+    chats_file = Path("data/project_chats.json")
     chats_file.parent.mkdir(parents=True, exist_ok=True)
+    
     if chats_file.exists():
         try:
             with open(chats_file, "r", encoding="utf-8") as f:
-                return json.load(f)
+                all_chats = json.load(f)
+                
+            # Return chats for specific project or all if no project specified
+            if project_id:
+                return all_chats.get(str(project_id), {})
+            else:
+                return all_chats
         except Exception as e:
-            logger.error(f"Error loading chats: {str(e)}")
+            logger.error(f"Error loading project chats: {str(e)}")
             return {}
     return {}
 
+def save_project_chats(project_chats, project_id):
+    """Save chats for a specific project"""
+    try:
+        chats_file = Path("data/project_chats.json")
+        chats_file.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Load existing chats
+        all_chats = {}
+        if chats_file.exists():
+            try:
+                with open(chats_file, "r", encoding="utf-8") as f:
+                    all_chats = json.load(f)
+            except:
+                all_chats = {}
+        
+        # Update chats for this project
+        all_chats[str(project_id)] = project_chats
+        
+        # Save all chats back
+        with open(chats_file, "w", encoding="utf-8") as f:
+            json.dump(all_chats, f, indent=2, ensure_ascii=False)
+        
+        logger.info(f"Saved {len(project_chats)} chat sessions for project {project_id}")
+    except Exception as e:
+        logger.error(f"Error saving project chats: {str(e)}")
+
+def load_chats():
+    """Legacy function for backward compatibility"""
+    return load_project_chats()
+
 def save_chats(chats):
-    """Save chats to file"""
+    """Legacy function for backward compatibility"""
+    # For backward compatibility, save as global chats
     try:
         chats_file = Path("data/saved_chats.json")
         chats_file.parent.mkdir(parents=True, exist_ok=True)
         with open(chats_file, "w", encoding="utf-8") as f:
             json.dump(chats, f, indent=2, ensure_ascii=False)
-        logger.info(f"Saved {len(chats)} chat sessions")
+        logger.info(f"Saved {len(chats)} global chat sessions")
     except Exception as e:
-        logger.error(f"Error saving chats: {str(e)}")
+        logger.error(f"Error saving global chats: {str(e)}")
 
 def get_enhanced_prompt(user_prompt, context_type=None):
     """Enhance user prompt with MBSE context"""
@@ -641,11 +679,19 @@ Design and implement an intelligent manufacturing automation system that optimiz
 """
 
 def main():
-    # Header
+    # Header with improved ARISE branding
     st.markdown("""
     <div class="main-header">
-        <h1>ARISE</h1>
-        <p>ARcadiaIntelligentSystemEngine, built by engineers for engineers</p>
+        <h1 style="margin-bottom: 0.5rem;">ARISE</h1>
+        <p style="font-size: 1.3rem; margin: 0.5rem 0; font-weight: 300; opacity: 0.95;">
+            <span style="color: #f0f2f6;">AR</span>cadia 
+            <span style="color: #f0f2f6;">I</span>ntelligent 
+            <span style="color: #f0f2f6;">S</span>ystem 
+            <span style="color: #f0f2f6;">E</span>ngine
+        </p>
+        <p style="font-size: 1.1rem; margin: 0.5rem 0 0 0; font-style: italic; opacity: 0.9;">
+            Built by engineers, for engineers
+        </p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -659,11 +705,17 @@ def main():
     project_manager = init_project_manager(rag_system)
     has_project_management = project_manager is not None and project_manager.has_persistence
     
-    # Initialize chat system in session state
-    if "chats" not in st.session_state:
-        st.session_state.chats = load_chats()
+    # Initialize project-specific chat system in session state
+    if "project_chats" not in st.session_state:
+        st.session_state.project_chats = {}
     if "current_chat_id" not in st.session_state:
         st.session_state.current_chat_id = None
+    if "current_project_chat_context" not in st.session_state:
+        st.session_state.current_project_chat_context = None
+    
+    # Maintain backward compatibility with legacy chats
+    if "chats" not in st.session_state:
+        st.session_state.chats = load_chats()
     
     # Initialize project information for header (call render_project_sidebar once)
     current_project_id = None
@@ -1325,23 +1377,26 @@ def display_generation_results(results, export_format, rag_system):
             fig.update_layout(height=400)
             st.plotly_chart(fig, use_container_width=True)
             
-            # Expected vs actual distribution analysis
+            # Document-driven distribution analysis
             st.info("""
-            **ARCADIA Priority Guidelines Met:**
+            **ARCADIA Priority Guidelines:**
             - MUST (SHALL): Core security, regulatory compliance, safety-critical operations
             - SHOULD: Important operational features, performance requirements  
             - COULD: Enhancement features, convenience functions
             
-            **Healthy Distribution:** 30-40% MUST, 40-50% SHOULD, 10-20% COULD
+            **Note:** Priority distribution reflects the actual content and nature of your technical documents.
+            Different project types naturally have different priority profiles.
             """)
             
-            # Color-coded priority health indicator
-            if must_percentage > 50:
-                st.warning("⚠️ High proportion of MUST requirements - consider if all are truly critical")
-            elif must_percentage < 20:
-                st.warning("⚠️ Low proportion of MUST requirements - ensure critical requirements are identified")
+            # Document-content based priority assessment
+            if must_percentage > 70:
+                st.info("🔒 **Safety/Security-Critical System**: High proportion of MUST requirements reflects critical system nature")
+            elif must_percentage > 50:
+                st.info("🏭 **Mission-Critical System**: Moderate-high MUST requirements indicate operational importance")
+            elif must_percentage < 10:
+                st.info("🔬 **Research/Enhancement Project**: Low MUST requirements suggest experimental or enhancement nature")
             else:
-                st.success("✅ Balanced priority distribution aligned with ARCADIA methodology")
+                st.success("✅ **Balanced System**: Priority distribution reflects mixed criticality levels")
     
     # Requirements by phase
     for phase, phase_reqs in results.get('requirements', {}).items():
@@ -1590,10 +1645,15 @@ def chat_tab(rag_system):
     with col1:
         st.markdown("#### Chat Management")
         
-        # New chat button
+        # New chat button - Legacy support for traditional mode
         if st.button("New Chat", type="primary", use_container_width=True):
             new_chat_id = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
             st.session_state.current_chat_id = new_chat_id
+            
+            # Initialize legacy chats if not exists
+            if "chats" not in st.session_state:
+                st.session_state.chats = {}
+                
             st.session_state.chats[new_chat_id] = {
                 "title": "New Chat",
                 "messages": [],
@@ -1605,6 +1665,11 @@ def chat_tab(rag_system):
         
         # Chat history
         st.markdown("#### Chat History")
+        
+        # Initialize legacy chats if needed
+        if "chats" not in st.session_state:
+            st.session_state.chats = {}
+            
         if st.session_state.chats:
             with st.container():
                 for chat_id, chat_data in sorted(st.session_state.chats.items(), 
@@ -3093,25 +3158,65 @@ def process_documents_with_duplicate_detection(rag_system, current_project, uplo
         progress_bar.progress(0.5)
         status_text.text("Duplicate check complete!")
         
-        # Show results
+        # Show results with efficiency emphasis
         if duplicate_info:
-            st.warning(f"🔍 Found {len(duplicate_info)} duplicate file(s):")
+            st.info(f" **Efficiency Notice:** Found {len(duplicate_info)} file(s) already processed in the system")
+            
+            # Create efficiency metrics
+            total_duplicate_size = sum(dup['file'].size for dup in duplicate_info) / (1024 * 1024)  # MB
+            
+            # Use container instead of nested expander
+            st.markdown(f"**📊Efficiency Savings ({len(duplicate_info)} files)**")
+            
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("💾 Storage Saved", f"{total_duplicate_size:.1f} MB")
+            with col2:
+                st.metric("⚡ Processing Saved", f"{len(duplicate_info)} files")
+            with col3:
+                st.metric("🧠 Embeddings Reused", f"{len(duplicate_info)} sets")
+            
+            st.info("""
+            **🎯 Smart Deduplication Benefits:**
+            • **Storage efficiency**
+            
+            • **Processing speed**
+            
+            • **Cost savings**
+            
+            • **Consistency**
+            """)
+            
+            # Show duplicate details in a clean format
+            st.markdown("**📄 Available Files:**")
             for dup in duplicate_info:
-                st.write(f"• **{dup['file'].name}** - already exists in project `{dup['existing_project_id']}`")
+                st.write(f"• **{dup['file'].name}** - Available from project `{dup['existing_project_id']}`")
             
             # Show content availability for requirements generation
             available_content_files = [doc['filename'] for doc in st.session_state.get('extracted_files_info', [])]
             if available_content_files:
-                st.success(f"✅ **Content available for requirements generation from:** {', '.join(available_content_files)}")
-                st.info("💡 Even though these files are duplicates, their content has been extracted and is ready for analysis!")
+                st.success(f"✅ **Content ready for analysis:** {', '.join(available_content_files)}")
+                st.info("🚀 **Instant access**: Pre-processed content and embeddings are immediately available!")
             
-            st.markdown("**Options for duplicates:**")
+            st.markdown("**📋 Duplicate Handling Options:**")
             duplicate_action = st.radio(
-                "What would you like to do with duplicate files?",
-                ["Skip duplicates", "Process anyway (create new entries)", "Reuse existing (add to current project)"],
+                "How should we handle these efficient duplicates?",
+                [
+                    "🔗 Reuse existing (Recommended - Maximum efficiency)", 
+                    "⏭️ Skip duplicates (Content still available for analysis)",
+                    "🔄 Process anyway (Creates redundant copies - Not recommended)"
+                ],
                 key="duplicate_action",
-                help="Note: Content is already available for requirements generation regardless of your choice"
+                help="Recommended: Reuse existing for maximum storage and processing efficiency"
             )
+            
+            # Map back to original values for compatibility
+            if duplicate_action.startswith("🔗"):
+                duplicate_action = "Reuse existing (add to current project)"
+            elif duplicate_action.startswith("⏭️"):
+                duplicate_action = "Skip duplicates"
+            else:
+                duplicate_action = "Process anyway (create new entries)"
         else:
             duplicate_action = "Skip duplicates"  # Default when no duplicates
         
@@ -3263,6 +3368,18 @@ def project_documents_tab(rag_system, current_project, has_project_management):
     """Document Management tab - Focused on documents only"""
     st.markdown("### 📚 Document Management")
     
+    # Initialize project_documents to avoid undefined variable errors
+    project_documents = []
+    
+    # Load project documents if available
+    if has_project_management and current_project:
+        try:
+            project_documents = rag_system.persistence_service.get_project_documents(current_project.id)
+            project_documents = [doc for doc in project_documents if doc.processing_status == "completed"]
+        except Exception as e:
+            st.error(f"❌ Error loading project documents: {str(e)}")
+            project_documents = []
+    
     # Simple status check without detailed project metrics
     if has_project_management and not current_project:
         st.warning("⚠️ No project selected. Please create or select a project in the sidebar.")
@@ -3280,11 +3397,16 @@ def project_documents_tab(rag_system, current_project, has_project_management):
     with st.expander("📤 Upload Documents", expanded=False):
         if has_project_management and current_project:
             st.markdown(f"**Upload to project: {current_project.name}**")
+            st.info("""
+            💾 **Smart Deduplication Enabled**: If you upload files that already exist in the system, 
+            we'll offer to reuse them for maximum storage and processing efficiency!
+            """)
+            
             uploaded_files = st.file_uploader(
                 "Select files",
                 accept_multiple_files=True,
                 type=['pdf', 'docx', 'txt', 'md', 'xml', 'json', 'aird'],
-                help="Upload multiple documents. Duplicates will be automatically detected.",
+                help="Upload multiple documents. Smart deduplication saves storage and processing time.",
                 key="project_document_uploader"
             )
             
@@ -3382,162 +3504,261 @@ def project_documents_tab(rag_system, current_project, has_project_management):
     # Chat with Documents section (moved under document management)
     st.markdown("#### 💬 Chat with Documents")
     
-    # Chat management
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        if st.button("New Chat", type="primary", use_container_width=True, key="new_chat_docs"):
-            new_chat_id = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-            st.session_state.current_chat_id = new_chat_id
-            st.session_state.chats[new_chat_id] = {
-                "title": "New Chat",
-                "messages": [],
-                "created_at": datetime.now().isoformat(),
-                "document_count": 0
-            }
-            save_chats(st.session_state.chats)
-            st.rerun()
-    
-    with col2:
-        # Chat history dropdown
-        if st.session_state.chats:
-            chat_options = {chat_id: chat_data.get('title', 'Untitled Chat') 
-                          for chat_id, chat_data in sorted(st.session_state.chats.items(), 
-                                                         key=lambda x: x[1].get('created_at', ''), reverse=True)}
+    # Project-specific chat management
+    if has_project_management and current_project:
+        # Ensure we have project chats loaded for current project
+        project_id = current_project.id
+        if project_id not in st.session_state.project_chats:
+            st.session_state.project_chats[project_id] = load_project_chats(project_id)
+        
+        # Check if we need to switch chat context when project changes
+        if st.session_state.current_project_chat_context != project_id:
+            st.session_state.current_project_chat_context = project_id
+            st.session_state.current_chat_id = None  # Reset chat selection when switching projects
+        
+        current_project_chats = st.session_state.project_chats[project_id]
+        
+        # Chat management
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.markdown(f"**Project: {current_project.name}** - Chat with project documents only")
             
-            selected_chat = st.selectbox("History", 
-                                       options=list(chat_options.keys()), 
-                                       format_func=lambda x: chat_options[x],
-                                       key="chat_history_selector")
-            
-            if selected_chat != st.session_state.current_chat_id:
-                st.session_state.current_chat_id = selected_chat
+            if st.button("📝 New Project Chat", type="primary", use_container_width=True, key="new_project_chat"):
+                new_chat_id = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+                st.session_state.current_chat_id = new_chat_id
+                current_project_chats[new_chat_id] = {
+                    "title": "New Project Chat",
+                    "messages": [],
+                    "created_at": datetime.now().isoformat(),
+                    "project_id": project_id,
+                    "project_name": current_project.name,
+                    "document_count": len(project_documents) if 'project_documents' in locals() else 0
+                }
+                # Update session state and save
+                st.session_state.project_chats[project_id] = current_project_chats
+                save_project_chats(current_project_chats, project_id)
                 st.rerun()
+        
+        with col2:
+            # Project-specific chat history dropdown
+            if current_project_chats:
+                chat_options = {chat_id: chat_data.get('title', 'Untitled Chat') 
+                              for chat_id, chat_data in sorted(current_project_chats.items(), 
+                                                             key=lambda x: x[1].get('created_at', ''), reverse=True)}
+                
+                # Only show dropdown if there are chats
+                if chat_options:
+                    # Add placeholder option
+                    chat_options_with_placeholder = {"": "Select a chat..."} | chat_options
+                    
+                    selected_chat = st.selectbox(
+                        "Project Chat History", 
+                        options=list(chat_options_with_placeholder.keys()), 
+                        format_func=lambda x: chat_options_with_placeholder[x],
+                        index=0,  # Start with placeholder
+                        key="project_chat_history_selector"
+                    )
+                    
+                    if selected_chat and selected_chat != st.session_state.current_chat_id:
+                        st.session_state.current_chat_id = selected_chat
+                        st.rerun()
+                else:
+                    st.caption("No chats yet")
+            else:
+                st.caption("No project chats")
     
     # Chat interface
-    if st.session_state.current_chat_id:
-        current_chat = st.session_state.chats[st.session_state.current_chat_id]
+    if has_project_management and current_project and st.session_state.current_chat_id:
+        # Get current project chats
+        project_id = current_project.id
+        current_project_chats = st.session_state.project_chats.get(project_id, {})
         
-        # Chat title
-        chat_title = st.text_input(
-            "Chat Title", 
-            value=current_chat.get('title', 'New Chat'),
-            key="integrated_chat_title"
-        )
-        
-        # Update title if changed
-        if chat_title != current_chat.get('title', 'New Chat'):
-            current_chat['title'] = chat_title
-            save_chats(st.session_state.chats)
-        
-        # Chat messages container with scroll
-        chat_container = st.container()
-        
-        with chat_container:
-            # Display existing messages
-            for i, message in enumerate(current_chat["messages"]):
-                if message["role"] == "user":
-                    st.markdown(f"""
-                    <div class="chat-message user-message">
-                        <strong>You:</strong><br>
-                        {message["content"]}
-                    </div>
-                    """, unsafe_allow_html=True)
-                else:  # assistant
-                    st.markdown(f"""
-                    <div class="chat-message assistant-message">
-                        <strong>Assistant:</strong><br>
-                        {message["content"]}
-                    </div>
-                    """, unsafe_allow_html=True)
-                    
-                    # Show context sources if available
-                    if "context" in message and message["context"]:
-                        with st.expander(f"Sources ({len(message['context'])})"):
-                            for j, doc in enumerate(message["context"]):
-                                st.markdown(f"""
-                                <div class="source-citation">
-                                    <strong>Source {j+1}:</strong> {doc.get('metadata', {}).get('source', 'Unknown')}<br>
-                                    {doc.get('content', '')[:200]}...
-                                </div>
-                                """, unsafe_allow_html=True)
-        
-        # Chat input
-        user_prompt = st.chat_input("Ask about your documents, ARCADIA methodology, or MBSE concepts...", key="integrated_chat_input")
-        
-        if user_prompt:
-            logger.info(f"New integrated chat message: {user_prompt[:100]}...")
+        if st.session_state.current_chat_id in current_project_chats:
+            current_chat = current_project_chats[st.session_state.current_chat_id]
             
-            # Update chat title if it's the first message
-            if not current_chat["messages"]:
-                current_chat["title"] = user_prompt[:50] + ("..." if len(user_prompt) > 50 else "")
+            # Chat title
+            chat_title = st.text_input(
+                "Chat Title", 
+                value=current_chat.get('title', 'New Project Chat'),
+                key="integrated_project_chat_title"
+            )
             
-            # Add user message
-            current_chat["messages"].append({
-                "role": "user", 
-                "content": user_prompt,
-                "timestamp": datetime.now().isoformat()
-            })
+            # Update title if changed
+            if chat_title != current_chat.get('title', 'New Project Chat'):
+                current_chat['title'] = chat_title
+                # Update session state and save
+                st.session_state.project_chats[project_id] = current_project_chats
+                save_project_chats(current_project_chats, project_id)
+        
+            # Chat messages container with scroll
+            chat_container = st.container()
             
-            # Generate response
-            with st.spinner("Analyzing documents and generating response..."):
-                try:
-                    # Use RAG system to generate response
-                    response_data = rag_system.query_documents(user_prompt)
-                    
-                    if isinstance(response_data, dict):
-                        response = response_data.get('answer', 'I apologize, but I could not generate a response.')
-                        context_docs = response_data.get('sources', [])
-                    else:
-                        response = str(response_data)
-                        context_docs = []
-                    
-                    logger.info(f"Generated response with {len(context_docs)} context sources")
-                    
-                    # Add assistant response
-                    current_chat["messages"].append({
-                        "role": "assistant",
-                        "content": response,
-                        "context": [{"content": doc.page_content, "metadata": doc.metadata} for doc in context_docs] if context_docs else [],
-                        "timestamp": datetime.now().isoformat()
-                    })
-                    
-                    # Save chats
-                    save_chats(st.session_state.chats)
-                    
-                    # Rerun to show new messages
-                    st.rerun()
-                    
-                except Exception as e:
-                    logger.error(f"Error generating chat response: {str(e)}")
-                    error_message = f"I apologize, but I encountered an error: {str(e)}"
-                    
-                    current_chat["messages"].append({
-                        "role": "assistant",
-                        "content": error_message,
-                        "timestamp": datetime.now().isoformat()
-                    })
-                    
-                    save_chats(st.session_state.chats)
-                    st.rerun()
+            with chat_container:
+                # Display existing messages
+                for i, message in enumerate(current_chat["messages"]):
+                    if message["role"] == "user":
+                        st.markdown(f"""
+                        <div class="chat-message user-message">
+                            <strong>You:</strong><br>
+                            {message["content"]}
+                        </div>
+                        """, unsafe_allow_html=True)
+                    else:  # assistant
+                        st.markdown(f"""
+                        <div class="chat-message assistant-message">
+                            <strong>Assistant:</strong><br>
+                            {message["content"]}
+                        </div>
+                        """, unsafe_allow_html=True)
+                        
+                        # Show context sources if available (project-specific)
+                        if "context" in message and message["context"]:
+                            with st.expander(f"Project Sources ({len(message['context'])})"):
+                                for j, doc in enumerate(message["context"]):
+                                    source_name = doc.get('metadata', {}).get('source', 'Unknown')
+                                    st.markdown(f"""
+                                    <div class="source-citation">
+                                        <strong>📄 Source {j+1}:</strong> {source_name}<br>
+                                        <strong>Project:</strong> {current_project.name}<br>
+                                        {doc.get('content', '')[:200]}...
+                                    </div>
+                                    """, unsafe_allow_html=True)
+            
+            # Chat input with project context
+            user_prompt = st.chat_input(
+                f"Ask about {current_project.name} documents, ARCADIA methodology, or MBSE concepts...", 
+                key="integrated_project_chat_input"
+            )
+            
+            if user_prompt:
+                logger.info(f"New project chat message in {current_project.name}: {user_prompt[:100]}...")
+                
+                # Update chat title if it's the first message
+                if not current_chat["messages"]:
+                    current_chat["title"] = user_prompt[:50] + ("..." if len(user_prompt) > 50 else "")
+                
+                # Add user message
+                current_chat["messages"].append({
+                    "role": "user", 
+                    "content": user_prompt,
+                    "timestamp": datetime.now().isoformat(),
+                    "project_id": project_id,
+                    "project_name": current_project.name
+                })
+                
+                # Generate response with project-specific context
+                with st.spinner(f"Analyzing {current_project.name} documents and generating response..."):
+                    try:
+                        # Use project-specific RAG query if available
+                        if hasattr(rag_system, 'query_project_documents'):
+                            response_data = rag_system.query_project_documents(user_prompt, project_id)
+                        else:
+                            # Fallback to general query (will be limited by project context in vector store)
+                            response_data = rag_system.query_documents(user_prompt)
+                        
+                        if isinstance(response_data, dict):
+                            response = response_data.get('answer', 'I apologize, but I could not generate a response.')
+                            context_docs = response_data.get('sources', [])
+                        else:
+                            response = str(response_data)
+                            context_docs = []
+                        
+                        logger.info(f"Generated project-specific response with {len(context_docs)} context sources")
+                        
+                        # Add assistant response
+                        current_chat["messages"].append({
+                            "role": "assistant",
+                            "content": response,
+                            "context": [{"content": doc.page_content, "metadata": doc.metadata} for doc in context_docs] if context_docs else [],
+                            "timestamp": datetime.now().isoformat(),
+                            "project_id": project_id,
+                            "project_name": current_project.name
+                        })
+                        
+                        # Save project chats
+                        st.session_state.project_chats[project_id] = current_project_chats
+                        save_project_chats(current_project_chats, project_id)
+                        
+                        # Rerun to show new messages
+                        st.rerun()
+                        
+                    except Exception as e:
+                        logger.error(f"Error generating project chat response: {str(e)}")
+                        error_message = f"I apologize, but I encountered an error: {str(e)}"
+                        
+                        current_chat["messages"].append({
+                            "role": "assistant",
+                            "content": error_message,
+                            "timestamp": datetime.now().isoformat(),
+                            "project_id": project_id,
+                            "project_name": current_project.name
+                        })
+                        
+                        # Save project chats
+                        st.session_state.project_chats[project_id] = current_project_chats
+                        save_project_chats(current_project_chats, project_id)
+                        st.rerun()
+        else:
+            st.warning("⚠️ Chat session not found. Please create a new chat or select an existing one.")
+    
+    elif has_project_management and current_project:
+        # Project exists but no chat selected
+        st.info("💬 **Project Chat Available**")
+        st.markdown(f"""
+        **Ready to chat with {current_project.name} documents!**
+        
+        📋 **Available in this project:**
+        • {len(project_documents) if 'project_documents' in locals() else 0} processed documents
+        
+        💡 **Get started:**
+        1. Click "📝 New Project Chat" to start
+        2. Or select an existing chat from history
+        3. Ask questions about your project documents
+        """)
+        
+        # Show project documents available for chat
+        if 'project_documents' in locals() and project_documents:
+            with st.expander(f"📄 Available Documents for Chat ({len(project_documents)})"):
+                for doc in project_documents:
+                    status_icon = "🟢" if doc.processing_status == "completed" else "🟡"
+                    st.write(f"{status_icon} **{doc.filename}** ({doc.chunks_count} chunks)")
+        else:
+            st.warning("📭 No documents in this project yet. Upload documents above to enable chat.")
+    
+    elif has_project_management and not current_project:
+        # No project selected
+        st.warning("⚠️ **No project selected**")
+        st.info("""
+        **Project-specific chat requires an active project.**
+        
+        Please:
+        1. Create or select a project in the sidebar
+        2. Upload documents to the project
+        3. Return here to chat with project documents
+        
+        💡 Each project maintains its own isolated chat history and document access.
+        """)
     
     else:
-        st.info("Click 'New Chat' to start chatting with your documents!")
-        
-        # Quick start guide
+        # Traditional mode without project management
+        st.info("🔧 **Traditional Mode - Limited Chat**")
         st.markdown("""
-                 **Quick Start:**
-         1. Upload documents above
-         2. Start a new chat here
-         3. Ask questions about your documents
-         4. Get AI-powered responses with sources
-         """)
+        **Basic chat functionality available.**
+        
+        For full project-specific chat features:
+        • Enable project management
+        • Create dedicated projects
+        • Isolated chat histories per project
+        
+        💡 **Current limitations:** Global document access, no chat isolation
+        """)
 
 def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types, export_format, 
                              enable_structured_analysis, enable_cross_phase_analysis, is_enhanced):
     """Combined Requirements & Analysis tab - Phase 2 of reorganization"""
     
     
-    # Check project and documents status
+    # Check project and documents status - Initialize variables first
     current_project = None
     project_documents = []
     has_project_management = hasattr(rag_system, 'get_current_project') and hasattr(rag_system, 'persistence_service')
@@ -3551,6 +3772,10 @@ def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types,
             except Exception as e:
                 st.error(f"❌ Error loading project documents: {str(e)}")
                 project_documents = []
+        else:
+            project_documents = []  # Ensure it's always defined
+    else:
+        project_documents = []  # Ensure it's always defined
     
     # Document-based input section
     st.markdown("#### 📄 Document Selection & Analysis")
@@ -4133,7 +4358,7 @@ def project_insights_tab(rag_system, current_project, has_project_management):
         st.info(current_project.description)
     
     # Key metrics header - Most important statistics only
-    metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+    metric_col1, metric_col2, metric_col3 = st.columns(3)
     
     with metric_col1:
         st.metric("📄 Documents", current_project.documents_count)
@@ -4142,46 +4367,11 @@ def project_insights_tab(rag_system, current_project, has_project_management):
     with metric_col3:
         days_active = (datetime.now() - current_project.created_at).days
         st.metric("📅 Days Active", days_active)
-    with metric_col4:
-        # Calculate project health score
-        health_score = min(100, (current_project.documents_count * 20) + (current_project.requirements_count * 5))
-        health_color = "🟢" if health_score >= 80 else "🟡" if health_score >= 50 else "🔴"
-        st.metric("💪 Health", f"{health_color} {health_score}%")
     
     # Main insights sections
     insights_section1, insights_section2 = st.columns([2, 1])
     
     with insights_section1:
-        # Recent activity - Compact view
-        st.markdown("#### 📈 Recent Activity")
-        
-        try:
-            sessions = rag_system.persistence_service.get_project_sessions(current_project.id, limit=5)
-            
-            if sessions:
-                # Compact recent activities list
-                for session in sessions[:3]:  # Show only last 3 activities
-                    col1, col2 = st.columns([4, 1])
-                    with col1:
-                        action_icon = {
-                            'document_upload': '📄',
-                            'requirements_generation': '📝',
-                            'project_update': '🔄',
-                            'chat_session': '💬',
-                            'analysis_run': '🏗️'
-                        }.get(session['action_type'], '📊')
-                        
-                        # Compact description (max 40 chars)
-                        description = session['action_description'][:40] + "..." if len(session['action_description']) > 40 else session['action_description']
-                        st.markdown(f"{action_icon} **{session['action_type'].replace('_', ' ').title()}** - {description}")
-                    with col2:
-                        st.caption(pd.to_datetime(session['created_at']).strftime("%d/%m %H:%M"))
-            else:
-                st.info("No recent activity")
-                
-        except Exception as e:
-            st.error(f"❌ Error loading activities: {str(e)}")
-        
         # Requirements overview - Compact
         st.markdown("#### 📊 Requirements Overview")
         
@@ -4269,56 +4459,161 @@ def project_insights_tab(rag_system, current_project, has_project_management):
         action_col1, action_col2 = st.columns(2)
         
         with action_col1:
-            if st.button("📄 Add Documents", use_container_width=True):
-                st.info("💡 Go to 'Project & Documents' tab to upload files")
-            
-            if st.button("📝 Generate Requirements", use_container_width=True):
-                st.info("💡 Go to 'Requirements & Analysis' tab to generate")
-        
-        with action_col2:
-            if st.button("📊 Export Data", use_container_width=True):
-                # Export project data
+            if st.button("📊 Export Data", use_container_width=True, key="export_project_data"):
+                # Export comprehensive project data
                 try:
+                    # Get all project data with error handling
+                    documents = []
+                    requirements_data = {}
+                    stakeholders = []
+                    arcadia_analyses = []
+                    
+                    try:
+                        documents = rag_system.persistence_service.get_project_documents(current_project.id)
+                    except Exception as e:
+                        logger.warning(f"Could not load documents for export: {str(e)}")
+                        documents = []
+                    
+                    try:
+                        requirements_data = rag_system.persistence_service.get_project_requirements(current_project.id)
+                    except Exception as e:
+                        logger.warning(f"Could not load requirements for export: {str(e)}")
+                        requirements_data = {}
+                    
+                    try:
+                        stakeholders = rag_system.persistence_service.get_project_stakeholders(current_project.id)
+                    except Exception as e:
+                        logger.warning(f"Could not load stakeholders for export: {str(e)}")
+                        stakeholders = []
+                    
+                    try:
+                        arcadia_analyses = rag_system.persistence_service.get_project_arcadia_analyses(current_project.id)
+                    except Exception as e:
+                        logger.warning(f"Could not load ARCADIA analyses for export: {str(e)}")
+                        arcadia_analyses = []
+                    
+                    # Prepare comprehensive export data
                     export_data = {
-                        'project': {
+                        'project_info': {
+                            'id': current_project.id,
                             'name': current_project.name,
                             'description': current_project.description,
+                            'proposal_text': current_project.proposal_text,
                             'created_at': current_project.created_at.isoformat(),
+                            'updated_at': current_project.updated_at.isoformat(),
                             'documents_count': current_project.documents_count,
                             'requirements_count': current_project.requirements_count
                         },
-                        'documents': len(documents) if 'documents' in locals() else 0,
-                        'stakeholders': len(stakeholders) if 'stakeholders' in locals() else 0
+                        'documents': [
+                            {
+                                'id': getattr(doc, 'id', 'unknown'),
+                                'filename': getattr(doc, 'filename', 'unknown'),
+                                'file_size': getattr(doc, 'file_size', 0),
+                                'chunks_count': getattr(doc, 'chunks_count', 0),
+                                'processing_status': getattr(doc, 'processing_status', 'unknown'),
+                                'embedding_model': getattr(doc, 'embedding_model', 'unknown'),
+                                'uploaded_at': (
+                                    doc.uploaded_at.isoformat() if hasattr(doc, 'uploaded_at') and doc.uploaded_at 
+                                    else doc.created_at.isoformat() if hasattr(doc, 'created_at') and doc.created_at
+                                    else datetime.now().isoformat()
+                                )
+                            } for doc in documents
+                        ],
+                        'requirements': requirements_data,
+                        'stakeholders': stakeholders,
+                        'arcadia_analyses': arcadia_analyses,
+                        'export_metadata': {
+                            'exported_at': datetime.now().isoformat(),
+                            'total_documents': len(documents),
+                            'total_stakeholders': len(stakeholders),
+                            'total_analyses': len(arcadia_analyses)
+                        }
                     }
                     
+                    # Create downloadable JSON
+                    export_json = json.dumps(export_data, indent=2, ensure_ascii=False)
+                    
                     st.download_button(
-                        "💾 Download Project Summary",
-                        json.dumps(export_data, indent=2),
-                        f"{current_project.name}_summary.json",
+                        "💾 Download Complete Project Data",
+                        export_json,
+                        f"{current_project.name}_complete_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
                         "application/json",
-                        use_container_width=True
+                        use_container_width=True,
+                        key="download_complete_export"
                     )
+                    
+                    # Show export summary with detailed feedback
+                    st.success("✅ Export prepared successfully!")
+                    
+                    # Provide detailed export summary
+                    export_summary = f"""
+                    **📦 Export Contents:**
+                    • **Project Info**: ✅ Complete project metadata
+                    • **Documents**: {len(documents)} records"""
+                    
+                    if len(documents) == 0:
+                        export_summary += " ⚠️ (No documents found)"
+                    
+                    export_summary += f"""
+                    • **Requirements**: {'✅ Available' if requirements_data else '⚠️ None found'}
+                    • **Stakeholders**: {len(stakeholders)} records"""
+                    
+                    if len(stakeholders) == 0:
+                        export_summary += " ⚠️ (No stakeholders found)"
+                    
+                    export_summary += f"""
+                    • **ARCADIA Analyses**: {len(arcadia_analyses)} records"""
+                    
+                    if len(arcadia_analyses) == 0:
+                        export_summary += " ⚠️ (No analyses found)"
+                    
+                    st.info(export_summary)
+                    
+                    # Show any warnings about data collection
+                    warnings_shown = False
+                    if len(documents) == 0:
+                        st.warning("⚠️ **No documents found** - Export contains project metadata only")
+                        warnings_shown = True
+                    if not requirements_data:
+                        st.warning("⚠️ **No requirements found** - Generate requirements to include them in exports")
+                        warnings_shown = True
+                    
+                    if not warnings_shown:
+                        st.success("🎯 **Complete export** - All available project data included!")
+                    
                 except Exception as e:
-                    st.error(f"Export error: {str(e)}")
-            
-            if st.button("🔄 Refresh Data", use_container_width=True):
-                st.rerun()
+                    logger.error(f"Export error: {str(e)}")
+                    st.error(f"❌ Export error: {str(e)}")
         
-        # Compact project health
-        st.markdown("#### 💪 Project Health")
+        with action_col2:
+            if st.button("🔄 Refresh Data", use_container_width=True, key="refresh_project_data"):
+                try:
+                    # Clear relevant caches
+                    if hasattr(st, 'cache_data'):
+                        st.cache_data.clear()
+                    if hasattr(st, 'cache_resource'):
+                        st.cache_resource.clear()
+                    
+                    # Log the refresh action
+                    rag_system.persistence_service.log_project_session(
+                        current_project.id,
+                        "data_refresh",
+                        "Project data refreshed from insights dashboard"
+                    )
+                    
+                    # Show success message and rerun
+                    st.success("✅ Data refreshed successfully!")
+                    st.info("🔄 Reloading page with latest data...")
+                    time.sleep(1)  # Brief pause for user feedback
+                    st.rerun()
+                    
+                except Exception as e:
+                    logger.error(f"Refresh error: {str(e)}")
+                    st.error(f"❌ Refresh error: {str(e)}")
+                    # Fallback: just rerun the page
+                    st.rerun()
         
-        # Calculate overall health score
-        doc_health = min(100, current_project.documents_count * 20)
-        req_health = min(100, current_project.requirements_count * 5)
-        activity_health = min(100, days_active * 10) if days_active <= 10 else 100
-        overall_health = (doc_health + req_health + activity_health) / 3
-        
-        # Single comprehensive health indicator
-        health_color = "🟢" if overall_health >= 80 else "🟡" if overall_health >= 50 else "🔴"
-        st.progress(overall_health / 100, text=f"{health_color} Overall: {overall_health:.0f}%")
-        
-        # Compact breakdown
-        st.caption(f"Docs: {doc_health:.0f}% | Reqs: {req_health:.0f}% | Activity: {activity_health:.0f}%")
+
 
 if __name__ == "__main__":
     main()
