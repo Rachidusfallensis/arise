@@ -975,4 +975,93 @@ class PersistenceService:
                 
         except Exception as e:
             self.logger.error(f"Erreur lors de la récupération des statistiques : {str(e)}")
-            return {"error": str(e)} 
+            return {"error": str(e)}
+    
+    def link_document_to_project(self, existing_doc_id: str, target_project_id: str) -> bool:
+        """Link an existing document to a new project by copying its data and chunks"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                # Get the existing document details
+                cursor.execute("""
+                    SELECT filename, file_path, file_hash, file_size, chunks_count, 
+                           embedding_model, processing_status, metadata
+                    FROM processed_documents 
+                    WHERE id = ? AND processing_status = 'completed'
+                """, (existing_doc_id,))
+                
+                existing_doc = cursor.fetchone()
+                if not existing_doc:
+                    self.logger.error(f"Document {existing_doc_id} not found or not completed")
+                    return False
+                
+                # Check if document already exists in target project
+                cursor.execute("""
+                    SELECT id FROM processed_documents 
+                    WHERE file_hash = ? AND project_id = ?
+                """, (existing_doc[2], target_project_id))
+                
+                if cursor.fetchone():
+                    self.logger.info(f"Document already exists in project {target_project_id}")
+                    return True  # Consider it successful if already exists
+                
+                # Create new document entry for the target project
+                new_doc_id = f"doc_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{hash(f'{existing_doc_id}_{target_project_id}') % 10000:04d}"
+                
+                cursor.execute("""
+                    INSERT INTO processed_documents 
+                    (id, filename, file_path, file_hash, file_size, project_id, 
+                     chunks_count, embedding_model, processing_status, metadata)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    new_doc_id,
+                    existing_doc[0],  # filename
+                    existing_doc[1],  # file_path
+                    existing_doc[2],  # file_hash
+                    existing_doc[3],  # file_size
+                    target_project_id,
+                    existing_doc[4],  # chunks_count
+                    existing_doc[5] if existing_doc[5] else 'nomic-embed-text',  # embedding_model
+                    'completed',      # processing_status
+                    existing_doc[7]   # metadata
+                ))
+                
+                # Copy all chunks from the existing document to the new project
+                cursor.execute("""
+                    SELECT chunk_index, content, content_hash, embedding_vector, metadata
+                    FROM document_chunks 
+                    WHERE document_id = ?
+                    ORDER BY chunk_index
+                """, (existing_doc_id,))
+                
+                chunks = cursor.fetchall()
+                
+                for chunk in chunks:
+                    new_chunk_id = f"chunk_{new_doc_id}_{chunk[0]:04d}"
+                    cursor.execute("""
+                        INSERT INTO document_chunks 
+                        (id, document_id, project_id, chunk_index, content, content_hash, 
+                         embedding_vector, metadata)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    """, (
+                        new_chunk_id,
+                        new_doc_id,
+                        target_project_id,
+                        chunk[0],  # chunk_index
+                        chunk[1],  # content
+                        chunk[2],  # content_hash
+                        chunk[3],  # embedding_vector
+                        chunk[4]   # metadata
+                    ))
+                
+                conn.commit()
+                
+                self.logger.info(f"Successfully linked document {existing_doc[0]} to project {target_project_id}")
+                self.logger.info(f"Created new document {new_doc_id} with {len(chunks)} chunks")
+                
+                return True
+                
+        except Exception as e:
+            self.logger.error(f"Error linking document to project: {str(e)}")
+            return False 

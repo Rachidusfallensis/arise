@@ -2960,6 +2960,75 @@ def settings_project_tab(rag_system, current_project):
                 except Exception as e:
                     st.error(f"❌ Deletion error: {str(e)}")
 
+def extract_file_content(file_path: str, filename: str) -> str:
+    """Extract text content from various file types"""
+    try:
+        # Determine file type by extension
+        file_ext = filename.lower().split('.')[-1]
+        
+        if file_ext in ['txt', 'md']:
+            # Plain text files
+            with open(file_path, 'r', encoding='utf-8') as f:
+                return f.read()
+                
+        elif file_ext == 'pdf':
+            # PDF files
+            try:
+                import PyPDF2
+                import io
+                
+                with open(file_path, 'rb') as f:
+                    pdf_reader = PyPDF2.PdfReader(f)
+                    text = ""
+                    for page in pdf_reader.pages:
+                        try:
+                            text += page.extract_text() + "\n"
+                        except:
+                            continue
+                    return text
+            except ImportError:
+                logger.error("PyPDF2 not available for PDF processing")
+                return ""
+            except Exception as e:
+                logger.error(f"Error extracting PDF content: {str(e)}")
+                return ""
+                
+        elif file_ext == 'docx':
+            # DOCX files
+            try:
+                from docx import Document
+                
+                doc = Document(file_path)
+                text = ""
+                for paragraph in doc.paragraphs:
+                    text += paragraph.text + "\n"
+                return text
+            except ImportError:
+                logger.error("python-docx not available for DOCX processing")
+                return ""
+            except Exception as e:
+                logger.error(f"Error extracting DOCX content: {str(e)}")
+                return ""
+                
+        elif file_ext in ['json', 'xml']:
+            # JSON/XML files
+            with open(file_path, 'r', encoding='utf-8') as f:
+                return f.read()
+                
+        else:
+            # Try to read as plain text for other formats
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    return f.read()
+            except UnicodeDecodeError:
+                # If UTF-8 fails, try with error handling
+                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                    return f.read()
+                    
+    except Exception as e:
+        logger.error(f"Error extracting content from {filename}: {str(e)}")
+        return ""
+
 def process_documents_with_duplicate_detection(rag_system, current_project, uploaded_files):
     """Process uploaded documents with intelligent duplicate detection"""
     
@@ -2967,21 +3036,31 @@ def process_documents_with_duplicate_detection(rag_system, current_project, uplo
     temp_files = []
     duplicate_info = []
     new_files = []
+    all_extracted_content = []  # Store content from all files for requirements generation
     
     progress_bar = st.progress(0)
     status_text = st.empty()
     
     try:
-        status_text.text("Checking for duplicates...")
+        status_text.text("Checking for duplicates and extracting content...")
         
         for i, uploaded_file in enumerate(uploaded_files):
-            progress_bar.progress((i + 1) / len(uploaded_files))
+            progress_bar.progress((i + 1) / (len(uploaded_files) * 2))  # First half for duplicate checking
             
             # Save temporarily
             temp_path = f"temp_{uploaded_file.name}"
             with open(temp_path, "wb") as f:
                 f.write(uploaded_file.getbuffer())
             temp_files.append(temp_path)
+            
+            # Extract content from file regardless of duplicate status
+            file_content = extract_file_content(temp_path, uploaded_file.name)
+            if file_content:
+                all_extracted_content.append({
+                    'filename': uploaded_file.name,
+                    'content': file_content,
+                    'size': len(file_content)
+                })
             
             # Check for duplicates
             file_hash = rag_system.persistence_service.calculate_file_hash(temp_path)
@@ -2992,15 +3071,26 @@ def process_documents_with_duplicate_detection(rag_system, current_project, uplo
                     'file': uploaded_file,
                     'temp_path': temp_path,
                     'existing_doc_id': doc_id,
-                    'existing_project_id': existing_project_id
+                    'existing_project_id': existing_project_id,
+                    'content': file_content  # Include content for requirements generation
                 })
             else:
                 new_files.append({
                     'file': uploaded_file,
-                    'temp_path': temp_path
+                    'temp_path': temp_path,
+                    'content': file_content  # Include content for requirements generation
                 })
         
-        progress_bar.progress(1.0)
+        # Store extracted content in session state for requirements generation
+        if all_extracted_content:
+            combined_content = "\n\n=== DOCUMENT SEPARATOR ===\n\n".join([
+                f"=== {doc['filename']} ===\n{doc['content']}" 
+                for doc in all_extracted_content
+            ])
+            st.session_state['extracted_document_content'] = combined_content
+            st.session_state['extracted_files_info'] = all_extracted_content
+        
+        progress_bar.progress(0.5)
         status_text.text("Duplicate check complete!")
         
         # Show results
@@ -3009,46 +3099,143 @@ def process_documents_with_duplicate_detection(rag_system, current_project, uplo
             for dup in duplicate_info:
                 st.write(f"• **{dup['file'].name}** - already exists in project `{dup['existing_project_id']}`")
             
+            # Show content availability for requirements generation
+            available_content_files = [doc['filename'] for doc in st.session_state.get('extracted_files_info', [])]
+            if available_content_files:
+                st.success(f"✅ **Content available for requirements generation from:** {', '.join(available_content_files)}")
+                st.info("💡 Even though these files are duplicates, their content has been extracted and is ready for analysis!")
+            
             st.markdown("**Options for duplicates:**")
             duplicate_action = st.radio(
                 "What would you like to do with duplicate files?",
                 ["Skip duplicates", "Process anyway (create new entries)", "Reuse existing (add to current project)"],
-                key="duplicate_action"
+                key="duplicate_action",
+                help="Note: Content is already available for requirements generation regardless of your choice"
             )
+        else:
+            duplicate_action = "Skip duplicates"  # Default when no duplicates
         
-        if new_files:
-            st.success(f"✅ {len(new_files)} new file(s) ready for processing")
+        # Determine files to process based on duplicate action
+        files_to_process = new_files.copy()
+        duplicate_files_to_process = []
+        duplicate_files_to_reuse = []
+        
+        if duplicate_info and duplicate_action != "Skip duplicates":
+            if duplicate_action == "Process anyway (create new entries)":
+                # Add duplicate files to processing list
+                duplicate_files_to_process = duplicate_info.copy()
+                files_to_process.extend([{
+                    'file': dup['file'],
+                    'temp_path': dup['temp_path']
+                } for dup in duplicate_info])
+                st.info(f"🔄 Will process {len(duplicate_info)} duplicate file(s) as new entries")
+                
+            elif duplicate_action == "Reuse existing (add to current project)":
+                # Prepare duplicate files for reuse
+                duplicate_files_to_reuse = duplicate_info.copy()
+                st.info(f"🔗 Will link {len(duplicate_info)} existing document(s) to current project")
+        
+        # Show processing summary
+        total_files = len(files_to_process) + len(duplicate_files_to_reuse)
+        if total_files > 0:
+            if new_files:
+                st.success(f"✅ {len(new_files)} new file(s) ready for processing")
+            if duplicate_files_to_process:
+                st.warning(f"🔄 {len(duplicate_files_to_process)} duplicate file(s) will be processed as new entries")
+            if duplicate_files_to_reuse:
+                st.info(f"🔗 {len(duplicate_files_to_reuse)} existing document(s) will be linked to project")
             
-            # Process new files
-            if st.button("🚀 Process New Files", type="primary"):
+            # Single processing button for all actions
+            button_text = f"🚀 Process {total_files} File(s)"
+            if st.button(button_text, type="primary"):
                 status_text.text("Processing documents...")
                 
                 try:
-                    file_paths = [f['temp_path'] for f in new_files]
+                    total_processed = 0
+                    total_chunks = 0
+                    all_errors = []
                     
-                    if hasattr(rag_system, 'add_documents_to_project'):
-                        results = rag_system.add_documents_to_project(file_paths, current_project.id)
-                    else:
-                        # Fallback for systems without project support
-                        results = rag_system.add_documents_to_vectorstore(file_paths)
+                    # Process new files and duplicates marked for processing
+                    if files_to_process:
+                        status_text.text(f"Processing {len(files_to_process)} files...")
+                        file_paths = [f['temp_path'] for f in files_to_process]
+                        
+                        if hasattr(rag_system, 'add_documents_to_project'):
+                            results = rag_system.add_documents_to_project(file_paths, current_project.id)
+                        else:
+                            # Fallback for systems without project support
+                            results = rag_system.add_documents_to_vectorstore(file_paths)
+                        
+                        total_processed += results.get('processed', 0)
+                        total_chunks += results.get('new_chunks', 0) or results.get('chunks_added', 0)
+                        if results.get('errors'):
+                            all_errors.extend(results['errors'])
                     
-                    # Log the session
+                    # Handle reuse existing documents
+                    if duplicate_files_to_reuse:
+                        status_text.text(f"Linking {len(duplicate_files_to_reuse)} existing documents...")
+                        reuse_success = 0
+                        
+                        for dup in duplicate_files_to_reuse:
+                            try:
+                                # Link existing document to current project
+                                success = rag_system.persistence_service.link_document_to_project(
+                                    dup['existing_doc_id'], 
+                                    current_project.id
+                                )
+                                if success:
+                                    reuse_success += 1
+                                    logger.info(f"Linked existing document {dup['file'].name} to project {current_project.id}")
+                                else:
+                                    all_errors.append(f"Failed to link {dup['file'].name} to project")
+                                    
+                            except Exception as e:
+                                error_msg = f"Error linking {dup['file'].name}: {str(e)}"
+                                all_errors.append(error_msg)
+                                logger.error(error_msg)
+                        
+                        total_processed += reuse_success
+                        st.info(f"🔗 Successfully linked {reuse_success} existing document(s)")
+                    
+                    # Log the session with detailed information
+                    action_description = []
+                    if new_files:
+                        action_description.append(f"processed {len(new_files)} new documents")
+                    if duplicate_files_to_process:
+                        action_description.append(f"processed {len(duplicate_files_to_process)} duplicates as new entries")
+                    if duplicate_files_to_reuse:
+                        action_description.append(f"linked {len(duplicate_files_to_reuse)} existing documents")
+                    
                     rag_system.persistence_service.log_project_session(
                         current_project.id,
                         "document_upload",
-                        f"Processed {len(new_files)} new documents",
-                        {"files": [f['file'].name for f in new_files], "results": results}
+                        f"Document upload: {', '.join(action_description)}",
+                        {
+                            "new_files": [f['file'].name for f in new_files],
+                            "duplicate_action": duplicate_action,
+                            "duplicates_processed": [dup['file'].name for dup in duplicate_files_to_process],
+                            "duplicates_reused": [dup['file'].name for dup in duplicate_files_to_reuse],
+                            "total_processed": total_processed,
+                            "total_chunks": total_chunks
+                        }
                     )
                     
-                    st.success(f"✅ Successfully processed {results.get('processed', 0)} files!")
-                    st.info(f"📊 Added {results.get('new_chunks', 0)} chunks to the knowledge base")
+                    # Show success message
+                    st.success(f"✅ Successfully processed {total_processed} file(s)!")
+                    if total_chunks > 0:
+                        st.info(f"📊 Added {total_chunks} text chunks to the knowledge base")
                     
-                    if results.get('errors'):
+                    # Show errors if any
+                    if all_errors:
                         st.error("⚠️ Some errors occurred:")
-                        for error in results['errors']:
+                        for error in all_errors:
                             st.error(f"• {error}")
                     
-                    st.balloons()
+                    if total_processed > 0:
+                        st.balloons()
+                        st.success("🔄 Documents are now available! They should appear in the project.")
+                        time.sleep(1)  # Give time for database to update
+                        st.rerun()
                     
                 except Exception as e:
                     st.error(f"❌ Processing error: {str(e)}")
@@ -3348,7 +3535,7 @@ def project_documents_tab(rag_system, current_project, has_project_management):
 def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types, export_format, 
                              enable_structured_analysis, enable_cross_phase_analysis, is_enhanced):
     """Combined Requirements & Analysis tab - Phase 2 of reorganization"""
-    st.markdown("### 🏗️ Requirements & Analysis")
+    
     
     # Check project and documents status
     current_project = None
@@ -3364,65 +3551,6 @@ def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types,
             except Exception as e:
                 st.error(f"❌ Error loading project documents: {str(e)}")
                 project_documents = []
-    
-    # Configuration section at the top
-    with st.expander("⚙️ Configuration Options", expanded=False):
-        config_col1, config_col2, config_col3 = st.columns(3)
-        
-        with config_col1:
-            st.markdown("#### ARCADIA Settings")
-            # Phase selection
-            target_phase_local = st.selectbox(
-                "Target ARCADIA Phase",
-                ["all"] + list(arcadia_config.ARCADIA_PHASES.keys()),
-                format_func=lambda x: "All Phases" if x == "all" else arcadia_config.ARCADIA_PHASES[x]["name"],
-                index=0 if target_phase == "all" else list(arcadia_config.ARCADIA_PHASES.keys()).index(target_phase) + 1,
-                key="req_analysis_phase"
-            )
-            
-            # Requirement types
-            req_types_local = st.multiselect(
-                "Requirement Types",
-                ["functional", "non_functional", "stakeholder"],
-                default=req_types,
-                key="req_analysis_types"
-            )
-        
-        with config_col2:
-            st.markdown("#### Enhanced Analysis")
-            if is_enhanced:
-                enable_structured_analysis_local = st.checkbox(
-                    "Enable Structured ARCADIA Analysis",
-                    value=enable_structured_analysis,
-                    help="Generate structured analysis with actors, capabilities, and cross-phase traceability",
-                    key="req_analysis_structured"
-                )
-                enable_cross_phase_analysis_local = st.checkbox(
-                    "Enable Cross-Phase Analysis", 
-                    value=enable_cross_phase_analysis,
-                    help="Perform traceability analysis, gap detection, and quality metrics across ARCADIA phases",
-                    key="req_analysis_cross_phase"
-                )
-            else:
-                enable_structured_analysis_local = False
-                enable_cross_phase_analysis_local = False
-                st.info("Enhanced analysis not available in basic mode")
-        
-        with config_col3:
-            st.markdown("#### Generation Settings")
-            max_requirements = st.slider("Max Requirements per Type", 5, 50, 20, key="req_analysis_max")
-            include_rationale = st.checkbox("Include Rationale", True, key="req_analysis_rationale")
-            include_verification = st.checkbox("Include Verification Methods", True, key="req_analysis_verification")
-            quality_threshold = st.slider("Quality Threshold", 0.5, 1.0, 0.7, key="req_analysis_quality")
-            
-            # Export format
-            export_formats = config.REQUIREMENTS_OUTPUT_FORMATS + ["ARCADIA_JSON", "Structured_Markdown"]
-            export_format_local = st.selectbox(
-                "Export Format",
-                export_formats,
-                index=export_formats.index(export_format) if export_format in export_formats else 0,
-                key="req_analysis_export"
-            )
     
     # Document-based input section
     st.markdown("#### 📄 Document Selection & Analysis")
@@ -3535,9 +3663,30 @@ def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types,
                 st.info(f"📄 {len(uploaded_files)} file(s) ready for upload")
                 
                 if st.button("🚀 Process Documents", type="primary", key="process_quick_upload"):
+                    # Use the same duplicate detection logic as Document Management tab
                     process_documents_with_duplicate_detection(rag_system, current_project, uploaded_files)
-                    st.success("Documents uploaded! Refresh to see them in the selector above.")
-                    st.rerun()
+                    
+                    # Check if content was extracted for requirements generation
+                    if st.session_state.get('extracted_document_content'):
+                        st.success("🎯 **Content ready for requirements generation!**")
+                        st.info("You can now scroll down to generate requirements using the uploaded document content.")
+                        
+                        # Automatically set the extracted content for requirements generation
+                        extracted_content = st.session_state.get('extracted_document_content')
+                        extracted_files_info = st.session_state.get('extracted_files_info', [])
+                        
+                        # Show preview of extracted content
+                        st.markdown(f"**📋 Extracted Content Summary ({len(extracted_files_info)} files):**")
+                        total_chars = sum(doc['size'] for doc in extracted_files_info)
+                        st.write(f"**Total content:** {total_chars:,} characters from {len(extracted_files_info)} files")
+                        
+                        for doc_info in extracted_files_info:
+                            st.write(f"• **{doc_info['filename']}**: {doc_info['size']:,} characters")
+                        
+                        # Show a brief preview
+                        preview_text = extracted_content[:500] + "..." if len(extracted_content) > 500 else extracted_content
+                        st.markdown("**Content Preview:**")
+                        st.code(preview_text, language="text")
         
         # Alternative input methods for users without documents
         st.markdown("---")
@@ -3581,6 +3730,14 @@ def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types,
         # Retrieve from session state if available
         if 'manual_proposal_text' in st.session_state and not proposal_text:
             proposal_text = st.session_state['manual_proposal_text']
+        
+        # Check for extracted content from duplicate documents
+        if not proposal_text and st.session_state.get('extracted_document_content'):
+            proposal_text = st.session_state['extracted_document_content']
+            extracted_files_info = st.session_state.get('extracted_files_info', [])
+            
+            st.success(f"✅ **Using content from uploaded documents:** {', '.join([doc['filename'] for doc in extracted_files_info])}")
+            st.info("Content extracted from duplicate files is ready for requirements analysis!")
     
     else:
         # Traditional mode without project management
@@ -3621,6 +3778,65 @@ def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types,
                 if proposal_text:
                     st.success(f"Example loaded: {example_choice}")
     
+    # Configuration section before generation controls
+    with st.expander("⚙️ Configuration Options", expanded=False):
+        config_col1, config_col2, config_col3 = st.columns(3)
+        
+        with config_col1:
+            st.markdown("#### ARCADIA Settings")
+            # Phase selection
+            target_phase_local = st.selectbox(
+                "Target ARCADIA Phase",
+                ["all"] + list(arcadia_config.ARCADIA_PHASES.keys()),
+                format_func=lambda x: "All Phases" if x == "all" else arcadia_config.ARCADIA_PHASES[x]["name"],
+                index=0 if target_phase == "all" else list(arcadia_config.ARCADIA_PHASES.keys()).index(target_phase) + 1,
+                key="req_analysis_phase"
+            )
+            
+            # Requirement types
+            req_types_local = st.multiselect(
+                "Requirement Types",
+                ["functional", "non_functional", "stakeholder"],
+                default=req_types,
+                key="req_analysis_types"
+            )
+        
+        with config_col2:
+            st.markdown("#### Enhanced Analysis")
+            if is_enhanced:
+                enable_structured_analysis_local = st.checkbox(
+                    "Enable Structured ARCADIA Analysis",
+                    value=enable_structured_analysis,
+                    help="Generate structured analysis with actors, capabilities, and cross-phase traceability",
+                    key="req_analysis_structured"
+                )
+                enable_cross_phase_analysis_local = st.checkbox(
+                    "Enable Cross-Phase Analysis", 
+                    value=enable_cross_phase_analysis,
+                    help="Perform traceability analysis, gap detection, and quality metrics across ARCADIA phases",
+                    key="req_analysis_cross_phase"
+                )
+            else:
+                enable_structured_analysis_local = False
+                enable_cross_phase_analysis_local = False
+                st.info("Enhanced analysis not available in basic mode")
+        
+        with config_col3:
+            st.markdown("#### Generation Settings")
+            max_requirements = st.slider("Max Requirements per Type", 5, 50, 20, key="req_analysis_max")
+            include_rationale = st.checkbox("Include Rationale", True, key="req_analysis_rationale")
+            include_verification = st.checkbox("Include Verification Methods", True, key="req_analysis_verification")
+            quality_threshold = st.slider("Quality Threshold", 0.5, 1.0, 0.7, key="req_analysis_quality")
+            
+            # Export format
+            export_formats = config.REQUIREMENTS_OUTPUT_FORMATS + ["ARCADIA_JSON", "Structured_Markdown"]
+            export_format_local = st.selectbox(
+                "Export Format",
+                export_formats,
+                index=export_formats.index(export_format) if export_format in export_formats else 0,
+                key="req_analysis_export"
+            )
+
     # Generation controls
     st.markdown("---")
     col1, col2 = st.columns([3, 1])
