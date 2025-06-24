@@ -727,7 +727,7 @@ def main():
         current_project = rag_system.get_current_project() if hasattr(rag_system, 'get_current_project') else None
         
         # Persistent Header with Project Status (always visible)
-        header_col1, header_col2, header_col3 = st.columns([2, 2, 1])
+        header_col1, header_col2 = st.columns([1, 1])
         
         with header_col1:
             # Project status display
@@ -747,11 +747,6 @@ def main():
                         "app_access", 
                         "User accessed application interface"
                     )
-        
-        with header_col3:
-            # Quick actions
-            if st.button("🔄 Refresh", help="Refresh application data"):
-                st.rerun()
         
         st.markdown("---")
     
