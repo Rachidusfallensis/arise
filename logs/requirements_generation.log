@@ -943,3 +943,63 @@
 2025-06-23 15:27:02,941 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
 2025-06-23 15:27:02,945 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
 2025-06-23 15:27:02,947 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-24 09:49:43,442 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-24 09:49:43,454 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-24 09:49:43,458 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-24 09:50:05,296 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-24 09:50:05,318 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-24 09:50:05,319 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-24 10:02:40,251 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-24 10:02:40,333 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-24 10:02:40,333 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-24 10:02:40,690 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-24 10:02:40,693 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-24 10:02:40,693 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-24 10:02:40,984 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-24 10:02:40,988 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-24 10:02:40,989 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-24 10:02:43,140 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-24 10:02:43,152 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-24 10:02:43,153 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-24 10:02:44,924 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-24 10:02:44,933 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-24 10:02:44,934 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-24 10:02:52,084 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-06-24 10:02:52,086 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-06-24 10:02:52,087 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-06-24 10:02:52,131 - ARCADIA_RAG_System - INFO - Starting requirements generation from 1 project documents...
+2025-06-24 10:02:52,131 - ARCADIA_RAG_System - INFO - Selected documents: ['Proposal-SEP-211043552.pdf']
+2025-06-24 10:02:52,132 - src.core.enhanced_persistent_rag_system - INFO - Starting enhanced requirements generation with structured analysis
+2025-06-24 10:02:52,132 - src.core.enhanced_persistent_rag_system - INFO - Step 1: Generating traditional requirements
+2025-06-24 10:02:52,133 - src.core.enhanced_persistent_rag_system - INFO - Created 517 context chunks from proposal
+2025-06-24 10:02:52,139 - src.core.requirements_generator - INFO - Starting enhanced stakeholder generation process...
+2025-06-24 10:02:52,139 - src.core.enhanced_stakeholder_extractor - INFO - Starting enhanced stakeholder extraction from 413299 characters
+2025-06-24 10:02:52,544 - src.core.enhanced_stakeholder_extractor - INFO - Raw stakeholder mentions found: 770
+2025-06-24 10:02:52,545 - src.core.enhanced_stakeholder_extractor - INFO - Normalized stakeholders: 766
+2025-06-24 10:02:52,546 - src.core.enhanced_stakeholder_extractor - INFO - Grouped stakeholders: 207
+2025-06-24 10:02:52,558 - src.core.enhanced_stakeholder_extractor - INFO - Final structured stakeholders: 207
+2025-06-24 10:02:52,558 - src.core.requirements_generator - INFO - Enhanced extraction found 207 stakeholders
+2025-06-24 10:02:52,718 - src.core.requirements_generator - INFO - Identified 27 components for operational phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
+2025-06-24 10:03:27,412 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:03:27,623 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-06-24 10:03:42,942 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:03:58,801 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:04:16,862 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:04:35,553 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:04:35,574 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 3, 'COULD': 0}
+2025-06-24 10:04:35,769 - src.core.requirements_generator - INFO - Identified 27 components for system phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
+2025-06-24 10:05:00,174 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:05:00,402 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-06-24 10:05:14,963 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:05:38,587 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:05:53,711 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:06:12,009 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:06:12,205 - src.core.requirements_generator - INFO - Identified 27 components for logical phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
+2025-06-24 10:06:37,310 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:06:37,500 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-06-24 10:06:49,490 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:07:06,321 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:07:23,293 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:07:41,624 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-06-24 10:07:41,634 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 1, 'COULD': 0}
+2025-06-24 10:07:41,815 - src.core.requirements_generator - INFO - Identified 27 components for physical phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
