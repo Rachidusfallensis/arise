@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-SAFE MBSE RAG System - Main Application Runner
+ARISE RAG System - Main Application Runner
 
 Enhanced version with comprehensive validation and setup verification.
 This script ensures all dependencies and configurations are properly set up
@@ -351,7 +351,7 @@ def launch_streamlit():
     script_dir = Path(__file__).parent
     ui_app_path = script_dir / "ui" / "app.py"
     
-    print("\n🚀 Launching SAFE MBSE RAG System...")
+    print("\n🚀 Launching ARISE System...")
     print("=" * 60)
     print("🌐 The app will open at: http://localhost:8501")
     print("🛑 Press Ctrl+C to stop the server")
@@ -377,7 +377,7 @@ def launch_streamlit():
         ])
     except KeyboardInterrupt:
         print("\n🛑 Application stopped by user")
-        print("👋 Thank you for using SAFE MBSE RAG System!")
+        print("👋 Thank you for ARISESystem!")
     except Exception as e:
         print(f"❌ Error running application: {e}")
         sys.exit(1)
@@ -385,7 +385,7 @@ def launch_streamlit():
 
 def main():
     """Main entry point for the application."""
-    print("🏗️ SAFE MBSE RAG System")
+    print("🏗️ ARISE System")
     print("AI-Driven Requirements Generation using ARCADIA Methodology")
     print("=" * 60)
     
