@@ -8,5 +8,39 @@
       "project_name": "SAFE Project_test",
       "document_count": 1
     }
+  },
+  "proj_20250619_184706_2362": {
+    "20250625_145712_778513": {
+      "title": "New Project Chat",
+      "messages": [],
+      "created_at": "2025-06-25T14:57:12.778534",
+      "project_id": "proj_20250619_184706_2362",
+      "project_name": "Irekia Modelisation",
+      "document_count": 0
+    },
+    "20250708_143009_744491": {
+      "title": "New Project Chat",
+      "messages": [],
+      "created_at": "2025-07-08T14:30:09.744511",
+      "project_id": "proj_20250619_184706_2362",
+      "project_name": "Irekia Modelisation",
+      "document_count": 0
+    },
+    "20250708_144838_854059": {
+      "title": "New Project Chat",
+      "messages": [],
+      "created_at": "2025-07-08T14:48:38.854089",
+      "project_id": "proj_20250619_184706_2362",
+      "project_name": "Irekia Modelisation",
+      "document_count": 0
+    },
+    "20250708_144925_790083": {
+      "title": "New Project Chat",
+      "messages": [],
+      "created_at": "2025-07-08T14:49:25.790116",
+      "project_id": "proj_20250619_184706_2362",
+      "project_name": "Irekia Modelisation",
+      "document_count": 0
+    }
   }
 }

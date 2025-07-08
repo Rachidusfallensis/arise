@@ -1267,6 +1267,651 @@ def generate_requirements_tab(rag_system, target_phase, req_types, export_format
         results = st.session_state['generation_results']
         display_generation_results(results, export_format, rag_system)
 
+def export_requirements_to_json(results):
+    """Export requirements to JSON format with enhanced ARCADIA analysis"""
+    # Check if enhanced results are available
+    enhanced_results = st.session_state.get('enhanced_results')
+    
+    export_data = {
+        "metadata": {
+            "export_timestamp": datetime.now().isoformat(),
+            "total_requirements": results.get('statistics', {}).get('total_requirements', 0),
+            "phases_covered": len(results.get('requirements', {})),
+            "stakeholders_count": len(results.get('stakeholders', {})),
+            "enhanced_analysis_included": enhanced_results is not None
+        },
+        "requirements": results.get('requirements', {}),
+        "stakeholders": results.get('stakeholders', {}),
+        "statistics": results.get('statistics', {})
+    }
+    
+    # Add enhanced ARCADIA analysis if available
+    if enhanced_results and enhanced_results.get('structured_analysis'):
+        structured_analysis = enhanced_results['structured_analysis']
+        
+        export_data["arcadia_analysis"] = {}
+        
+        # Operational Analysis
+        if hasattr(structured_analysis, 'operational_analysis') and structured_analysis.operational_analysis:
+            op_analysis = structured_analysis.operational_analysis
+            export_data["arcadia_analysis"]["operational_analysis"] = {
+                "actors": [
+                    {
+                        "id": actor.id,
+                        "name": actor.name,
+                        "role_definition": actor.role_definition,
+                        "description": actor.description,
+                        "responsibilities": actor.responsibilities,
+                        "capabilities": actor.capabilities
+                    } for actor in (op_analysis.actors or [])
+                ],
+                "capabilities": [
+                    {
+                        "id": cap.id,
+                        "name": cap.name,
+                        "mission_statement": cap.mission_statement,
+                        "description": cap.description,
+                        "involved_actors": cap.involved_actors,
+                        "performance_constraints": cap.performance_constraints
+                    } for cap in (op_analysis.capabilities or [])
+                ],
+                "scenarios": [
+                    {
+                        "id": scenario.id,
+                        "name": scenario.name,
+                        "scenario_type": scenario.scenario_type,
+                        "description": scenario.description
+                    } for scenario in (op_analysis.scenarios or [])
+                ]
+            }
+        
+        # System Analysis
+        if hasattr(structured_analysis, 'system_analysis') and structured_analysis.system_analysis:
+            sys_analysis = structured_analysis.system_analysis
+            export_data["arcadia_analysis"]["system_analysis"] = {
+                "system_boundary": {
+                    "scope_definition": sys_analysis.system_boundary.scope_definition,
+                    "included_elements": sys_analysis.system_boundary.included_elements,
+                    "excluded_elements": sys_analysis.system_boundary.excluded_elements
+                } if sys_analysis.system_boundary else {},
+                "functions": [
+                    {
+                        "id": func.id,
+                        "name": func.name,
+                        "function_type": func.function_type,
+                        "description": func.description,
+                        "allocated_actors": func.allocated_actors,
+                        "performance_requirements": func.performance_requirements
+                    } for func in (sys_analysis.functions or [])
+                ],
+                "capabilities": [
+                    {
+                        "id": cap.id,
+                        "name": cap.name,
+                        "description": cap.description,
+                        "implementing_functions": cap.implementing_functions
+                    } for cap in (sys_analysis.capabilities or [])
+                ]
+            }
+        
+        # Logical Architecture
+        if hasattr(structured_analysis, 'logical_architecture') and structured_analysis.logical_architecture:
+            logical_arch = structured_analysis.logical_architecture
+            export_data["arcadia_analysis"]["logical_architecture"] = {
+                "components": [
+                    {
+                        "id": comp.id,
+                        "name": comp.name,
+                        "component_type": comp.component_type,
+                        "description": comp.description,
+                        "responsibilities": comp.responsibilities,
+                        "sub_components": comp.sub_components
+                    } for comp in (logical_arch.components or [])
+                ],
+                "functions": [
+                    {
+                        "id": func.id,
+                        "name": func.name,
+                        "behavioral_specification": func.behavioral_specification,
+                        "description": func.description,
+                        "allocated_components": func.allocated_components,
+                        "input_flows": func.input_flows,
+                        "output_flows": func.output_flows
+                    } for func in (logical_arch.functions or [])
+                ],
+                "interfaces": [
+                    {
+                        "id": iface.id,
+                        "name": iface.name,
+                        "protocol": iface.protocol,
+                        "provider": iface.provider,
+                        "consumer": iface.consumer,
+                        "data_elements": iface.data_elements
+                    } for iface in (logical_arch.interfaces or [])
+                ]
+            }
+        
+        # Physical Architecture
+        if hasattr(structured_analysis, 'physical_architecture') and structured_analysis.physical_architecture:
+            physical_arch = structured_analysis.physical_architecture
+            export_data["arcadia_analysis"]["physical_architecture"] = {
+                "components": [
+                    {
+                        "id": comp.id,
+                        "name": comp.name,
+                        "component_type": comp.component_type,
+                        "technology_platform": comp.technology_platform,
+                        "description": comp.description,
+                        "resource_requirements": comp.resource_requirements,
+                        "deployment_location": comp.deployment_location
+                    } for comp in (physical_arch.components or [])
+                ],
+                "constraints": [
+                    {
+                        "constraint_type": const.constraint_type,
+                        "description": const.description,
+                        "rationale": getattr(const, 'rationale', '')
+                    } for const in (physical_arch.constraints or [])
+                ],
+                "functions": [
+                    {
+                        "id": func.id,
+                        "name": func.name,
+                        "description": func.description,
+                        "resource_requirements": func.resource_requirements,
+                        "timing_constraints": func.timing_constraints
+                    } for func in (physical_arch.functions or [])
+                ]
+            }
+        
+        # Cross-Phase Analysis
+        if hasattr(structured_analysis, 'cross_phase_analysis') and structured_analysis.cross_phase_analysis:
+            cross_phase = structured_analysis.cross_phase_analysis
+            export_data["arcadia_analysis"]["cross_phase_analysis"] = {
+                "traceability_links": [
+                    {
+                        "source_element": link.source_element,
+                        "target_element": link.target_element,
+                        "relationship_type": link.relationship_type,
+                        "confidence_score": link.confidence_score,
+                        "source_phase": link.source_phase.value if hasattr(link.source_phase, 'value') else str(link.source_phase),
+                        "target_phase": link.target_phase.value if hasattr(link.target_phase, 'value') else str(link.target_phase)
+                    } for link in (cross_phase.traceability_links or [])
+                ],
+                "gap_analysis": [
+                    {
+                        "gap_type": gap.gap_type,
+                        "description": gap.description,
+                        "severity": gap.severity,
+                        "recommendations": gap.recommendations
+                    } for gap in (cross_phase.gap_analysis or [])
+                ],
+                "coverage_matrix": cross_phase.coverage_matrix or {}
+            }
+        
+        # Add enhancement summary
+        if enhanced_results.get('enhancement_summary'):
+            export_data["arcadia_analysis"]["enhancement_summary"] = enhanced_results['enhancement_summary']
+    
+    return json.dumps(export_data, indent=2, ensure_ascii=False)
+
+def export_requirements_to_csv(results):
+    """Export requirements to CSV format with enhanced ARCADIA analysis"""
+    import io
+    
+    output = io.StringIO()
+    enhanced_results = st.session_state.get('enhanced_results')
+    
+    # Requirements section
+    output.write("=== REQUIREMENTS ===\n")
+    output.write("Phase,Type,ID,Title,Description,Priority,Verification Method,Rationale\n")
+    
+    # Process requirements by phase
+    for phase, phase_reqs in results.get('requirements', {}).items():
+        for req_type, reqs in phase_reqs.items():
+            if isinstance(reqs, list):
+                for req in reqs:
+                    row = [
+                        csv_escape(phase),
+                        csv_escape(req_type),
+                        csv_escape(req.get('id', '')),
+                        csv_escape(req.get('title', '')),
+                        csv_escape(req.get('description', '')),
+                        csv_escape(req.get('priority', '')),
+                        csv_escape(req.get('verification_method', '')),
+                        csv_escape(req.get('rationale', ''))
+                    ]
+                    output.write(','.join(row) + '\n')
+    
+    # Add ARCADIA analysis sections if available
+    if enhanced_results and enhanced_results.get('structured_analysis'):
+        structured_analysis = enhanced_results['structured_analysis']
+        
+        # Operational Actors
+        if hasattr(structured_analysis, 'operational_analysis') and structured_analysis.operational_analysis:
+            op_analysis = structured_analysis.operational_analysis
+            if op_analysis.actors:
+                output.write("\n=== OPERATIONAL ACTORS ===\n")
+                output.write("ID,Name,Role,Description,Responsibilities,Capabilities\n")
+                for actor in op_analysis.actors:
+                    row = [
+                        csv_escape(actor.id),
+                        csv_escape(actor.name),
+                        csv_escape(actor.role_definition),
+                        csv_escape(actor.description),
+                        csv_escape('; '.join(actor.responsibilities) if actor.responsibilities else ''),
+                        csv_escape('; '.join(actor.capabilities) if actor.capabilities else '')
+                    ]
+                    output.write(','.join(row) + '\n')
+            
+            # Operational Capabilities
+            if op_analysis.capabilities:
+                output.write("\n=== OPERATIONAL CAPABILITIES ===\n")
+                output.write("ID,Name,Mission Statement,Description,Involved Actors,Performance Constraints\n")
+                for cap in op_analysis.capabilities:
+                    row = [
+                        csv_escape(cap.id),
+                        csv_escape(cap.name),
+                        csv_escape(cap.mission_statement),
+                        csv_escape(cap.description),
+                        csv_escape('; '.join(cap.involved_actors) if cap.involved_actors else ''),
+                        csv_escape('; '.join(cap.performance_constraints) if cap.performance_constraints else '')
+                    ]
+                    output.write(','.join(row) + '\n')
+        
+        # System Functions
+        if hasattr(structured_analysis, 'system_analysis') and structured_analysis.system_analysis:
+            sys_analysis = structured_analysis.system_analysis
+            if sys_analysis.functions:
+                output.write("\n=== SYSTEM FUNCTIONS ===\n")
+                output.write("ID,Name,Type,Description,Allocated Actors,Performance Requirements\n")
+                for func in sys_analysis.functions:
+                    row = [
+                        csv_escape(func.id),
+                        csv_escape(func.name),
+                        csv_escape(func.function_type),
+                        csv_escape(func.description),
+                        csv_escape('; '.join(func.allocated_actors) if func.allocated_actors else ''),
+                        csv_escape('; '.join(func.performance_requirements) if func.performance_requirements else '')
+                    ]
+                    output.write(','.join(row) + '\n')
+        
+        # Logical Components
+        if hasattr(structured_analysis, 'logical_architecture') and structured_analysis.logical_architecture:
+            logical_arch = structured_analysis.logical_architecture
+            if logical_arch.components:
+                output.write("\n=== LOGICAL COMPONENTS ===\n")
+                output.write("ID,Name,Type,Description,Responsibilities,Sub Components\n")
+                for comp in logical_arch.components:
+                    row = [
+                        csv_escape(comp.id),
+                        csv_escape(comp.name),
+                        csv_escape(comp.component_type),
+                        csv_escape(comp.description),
+                        csv_escape('; '.join(comp.responsibilities) if comp.responsibilities else ''),
+                        csv_escape('; '.join(comp.sub_components) if comp.sub_components else '')
+                    ]
+                    output.write(','.join(row) + '\n')
+        
+        # Physical Components
+        if hasattr(structured_analysis, 'physical_architecture') and structured_analysis.physical_architecture:
+            physical_arch = structured_analysis.physical_architecture
+            if physical_arch.components:
+                output.write("\n=== PHYSICAL COMPONENTS ===\n")
+                output.write("ID,Name,Type,Technology Platform,Description,Resource Requirements,Deployment Location\n")
+                for comp in physical_arch.components:
+                    row = [
+                        csv_escape(comp.id),
+                        csv_escape(comp.name),
+                        csv_escape(comp.component_type),
+                        csv_escape(comp.technology_platform),
+                        csv_escape(comp.description),
+                        csv_escape('; '.join(comp.resource_requirements) if comp.resource_requirements else ''),
+                        csv_escape(comp.deployment_location)
+                    ]
+                    output.write(','.join(row) + '\n')
+        
+        # Traceability Links
+        if hasattr(structured_analysis, 'cross_phase_analysis') and structured_analysis.cross_phase_analysis:
+            cross_phase = structured_analysis.cross_phase_analysis
+            if cross_phase.traceability_links:
+                output.write("\n=== TRACEABILITY LINKS ===\n")
+                output.write("Source Element,Target Element,Relationship Type,Confidence Score,Source Phase,Target Phase\n")
+                for link in cross_phase.traceability_links:
+                    row = [
+                        csv_escape(link.source_element),
+                        csv_escape(link.target_element),
+                        csv_escape(link.relationship_type),
+                        csv_escape(str(link.confidence_score)),
+                        csv_escape(link.source_phase.value if hasattr(link.source_phase, 'value') else str(link.source_phase)),
+                        csv_escape(link.target_phase.value if hasattr(link.target_phase, 'value') else str(link.target_phase))
+                    ]
+                    output.write(','.join(row) + '\n')
+    
+    # Stakeholders section
+    output.write("\n=== STAKEHOLDERS ===\n")
+    output.write("Stakeholder,Role,Description\n")
+    
+    for stakeholder_name, stakeholder_data in results.get('stakeholders', {}).items():
+        if isinstance(stakeholder_data, dict):
+            role = stakeholder_data.get('role', '')
+            desc = stakeholder_data.get('description', '')
+        else:
+            role = ''
+            desc = str(stakeholder_data) if stakeholder_data else ''
+        
+        row = [
+            csv_escape(stakeholder_name),
+            csv_escape(role),
+            csv_escape(desc)
+        ]
+        output.write(','.join(row) + '\n')
+    
+    return output.getvalue()
+
+def csv_escape(value):
+    """Helper function to escape CSV values"""
+    if value is None:
+        return ""
+    value = str(value).replace('"', '""')  # Escape quotes
+    if ',' in value or '"' in value or '\n' in value:
+        return f'"{value}"'
+    return value
+
+def export_requirements_to_excel_csv(results):
+    """Export requirements to Excel-compatible CSV format with comprehensive ARCADIA analysis"""
+    import io
+    
+    output = io.StringIO()
+    enhanced_results = st.session_state.get('enhanced_results')
+    
+    # Main requirements sheet
+    output.write("=== REQUIREMENTS ===\n")
+    output.write("Phase,Type,ID,Title,Description,Priority,Verification Method,Priority Confidence,Created Date\n")
+    
+    for phase, phase_reqs in results.get('requirements', {}).items():
+        for req_type, reqs in phase_reqs.items():
+            if isinstance(reqs, list):
+                for req in reqs:
+                    row = [
+                        csv_escape(phase),
+                        csv_escape(req_type),
+                        csv_escape(req.get('id', '')),
+                        csv_escape(req.get('title', '')),
+                        csv_escape(req.get('description', '')),
+                        csv_escape(req.get('priority', '')),
+                        csv_escape(req.get('verification_method', '')),
+                        csv_escape(req.get('priority_confidence', '')),
+                        csv_escape(datetime.now().strftime('%Y-%m-%d'))
+                    ]
+                    output.write(','.join(row) + '\n')
+    
+    # Add comprehensive ARCADIA analysis sections if available
+    if enhanced_results and enhanced_results.get('structured_analysis'):
+        structured_analysis = enhanced_results['structured_analysis']
+        
+        # Operational Analysis - Actors
+        if hasattr(structured_analysis, 'operational_analysis') and structured_analysis.operational_analysis:
+            op_analysis = structured_analysis.operational_analysis
+            if op_analysis.actors:
+                output.write("\n=== OPERATIONAL ACTORS ===\n")
+                output.write("ID,Name,Role Definition,Description,Responsibilities,Capabilities,Phase\n")
+                for actor in op_analysis.actors:
+                    row = [
+                        csv_escape(actor.id),
+                        csv_escape(actor.name),
+                        csv_escape(actor.role_definition),
+                        csv_escape(actor.description),
+                        csv_escape('; '.join(actor.responsibilities) if actor.responsibilities else ''),
+                        csv_escape('; '.join(actor.capabilities) if actor.capabilities else ''),
+                        csv_escape('Operational')
+                    ]
+                    output.write(','.join(row) + '\n')
+            
+            # Operational Capabilities
+            if op_analysis.capabilities:
+                output.write("\n=== OPERATIONAL CAPABILITIES ===\n")
+                output.write("ID,Name,Mission Statement,Description,Involved Actors,Performance Constraints,Phase\n")
+                for cap in op_analysis.capabilities:
+                    row = [
+                        csv_escape(cap.id),
+                        csv_escape(cap.name),
+                        csv_escape(cap.mission_statement),
+                        csv_escape(cap.description),
+                        csv_escape('; '.join(cap.involved_actors) if cap.involved_actors else ''),
+                        csv_escape('; '.join(cap.performance_constraints) if cap.performance_constraints else ''),
+                        csv_escape('Operational')
+                    ]
+                    output.write(','.join(row) + '\n')
+            
+            # Operational Scenarios
+            if op_analysis.scenarios:
+                output.write("\n=== OPERATIONAL SCENARIOS ===\n")
+                output.write("ID,Name,Scenario Type,Description,Phase\n")
+                for scenario in op_analysis.scenarios:
+                    row = [
+                        csv_escape(scenario.id),
+                        csv_escape(scenario.name),
+                        csv_escape(scenario.scenario_type),
+                        csv_escape(scenario.description),
+                        csv_escape('Operational')
+                    ]
+                    output.write(','.join(row) + '\n')
+        
+        # System Analysis
+        if hasattr(structured_analysis, 'system_analysis') and structured_analysis.system_analysis:
+            sys_analysis = structured_analysis.system_analysis
+            
+            # System Boundary
+            if sys_analysis.system_boundary:
+                output.write("\n=== SYSTEM BOUNDARY ===\n")
+                output.write("Scope Definition,Included Elements,Excluded Elements\n")
+                row = [
+                    csv_escape(sys_analysis.system_boundary.scope_definition),
+                    csv_escape('; '.join(sys_analysis.system_boundary.included_elements) if sys_analysis.system_boundary.included_elements else ''),
+                    csv_escape('; '.join(sys_analysis.system_boundary.excluded_elements) if sys_analysis.system_boundary.excluded_elements else '')
+                ]
+                output.write(','.join(row) + '\n')
+            
+            # System Functions
+            if sys_analysis.functions:
+                output.write("\n=== SYSTEM FUNCTIONS ===\n")
+                output.write("ID,Name,Function Type,Description,Allocated Actors,Performance Requirements,Phase\n")
+                for func in sys_analysis.functions:
+                    row = [
+                        csv_escape(func.id),
+                        csv_escape(func.name),
+                        csv_escape(func.function_type),
+                        csv_escape(func.description),
+                        csv_escape('; '.join(func.allocated_actors) if func.allocated_actors else ''),
+                        csv_escape('; '.join(func.performance_requirements) if func.performance_requirements else ''),
+                        csv_escape('System')
+                    ]
+                    output.write(','.join(row) + '\n')
+        
+        # Logical Architecture
+        if hasattr(structured_analysis, 'logical_architecture') and structured_analysis.logical_architecture:
+            logical_arch = structured_analysis.logical_architecture
+            
+            # Logical Components
+            if logical_arch.components:
+                output.write("\n=== LOGICAL COMPONENTS ===\n")
+                output.write("ID,Name,Component Type,Description,Responsibilities,Sub Components,Phase\n")
+                for comp in logical_arch.components:
+                    row = [
+                        csv_escape(comp.id),
+                        csv_escape(comp.name),
+                        csv_escape(comp.component_type),
+                        csv_escape(comp.description),
+                        csv_escape('; '.join(comp.responsibilities) if comp.responsibilities else ''),
+                        csv_escape('; '.join(comp.sub_components) if comp.sub_components else ''),
+                        csv_escape('Logical')
+                    ]
+                    output.write(','.join(row) + '\n')
+            
+            # Logical Functions
+            if logical_arch.functions:
+                output.write("\n=== LOGICAL FUNCTIONS ===\n")
+                output.write("ID,Name,Behavioral Specification,Description,Allocated Components,Input Flows,Output Flows,Phase\n")
+                for func in logical_arch.functions:
+                    row = [
+                        csv_escape(func.id),
+                        csv_escape(func.name),
+                        csv_escape(func.behavioral_specification),
+                        csv_escape(func.description),
+                        csv_escape('; '.join(func.allocated_components) if func.allocated_components else ''),
+                        csv_escape('; '.join(func.input_flows) if func.input_flows else ''),
+                        csv_escape('; '.join(func.output_flows) if func.output_flows else ''),
+                        csv_escape('Logical')
+                    ]
+                    output.write(','.join(row) + '\n')
+            
+            # Logical Interfaces
+            if logical_arch.interfaces:
+                output.write("\n=== LOGICAL INTERFACES ===\n")
+                output.write("ID,Name,Protocol,Provider,Consumer,Data Elements,Phase\n")
+                for iface in logical_arch.interfaces:
+                    row = [
+                        csv_escape(iface.id),
+                        csv_escape(iface.name),
+                        csv_escape(iface.protocol),
+                        csv_escape(iface.provider),
+                        csv_escape(iface.consumer),
+                        csv_escape('; '.join(iface.data_elements) if iface.data_elements else ''),
+                        csv_escape('Logical')
+                    ]
+                    output.write(','.join(row) + '\n')
+        
+        # Physical Architecture
+        if hasattr(structured_analysis, 'physical_architecture') and structured_analysis.physical_architecture:
+            physical_arch = structured_analysis.physical_architecture
+            
+            # Physical Components
+            if physical_arch.components:
+                output.write("\n=== PHYSICAL COMPONENTS ===\n")
+                output.write("ID,Name,Component Type,Technology Platform,Description,Resource Requirements,Deployment Location,Phase\n")
+                for comp in physical_arch.components:
+                    row = [
+                        csv_escape(comp.id),
+                        csv_escape(comp.name),
+                        csv_escape(comp.component_type),
+                        csv_escape(comp.technology_platform),
+                        csv_escape(comp.description),
+                        csv_escape('; '.join(comp.resource_requirements) if comp.resource_requirements else ''),
+                        csv_escape(comp.deployment_location),
+                        csv_escape('Physical')
+                    ]
+                    output.write(','.join(row) + '\n')
+            
+            # Implementation Constraints
+            if physical_arch.constraints:
+                output.write("\n=== IMPLEMENTATION CONSTRAINTS ===\n")
+                output.write("Constraint Type,Description,Rationale,Phase\n")
+                for const in physical_arch.constraints:
+                    row = [
+                        csv_escape(const.constraint_type),
+                        csv_escape(const.description),
+                        csv_escape(getattr(const, 'rationale', '')),
+                        csv_escape('Physical')
+                    ]
+                    output.write(','.join(row) + '\n')
+        
+        # Cross-Phase Analysis
+        if hasattr(structured_analysis, 'cross_phase_analysis') and structured_analysis.cross_phase_analysis:
+            cross_phase = structured_analysis.cross_phase_analysis
+            
+            # Traceability Links
+            if cross_phase.traceability_links:
+                output.write("\n=== TRACEABILITY LINKS ===\n")
+                output.write("Source Element,Target Element,Relationship Type,Confidence Score,Source Phase,Target Phase\n")
+                for link in cross_phase.traceability_links:
+                    row = [
+                        csv_escape(link.source_element),
+                        csv_escape(link.target_element),
+                        csv_escape(link.relationship_type),
+                        csv_escape(str(link.confidence_score)),
+                        csv_escape(link.source_phase.value if hasattr(link.source_phase, 'value') else str(link.source_phase)),
+                        csv_escape(link.target_phase.value if hasattr(link.target_phase, 'value') else str(link.target_phase))
+                    ]
+                    output.write(','.join(row) + '\n')
+            
+            # Gap Analysis
+            if cross_phase.gap_analysis:
+                output.write("\n=== GAP ANALYSIS ===\n")
+                output.write("Gap Type,Description,Severity,Recommendations\n")
+                for gap in cross_phase.gap_analysis:
+                    row = [
+                        csv_escape(gap.gap_type),
+                        csv_escape(gap.description),
+                        csv_escape(gap.severity),
+                        csv_escape('; '.join(gap.recommendations) if gap.recommendations else '')
+                    ]
+                    output.write(','.join(row) + '\n')
+        
+        # Enhancement Summary
+        if enhanced_results.get('enhancement_summary'):
+            summary = enhanced_results['enhancement_summary']
+            output.write("\n=== ENHANCEMENT SUMMARY ===\n")
+            output.write("Metric,Value\n")
+            for key, value in summary.items():
+                if isinstance(value, list):
+                    output.write(f'"{key}","{"; ".join(value)}"\n')
+                else:
+                    output.write(f'"{key}","{value}"\n')
+    
+    # Add stakeholders section
+    output.write("\n=== STAKEHOLDERS ===\n")
+    output.write("Stakeholder,Role,Description,Type,Influence,Phase,Mentions\n")
+    
+    for stakeholder_name, stakeholder_data in results.get('stakeholders', {}).items():
+        if isinstance(stakeholder_data, dict):
+            role = stakeholder_data.get('role', '')
+            desc = stakeholder_data.get('description', '')
+            stakeholder_type = stakeholder_data.get('type', '')
+            influence = stakeholder_data.get('influence', '')
+            phase = stakeholder_data.get('phase', '')
+            mentions = stakeholder_data.get('mentions_count', '')
+        else:
+            role = ''
+            desc = str(stakeholder_data) if stakeholder_data else ''
+            stakeholder_type = ''
+            influence = ''
+            phase = ''
+            mentions = ''
+        
+        row = [
+            csv_escape(stakeholder_name),
+            csv_escape(role),
+            csv_escape(desc),
+            csv_escape(stakeholder_type),
+            csv_escape(influence),
+            csv_escape(phase),
+            csv_escape(str(mentions))
+        ]
+        output.write(','.join(row) + '\n')
+    
+    # Add statistics section
+    stats = results.get('statistics', {})
+    if stats:
+        output.write("\n=== STATISTICS ===\n")
+        output.write("Metric,Value\n")
+        
+        for metric, value in stats.items():
+            if metric == 'by_priority' and isinstance(value, dict):
+                for priority, count in value.items():
+                    output.write(f'"{metric}_{priority}","{count}"\n')
+            elif metric == 'by_phase' and isinstance(value, dict):
+                for phase, phase_data in value.items():
+                    if isinstance(phase_data, dict):
+                        for sub_metric, sub_value in phase_data.items():
+                            output.write(f'"{metric}_{phase}_{sub_metric}","{sub_value}"\n')
+                    else:
+                        output.write(f'"{metric}_{phase}","{phase_data}"\n')
+            else:
+                output.write(f'"{metric}","{value}"\n')
+    
+    return output.getvalue()
+
 def display_generation_results(results, export_format, rag_system):
     st.markdown("### Generated Requirements")
     
@@ -1275,10 +1920,10 @@ def display_generation_results(results, export_format, rag_system):
         current_project = rag_system.get_current_project()
         if current_project:
             if st.session_state.get('requirements_saved'):
-                st.success(f"✅ **Requirements automatically saved to project:** {current_project.name}")
+                st.success(f"Requirements automatically saved to project: {current_project.name}")
             elif st.session_state.get('save_error'):
-                st.error(f"❌ **Auto-save failed:** {st.session_state['save_error']}")
-                if st.button("🔄 Retry Save"):
+                st.error(f"Auto-save failed: {st.session_state['save_error']}")
+                if st.button("Retry Save"):
                     try:
                         # Retry saving
                         traditional_requirements = results.get('traditional_requirements', results) if 'traditional_requirements' in results else results
@@ -1287,14 +1932,14 @@ def display_generation_results(results, export_format, rag_system):
                             traditional_requirements
                         )
                         if success:
-                            st.success("✅ Requirements saved successfully!")
+                            st.success("Requirements saved successfully!")
                             st.session_state['requirements_saved'] = True
                             del st.session_state['save_error']
                             st.rerun()
                     except Exception as e:
-                        st.error(f"❌ Retry failed: {str(e)}")
+                        st.error(f"Retry failed: {str(e)}")
         else:
-            st.info("💡 **Tip:** Create or select a project to automatically save requirements for future access!")
+            st.info("Tip: Create or select a project to automatically save requirements for future access!")
     
     # Performance information
     if 'generation_time' in st.session_state:
@@ -1385,13 +2030,13 @@ def display_generation_results(results, export_format, rag_system):
             
             # Document-content based priority assessment
             if must_percentage > 70:
-                st.info("🔒 **Safety/Security-Critical System**: High proportion of MUST requirements reflects critical system nature")
+                st.info("Safety/Security-Critical System: High proportion of MUST requirements reflects critical system nature")
             elif must_percentage > 50:
-                st.info("🏭 **Mission-Critical System**: Moderate-high MUST requirements indicate operational importance")
+                st.info("Mission-Critical System: Moderate-high MUST requirements indicate operational importance")
             elif must_percentage < 10:
-                st.info("🔬 **Research/Enhancement Project**: Low MUST requirements suggest experimental or enhancement nature")
+                st.info("Research/Enhancement Project: Low MUST requirements suggest experimental or enhancement nature")
             else:
-                st.success("✅ **Balanced System**: Priority distribution reflects mixed criticality levels")
+                st.success("Balanced System: Priority distribution reflects mixed criticality levels")
     
     # Requirements by phase
     for phase, phase_reqs in results.get('requirements', {}).items():
@@ -1417,71 +2062,81 @@ def display_generation_results(results, export_format, rag_system):
     # Export section
     st.markdown("### Export Requirements")
     
+    # Get the appropriate results for export
+    enhanced_results = st.session_state.get('enhanced_results')
+    export_results = enhanced_results.get('traditional_requirements', results) if enhanced_results else results
+    
     col1, col2 = st.columns([2, 1])
     with col1:
-        if st.button("Export Requirements"):
-            # Check if we have enhanced results and the format is ARCADIA-specific
-            enhanced_results = st.session_state.get('enhanced_results')
-            
-            if export_format in ["ARCADIA_JSON", "Structured_Markdown"] and enhanced_results and hasattr(rag_system, 'export_structured_requirements'):
-                exported_content = rag_system.export_structured_requirements(enhanced_results, export_format)
-            else:
-                # Use traditional export for regular results
-                export_results = enhanced_results.get('traditional_requirements', results) if enhanced_results else results
-                exported_content = rag_system.export_requirements(export_results, export_format)
-            
+        # Generate export content based on format
+        try:
             if export_format == "JSON":
-                st.download_button(
-                    "Download JSON",
-                    exported_content,
-                    "requirements.json",
-                    "application/json"
-                )
-            elif export_format == "ARCADIA_JSON":
-                st.download_button(
-                    "Download ARCADIA JSON",
-                    exported_content,
-                    "arcadia_analysis.json",
-                    "application/json"
-                )
-            elif export_format == "Structured_Markdown":
-                st.download_button(
-                    "Download Structured Report",
-                    exported_content,
-                    "arcadia_structured_report.md",
-                    "text/markdown"
-                )
-            elif export_format == "Markdown":
-                st.download_button(
-                    "Download Markdown",
-                    exported_content,
-                    "requirements.md",
-                    "text/markdown"
-                )
+                exported_content = export_requirements_to_json(export_results)
+                filename = "requirements.json"
+                mime_type = "application/json"
+                
+            elif export_format == "CSV":
+                exported_content = export_requirements_to_csv(export_results)
+                filename = "requirements.csv"
+                mime_type = "text/csv"
+                
             elif export_format == "Excel":
-                st.download_button(
-                    "Download Excel (CSV)",
-                    exported_content,
-                    "requirements.csv",
-                    "text/csv"
-                )
-            elif export_format == "DOORS":
-                st.download_button(
-                    "Download DOORS",
-                    exported_content,
-                    "requirements.dxl",
-                    "text/plain"
-                )
-            elif export_format == "ReqIF":
-                st.download_button(
-                    "Download ReqIF",
-                    exported_content,
-                    "requirements.reqif",
-                    "application/xml"
-                )
+                exported_content = export_requirements_to_excel_csv(export_results)
+                filename = "requirements_excel.csv"
+                mime_type = "text/csv"
+                
+            elif export_format == "ARCADIA_JSON" and enhanced_results:
+                # Export enhanced ARCADIA analysis
+                arcadia_export = {
+                    "metadata": {
+                        "export_timestamp": datetime.now().isoformat(),
+                        "export_type": "ARCADIA_Analysis"
+                    },
+                    "traditional_requirements": enhanced_results.get('traditional_requirements', {}),
+                    "structured_analysis": enhanced_results.get('structured_analysis', {}).__dict__ if hasattr(enhanced_results.get('structured_analysis', {}), '__dict__') else {},
+                    "enhancement_summary": enhanced_results.get('enhancement_summary', {})
+                }
+                exported_content = json.dumps(arcadia_export, indent=2, ensure_ascii=False, default=str)
+                filename = "arcadia_analysis.json"
+                mime_type = "application/json"
+                
+            else:
+                # Fallback to JSON for unsupported formats
+                exported_content = export_requirements_to_json(export_results)
+                filename = "requirements.json"
+                mime_type = "application/json"
+                if export_format not in ["JSON", "CSV", "Excel", "ARCADIA_JSON"]:
+                    st.warning(f"Format {export_format} not fully supported, exporting as JSON")
+            
+            # Create download button - always available
+            st.download_button(
+                f"Download {export_format}",
+                exported_content,
+                filename,
+                mime_type,
+                key=f"download_requirements_{export_format}",
+                help=f"Download requirements in {export_format} format"
+            )
+            
+            # Show format info
+            total_reqs = sum(len(reqs) for phase_reqs in export_results.get('requirements', {}).values() 
+                           for reqs in phase_reqs.values() if isinstance(reqs, list))
+            st.caption(f"Ready to export {total_reqs} requirements in {export_format} format")
+            
+        except Exception as e:
+            st.error(f"Export preparation error: {str(e)}")
+            logger.error(f"Requirements export preparation error: {str(e)}")
     
     with col2:
         st.info(f"Export format: {export_format}")
+        
+        # Show export stats
+        if export_results:
+            stats = export_results.get('statistics', {})
+            if stats.get('total_requirements'):
+                st.metric("Total Requirements", stats['total_requirements'])
+            st.metric("Phases", len(export_results.get('requirements', {})))
+            st.metric("Stakeholders", len(export_results.get('stakeholders', {})))
 
 def display_requirements_list(requirements, req_type):
     if not requirements:
@@ -4049,7 +4704,7 @@ def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types,
             quality_threshold = st.slider("Quality Threshold", 0.5, 1.0, 0.7, key="req_analysis_quality")
             
             # Export format
-            export_formats = config.REQUIREMENTS_OUTPUT_FORMATS + ["ARCADIA_JSON", "Structured_Markdown"]
+            export_formats = ["JSON", "CSV", "Excel", "ARCADIA_JSON", "Structured_Markdown"]
             export_format_local = st.selectbox(
                 "Export Format",
                 export_formats,
@@ -4285,23 +4940,85 @@ def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types,
                             st.error(f"Evaluation error: {str(e)}")
                 
                 # Export options at bottom
-                st.markdown("#### 📤 Export Options")
+                st.markdown("#### Export Options")
+                
+                # Get the appropriate results for export
+                enhanced_results = st.session_state.get('enhanced_results')
+                export_results = enhanced_results.get('traditional_requirements', results) if enhanced_results else results
+                
                 export_col1, export_col2, export_col3 = st.columns(3)
                 
                 with export_col1:
-                    if st.button("📄 Export Requirements", key="req_analysis_export_req"):
-                        # Export requirements logic
-                        st.success("Requirements exported successfully!")
+                    st.markdown("**Requirements**")
+                    try:
+                        # Generate JSON export for requirements
+                        req_export_content = export_requirements_to_json(export_results)
+                        st.download_button(
+                            "Download Requirements JSON",
+                            req_export_content,
+                            "requirements.json",
+                            "application/json",
+                            key="req_analysis_export_req_json"
+                        )
+                        
+                        # Generate CSV export for requirements
+                        req_csv_content = export_requirements_to_csv(export_results)
+                        st.download_button(
+                            "Download Requirements CSV",
+                            req_csv_content,
+                            "requirements.csv",
+                            "text/csv",
+                            key="req_analysis_export_req_csv"
+                        )
+                    except Exception as e:
+                        st.error(f"Export error: {str(e)}")
                 
                 with export_col2:
-                    if st.button("🏗️ Export ARCADIA Analysis", key="req_analysis_export_arcadia"):
-                        # Export ARCADIA analysis logic
-                        st.success("ARCADIA analysis exported successfully!")
+                    st.markdown("**ARCADIA Analysis**")
+                    if enhanced_results:
+                        try:
+                            # Export enhanced ARCADIA analysis
+                            arcadia_export = {
+                                "metadata": {
+                                    "export_timestamp": datetime.now().isoformat(),
+                                    "export_type": "ARCADIA_Analysis"
+                                },
+                                "traditional_requirements": enhanced_results.get('traditional_requirements', {}),
+                                "structured_analysis": enhanced_results.get('structured_analysis', {}).__dict__ if hasattr(enhanced_results.get('structured_analysis', {}), '__dict__') else {},
+                                "enhancement_summary": enhanced_results.get('enhancement_summary', {})
+                            }
+                            arcadia_content = json.dumps(arcadia_export, indent=2, ensure_ascii=False, default=str)
+                            st.download_button(
+                                "Download ARCADIA JSON",
+                                arcadia_content,
+                                "arcadia_analysis.json",
+                                "application/json",
+                                key="req_analysis_export_arcadia_json"
+                            )
+                        except Exception as e:
+                            st.error(f"ARCADIA export error: {str(e)}")
+                    else:
+                        st.info("Enhanced analysis not available")
                 
                 with export_col3:
-                    if st.button("📊 Export Full Report", key="req_analysis_export_full"):
-                        # Export full report logic
-                        st.success("Full report exported successfully!")
+                    st.markdown("**Excel Format**")
+                    try:
+                        # Generate Excel-compatible CSV
+                        excel_content = export_requirements_to_excel_csv(export_results)
+                        st.download_button(
+                            "Download Excel CSV",
+                            excel_content,
+                            "requirements_excel.csv",
+                            "text/csv",
+                            key="req_analysis_export_excel"
+                        )
+                        
+                        # Show export summary
+                        total_reqs = sum(len(reqs) for phase_reqs in export_results.get('requirements', {}).values() 
+                                       for reqs in phase_reqs.values() if isinstance(reqs, list))
+                        st.caption(f"{total_reqs} requirements ready")
+                    except Exception as e:
+                        st.error(f"Excel export error: {str(e)}")
                 
             except Exception as e:
                 st.error(f"❌ Generation error: {str(e)}")
