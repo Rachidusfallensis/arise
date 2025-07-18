@@ -4014,6 +4014,249 @@ def process_documents_with_duplicate_detection(rag_system, current_project, uplo
         status_text.empty()
         progress_bar.empty()
 
+def _query_project_documents_robust(rag_system, user_prompt, project_id, project_name, ready_docs):
+    """
+    Robust project-specific document query with similarity search on stored chunks
+    
+    Args:
+        rag_system: The RAG system instance
+        user_prompt: User's question
+        project_id: Project ID
+        project_name: Project name for context
+        ready_docs: List of ready/processed documents
+    
+    Returns:
+        Dict with 'answer' and 'sources' keys
+    """
+    try:
+        # Method 1: Try dedicated project query method (preferred)
+        if hasattr(rag_system, 'query_project_documents'):
+            logger.info(f"Using dedicated query_project_documents method for project {project_id}")
+            response_data = rag_system.query_project_documents(user_prompt, project_id)
+            
+            # Validate response format
+            if isinstance(response_data, dict) and response_data.get('answer'):
+                logger.info("✅ Project query successful")
+                return response_data
+            else:
+                logger.warning("Project query returned invalid format, falling back")
+        
+        # Method 2: Enhanced ChromaDB similarity search with project filter
+        if hasattr(rag_system, 'collection'):
+            logger.info(f"🔍 Performing similarity search for project {project_id}")
+            try:
+                # Query with project filter for similarity search
+                chroma_results = rag_system.collection.query(
+                    query_texts=[user_prompt],
+                    n_results=10,  # Get more results for better similarity filtering
+                    where={"project_id": project_id}
+                )
+                
+                # Build response from ChromaDB results with similarity scoring
+                if chroma_results.get('documents') and chroma_results['documents'][0]:
+                    context_docs = []
+                    similarity_scores = chroma_results.get('distances', [[]])[0]
+                    
+                    for i, (doc, metadata, distance) in enumerate(zip(
+                        chroma_results['documents'][0],
+                        chroma_results.get('metadatas', [{}])[0],
+                        similarity_scores
+                    )):
+                        # Add similarity score to metadata
+                        enhanced_metadata = metadata.copy()
+                        enhanced_metadata['similarity_score'] = 1 - distance  # Convert distance to similarity
+                        enhanced_metadata['rank'] = i + 1
+                        
+                        context_docs.append(type('Document', (), {
+                            'page_content': doc,
+                            'metadata': enhanced_metadata
+                        })())
+                    
+                    if context_docs:
+                        # Filter for high-relevance chunks (similarity > 0.7)
+                        relevant_docs = [doc for doc in context_docs if doc.metadata.get('similarity_score', 0) > 0.7]
+                        
+                        if not relevant_docs:
+                            # If no high-relevance chunks, use top 3 results
+                            relevant_docs = context_docs[:3]
+                            logger.info(f"📊 No high-relevance chunks found, using top 3 results")
+                        else:
+                            logger.info(f"📊 Found {len(relevant_docs)} high-relevance chunks (similarity > 0.7)")
+                        
+                        # Create context from most relevant chunks
+                        context_text = "\n\n".join([doc.page_content for doc in relevant_docs])
+                        
+                        # Enhanced prompt with similarity context
+                        project_prompt = f"""Based on the following document excerpts from project '{project_name}', answer the question: {user_prompt}
+
+Context from Project Documents (ranked by relevance):
+{context_text}
+
+IMPORTANT: 
+- Base your answer ONLY on the provided document excerpts above
+- If the excerpts don't contain enough information to answer the question, explicitly state this
+- Include specific references to the document sources when possible
+- Do not make assumptions beyond what's stated in the document excerpts
+
+Question: {user_prompt}"""
+                        
+                        response = rag_system.ollama_client.chat(
+                            model="llama3:instruct",
+                            messages=[{"role": "user", "content": project_prompt}]
+                        )
+                        
+                        logger.info(f"✅ ChromaDB similarity search successful - used {len(relevant_docs)} chunks")
+                        return {
+                            'answer': response["message"]["content"],
+                            'sources': relevant_docs
+                        }
+            except Exception as chroma_error:
+                logger.warning(f"ChromaDB similarity search failed: {str(chroma_error)}")
+        
+        # Method 3: Persistence service similarity search (for systems with stored chunks)
+        if hasattr(rag_system, 'persistence_service') and ready_docs:
+            logger.info(f"🔍 Performing manual similarity search on stored chunks for project {project_id}")
+            try:
+                # Get stored chunks from persistence service
+                project_chunks = rag_system.persistence_service.get_project_chunks(project_id)
+                
+                if project_chunks:
+                    # Filter chunks by ready documents
+                    ready_filenames = [doc.filename for doc in ready_docs]
+                    ready_chunks = [
+                        chunk for chunk in project_chunks 
+                        if chunk.get('metadata', {}).get('source_filename') in ready_filenames
+                    ]
+                    
+                    if ready_chunks:
+                        # Perform similarity search on chunks
+                        similar_chunks = _calculate_chunk_similarity(user_prompt, ready_chunks)
+                        
+                        if similar_chunks:
+                            # Use top similar chunks for context
+                            top_chunks = similar_chunks[:3]
+                            
+                            context_text = "\n\n".join([
+                                f"[Source: {chunk['metadata'].get('source_filename', 'Unknown')}]\n{chunk['content']}"
+                                for chunk in top_chunks
+                            ])
+                            
+                            project_prompt = f"""Based on the following document excerpts from project '{project_name}', answer the question: {user_prompt}
+
+Context from Project Documents (ranked by similarity):
+{context_text}
+
+IMPORTANT: 
+- Base your answer ONLY on the provided document excerpts above
+- If the excerpts don't contain enough information to answer the question, explicitly state this
+- Include specific references to the document sources when possible
+
+Question: {user_prompt}"""
+                            
+                            response = rag_system.ollama_client.chat(
+                                model="llama3:instruct",
+                                messages=[{"role": "user", "content": project_prompt}]
+                            )
+                            
+                            # Create mock sources for display
+                            mock_sources = []
+                            for chunk in top_chunks:
+                                mock_sources.append(type('Document', (), {
+                                    'page_content': chunk['content'],
+                                    'metadata': chunk['metadata']
+                                })())
+                            
+                            logger.info(f"✅ Manual similarity search successful - used {len(top_chunks)} chunks")
+                            return {
+                                'answer': response["message"]["content"],
+                                'sources': mock_sources
+                            }
+            except Exception as manual_error:
+                logger.warning(f"Manual similarity search failed: {str(manual_error)}")
+        
+        # Method 4: Fallback - inform user about document availability
+        logger.warning("No similarity search method available")
+        
+        if ready_docs:
+            doc_list = ", ".join([doc.filename for doc in ready_docs])
+            return {
+                'answer': f"I have access to {len(ready_docs)} documents in project '{project_name}': {doc_list}. However, I need a properly configured similarity search system to answer questions about their content. Please ensure your RAG system supports project-specific document queries.",
+                'sources': []
+            }
+        else:
+            return {
+                'answer': f"No processed documents are available in project '{project_name}'. Please upload and process documents first before asking questions.",
+                'sources': []
+            }
+    
+    except Exception as e:
+        logger.error(f"Error in robust project query: {str(e)}")
+        return {
+            'answer': f"I encountered an error while searching the project documents: {str(e)}. Please try again or contact support if the issue persists.",
+            'sources': []
+        }
+
+
+def _calculate_chunk_similarity(query, chunks):
+    """
+    Calculate similarity between query and chunks using text-based scoring
+    
+    Args:
+        query: User query string
+        chunks: List of chunk dictionaries with 'content' and 'metadata'
+    
+    Returns:
+        List of chunks sorted by similarity score (highest first)
+    """
+    import re
+    
+    # Normalize query
+    query_lower = query.lower()
+    query_terms = set(re.findall(r'\b\w+\b', query_lower))
+    
+    # Remove common stop words
+    stop_words = {
+        'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has', 'he', 'in', 'is', 'it', 'its',
+        'of', 'on', 'that', 'the', 'to', 'was', 'were', 'will', 'with', 'what', 'when', 'where', 'who', 'why', 'how'
+    }
+    query_terms = query_terms - stop_words
+    
+    if not query_terms:
+        return chunks[:5]  # Return first 5 if no meaningful terms
+    
+    scored_chunks = []
+    
+    for chunk in chunks:
+        content = chunk.get('content', '').lower()
+        content_terms = set(re.findall(r'\b\w+\b', content))
+        
+        # Calculate similarity score
+        score = 0
+        
+        # Exact term matches
+        common_terms = query_terms.intersection(content_terms)
+        score += len(common_terms) * 2
+        
+        # Phrase matching (bonus for consecutive terms)
+        for term in query_terms:
+            if term in content:
+                score += content.count(term) * 1.5
+        
+        # Length normalization
+        if len(content) > 0:
+            score = score / (len(content) / 1000)  # Normalize by content length
+        
+        if score > 0:
+            chunk_with_score = chunk.copy()
+            chunk_with_score['similarity_score'] = round(score, 2)
+            scored_chunks.append(chunk_with_score)
+    
+    # Sort by similarity score (highest first)
+    scored_chunks.sort(key=lambda x: x['similarity_score'], reverse=True)
+    
+    return scored_chunks
+
+
 def project_documents_tab(rag_system, current_project, has_project_management):
     """Document Management tab - Focused on documents only"""
     st.markdown("### 📚 Document Management")
@@ -4263,25 +4506,99 @@ def project_documents_tab(rag_system, current_project, has_project_management):
                         
                         # Show context sources if available (project-specific)
                         if "context" in message and message["context"]:
-                            with st.expander(f"Project Sources ({len(message['context'])})"):
+                            with st.expander(f"📄 Project Sources ({len(message['context'])})"):
                                 for j, doc in enumerate(message["context"]):
                                     source_name = doc.get('metadata', {}).get('source', 'Unknown')
+                                    source_filename = source_name.split('/')[-1] if source_name != 'Unknown' else 'Unknown'
+                                    
+                                    # Check if this source is from the current project
+                                    is_project_source = any(project_doc.filename == source_filename 
+                                                          for project_doc in project_documents)
+                                    
+                                    source_indicator = "✅" if is_project_source else "⚠️"
+                                    
+                                    # Get additional metadata for stored chunks
+                                    relevance_score = doc.get('metadata', {}).get('relevance_score', 'N/A')
+                                    chunk_length = doc.get('metadata', {}).get('chunk_length', len(doc.get('content', '')))
+                                    
                                     st.markdown(f"""
                                     <div class="source-citation">
-                                        <strong>📄 Source {j+1}:</strong> {source_name}<br>
-                                        <strong>Project:</strong> {current_project.name}<br>
-                                        {doc.get('content', '')[:200]}...
+                                        <strong>{source_indicator} Source {j+1}:</strong> {source_filename}<br>
+                                        <strong>Project:</strong> {current_project.name} {'(Verified)' if is_project_source else '(External)'}<br>
+                                        <strong>Relevance Score:</strong> {relevance_score} | <strong>Chunk Size:</strong> {chunk_length} chars<br>
+                                        <strong>Preview:</strong> {doc.get('content', '')[:200]}...
                                     </div>
                                     """, unsafe_allow_html=True)
+                        
+                        # Show debug info if available (for troubleshooting)
+                        if "debug_info" in message and message["debug_info"]:
+                            with st.expander("🔧 Debug Info (Technical Details)"):
+                                debug_info = message["debug_info"]
+                                
+                                debug_col1, debug_col2 = st.columns(2)
+                                with debug_col1:
+                                    st.write(f"**Ready Documents:** {debug_info.get('ready_docs_count', 'Unknown')}")
+                                    st.write(f"**Context Sources:** {debug_info.get('context_docs_count', 'Unknown')}")
+                                    st.write(f"**Query Method:** {debug_info.get('query_method_used', 'Unknown')}")
+                                    
+                                    # Show chunk-specific info
+                                    if debug_info.get('chunks_method') == 'stored_chunks':
+                                        st.write(f"**Chunks Source:** {debug_info.get('chunks_searched', 'Unknown')}")
+                                        if debug_info.get('avg_relevance_score'):
+                                            st.write(f"**Avg Relevance:** {debug_info.get('avg_relevance_score', 0):.1f}")
+                                        if debug_info.get('query_terms_used'):
+                                            st.write(f"**Query Terms:** {', '.join(debug_info.get('query_terms_used', []))}")
+                                
+                                with debug_col2:
+                                    st.write(f"**Project Query Available:** {'✅' if debug_info.get('has_project_query_method', False) else '❌'}")
+                                    st.write(f"**Persistence Service:** {'✅' if debug_info.get('has_persistence_service', False) else '❌'}")
+                                    
+                                    # Show chunk-specific info
+                                    if debug_info.get('chunks_method') == 'stored_chunks':
+                                        st.write(f"**Using Stored Chunks:** ✅")
+                                        if debug_info.get('max_relevance_score'):
+                                            st.write(f"**Max Relevance:** {debug_info.get('max_relevance_score', 0)}")
+                                
+                                # Status indicators
+                                if debug_info.get('chunks_method') == 'stored_chunks':
+                                    if debug_info.get('context_docs_count', 0) > 0:
+                                        st.success("✅ Using stored chunks directly from project database")
+                                    else:
+                                        st.warning("⚠️ No relevant chunks found in project storage")
+                                elif debug_info.get('context_docs_count', 0) == 0:
+                                    st.warning("⚠️ No context sources found - this may indicate a RAG system issue")
+                                elif debug_info.get('ready_docs_count', 0) == 0:
+                                    st.warning("⚠️ No ready documents found - upload and process documents first")
+                                else:
+                                    st.success("✅ System appears to be working correctly")
             
             # Chat input with project context
+            ready_docs = [doc for doc in project_documents if doc.processing_status == "completed"]
+            if ready_docs:
+                placeholder_text = f"Ask about {current_project.name} documents ({len(ready_docs)} available), ARCADIA methodology, or MBSE concepts..."
+            else:
+                placeholder_text = f"Upload documents to {current_project.name} first, then ask questions..."
+            
             user_prompt = st.chat_input(
-                f"Ask about {current_project.name} documents, ARCADIA methodology, or MBSE concepts...", 
-                key="integrated_project_chat_input"
+                placeholder_text, 
+                key="integrated_project_chat_input",
+                disabled=len(ready_docs) == 0
             )
+            
+            # Show chat scope indicator
+            if ready_docs:
+                st.caption(f"🎯 **Chat scope**: {len(ready_docs)} document(s) from {current_project.name} • {sum(doc.chunks_count for doc in ready_docs)} text chunks available")
+            else:
+                st.caption("⚠️ **No documents available** - Upload and process documents to enable chat")
             
             if user_prompt:
                 logger.info(f"New project chat message in {current_project.name}: {user_prompt[:100]}...")
+                
+                # Check if we have any processed documents
+                if not ready_docs:
+                    st.error("❌ **No documents available for chat!** Please upload and process documents first.")
+                    st.info("Upload documents in the section above, then wait for processing to complete.")
+                    return
                 
                 # Update chat title if it's the first message
                 if not current_chat["messages"]:
@@ -4299,31 +4616,65 @@ def project_documents_tab(rag_system, current_project, has_project_management):
                 # Generate response with project-specific context
                 with st.spinner(f"Analyzing {current_project.name} documents and generating response..."):
                     try:
-                        # Use project-specific RAG query if available
-                        if hasattr(rag_system, 'query_project_documents'):
-                            response_data = rag_system.query_project_documents(user_prompt, project_id)
-                        else:
-                            # Fallback to general query (will be limited by project context in vector store)
-                            response_data = rag_system.query_documents(user_prompt)
+                        response_data = _query_project_documents_robust(
+                            rag_system, user_prompt, project_id, current_project.name, ready_docs
+                        )
                         
+                        # Extract response and context with better error handling
                         if isinstance(response_data, dict):
-                            response = response_data.get('answer', 'I apologize, but I could not generate a response.')
+                            response = response_data.get('answer', '')
                             context_docs = response_data.get('sources', [])
+                            
+                            # Ensure we have a valid response
+                            if not response or response.strip() == '':
+                                response = f"I couldn't generate a response from the available documents in project '{current_project.name}'. Please try rephrasing your question or check if the documents contain relevant information."
+                                logger.warning("Empty response from RAG system")
                         else:
-                            response = str(response_data)
+                            response = str(response_data) if response_data else "No response generated from RAG system."
                             context_docs = []
+                            logger.info(f"Non-dict response from RAG: {type(response_data)}")
                         
-                        logger.info(f"Generated project-specific response with {len(context_docs)} context sources")
+                        # Final safety check
+                        if not response or response.strip() == '':
+                            response = f"I'm having trouble generating a response. Please ensure that:\n1. Documents are uploaded to project '{current_project.name}'\n2. Documents are fully processed\n3. Your question relates to the document content"
+                            logger.error("Final safety check: empty response")
                         
-                        # Add assistant response
-                        current_chat["messages"].append({
+                        logger.info(f"Generated project-specific response with {len(context_docs)} context sources from project {current_project.name}")
+                        
+                        # Add assistant response with debug info
+                        assistant_message = {
                             "role": "assistant",
                             "content": response,
                             "context": [{"content": doc.page_content, "metadata": doc.metadata} for doc in context_docs] if context_docs else [],
                             "timestamp": datetime.now().isoformat(),
                             "project_id": project_id,
                             "project_name": current_project.name
-                        })
+                        }
+                        
+                        # Add debug info for troubleshooting
+                        debug_info = {
+                            "ready_docs_count": len(ready_docs),
+                            "context_docs_count": len(context_docs),
+                            "has_project_query_method": hasattr(rag_system, 'query_project_documents'),
+                            "has_persistence_service": hasattr(rag_system, 'persistence_service'),
+                            "query_method_used": "project_documents" if hasattr(rag_system, 'query_project_documents') else "stored_chunks" if hasattr(rag_system, 'persistence_service') else "general"
+                        }
+                        
+                        # Add chunk-specific info if using stored chunks
+                        if hasattr(rag_system, 'persistence_service') and not hasattr(rag_system, 'query_project_documents'):
+                            debug_info["chunks_method"] = "stored_chunks"
+                            debug_info["chunks_searched"] = "direct_project_chunks"
+                            debug_info["query_terms_used"] = user_prompt.split()
+                            # Add relevance scores if available
+                            if context_docs:
+                                scores = [doc.metadata.get('relevance_score', 0) for doc in context_docs if isinstance(doc.metadata.get('relevance_score'), int)]
+                                if scores:
+                                    debug_info["avg_relevance_score"] = sum(scores) / len(scores)
+                                    debug_info["max_relevance_score"] = max(scores)
+                        
+                        assistant_message["debug_info"] = debug_info
+                        
+                        current_chat["messages"].append(assistant_message)
                         
                         # Save project chats
                         st.session_state.project_chats[project_id] = current_project_chats
@@ -4369,11 +4720,40 @@ def project_documents_tab(rag_system, current_project, has_project_management):
         # Show project documents available for chat
         if 'project_documents' in locals() and project_documents:
             with st.expander(f"📄 Available Documents for Chat ({len(project_documents)})"):
+                total_chunks = sum(doc.chunks_count for doc in project_documents)
+                total_size = sum(doc.file_size for doc in project_documents) / 1024  # KB
+                
+                st.info(f"📊 **Knowledge Base**: {len(project_documents)} documents, {total_chunks} text chunks, {total_size:.1f} KB")
+                
                 for doc in project_documents:
                     status_icon = "🟢" if doc.processing_status == "completed" else "🟡"
-                    st.write(f"{status_icon} **{doc.filename}** ({doc.chunks_count} chunks)")
+                    status_text = "Ready for chat" if doc.processing_status == "completed" else "Processing..."
+                    
+                    col1, col2 = st.columns([3, 1])
+                    with col1:
+                        st.write(f"{status_icon} **{doc.filename}**")
+                        st.caption(f"📊 {doc.chunks_count} chunks • {doc.file_size / 1024:.1f} KB • {status_text}")
+                    with col2:
+                        if doc.processing_status == "completed":
+                            st.success("✅ Available")
+                        else:
+                            st.warning("⏳ Processing")
+                
+                # Chat readiness indicator
+                ready_docs = [doc for doc in project_documents if doc.processing_status == "completed"]
+                if ready_docs:
+                    st.success(f"🎯 **Chat Ready**: {len(ready_docs)} document(s) processed and available for questions")
+                else:
+                    st.warning("⏳ **Processing**: Documents are being processed for chat availability")
         else:
             st.warning("📭 No documents in this project yet. Upload documents above to enable chat.")
+            st.info("""
+            **To enable project chat:**
+            1. Upload documents using the uploader above
+            2. Wait for processing to complete
+            3. Documents will appear here when ready
+            4. Start a new chat to ask questions about your documents
+            """)
     
     elif has_project_management and not current_project:
         # No project selected
