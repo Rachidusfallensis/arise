@@ -53,29 +53,59 @@ class ProjectManager:
         else:
             st.sidebar.info("No project selected")
         
-        # Project creation section
+        # Enhanced project creation section
         if self.has_project_management:
             with st.sidebar.expander("➕ New Project", expanded=False):
                 with st.form("new_project_form"):
-                    new_name = st.text_input("Project Name", placeholder="My new MBSE project")
-                    new_description = st.text_area("Description", placeholder="Project description...")
-                    new_proposal = st.text_area("Proposal Text", placeholder="Initial proposal text...")
+                    new_name = st.text_input("Project Name", placeholder="My new MBSE project", max_chars=100)
+                    new_description = st.text_area("Description", placeholder="Brief project description...", max_chars=1000, height=100)
+                    new_proposal = st.text_area("Proposal Text", placeholder="Initial proposal text...", max_chars=5000, height=150)
                     
+                    # Enhanced form validation
                     if st.form_submit_button("Create Project", type="primary"):
-                        if new_name.strip():
-                            try:
-                                project_id = self.rag_system.create_project(
-                                    name=new_name.strip(),
-                                    description=new_description.strip(),
-                                    proposal_text=new_proposal.strip()
-                                )
-                                st.sidebar.success(f"✅ Project created: {new_name}")
-                                st.sidebar.balloons()
-                                st.rerun()
-                            except Exception as e:
-                                st.sidebar.error(f"❌ Error: {str(e)}")
-                        else:
-                            st.sidebar.error("Project name is required")
+                        # Validate input
+                        is_valid, error_message = self.validate_project_data(new_name, new_description, new_proposal)
+                        
+                        if not is_valid:
+                            st.sidebar.error(f"❌ {error_message}")
+                            return None
+                        
+                        try:
+                            # Create project with validation
+                            project_id = self.rag_system.create_project(
+                                name=new_name.strip(),
+                                description=new_description.strip(),
+                                proposal_text=new_proposal.strip()
+                            )
+                            
+                            # Success feedback
+                            st.sidebar.success(f"✅ Project created: {new_name}")
+                            st.sidebar.balloons()
+                            
+                            # Auto-load the new project
+                            if hasattr(self.rag_system, 'load_project'):
+                                self.rag_system.load_project(project_id)
+                            
+                            st.rerun()
+                            
+                        except Exception as e:
+                            st.sidebar.error(f"❌ Error creating project: {str(e)}")
+                            # Log error for debugging
+                            import logging
+                            logging.error(f"Project creation failed: {str(e)}")
+                
+                # Quick project templates
+                st.sidebar.markdown("**🚀 Quick Templates:**")
+                
+                template_col1, template_col2 = st.sidebar.columns(2)
+                
+                with template_col1:
+                    if st.button("🏗️ Architecture", key="template_architecture", help="Create architecture project"):
+                        self._create_template_project("architecture")
+                
+                with template_col2:
+                    if st.button("🔬 Research", key="template_research", help="Create research project"):
+                        self._create_template_project("research")
         
         # Project selection section
         if projects:
@@ -115,7 +145,7 @@ class ProjectManager:
             return None
     
     def _render_project_info_sidebar(self, project: Project):
-        """Display project information in the sidebar"""
+        """Display project information in the sidebar with enhanced CRUD operations"""
         with st.sidebar.expander("ℹ️ Project Information", expanded=True):
             st.write(f"**ID:** `{project.id}`")
             st.write(f"**Created:** {project.created_at.strftime('%d/%m/%Y %H:%M')}")
@@ -130,6 +160,25 @@ class ProjectManager:
             if project.description:
                 st.write(f"**Description:**")
                 st.write(project.description)
+            
+            # Enhanced CRUD operations
+            st.markdown("---")
+            st.markdown("**🔧 Project Actions**")
+            
+            # Quick update project
+            if st.button("✏️ Edit Project", use_container_width=True, key="edit_project_sidebar"):
+                st.session_state.show_edit_project_modal = True
+            
+            # Clone project
+            if st.button("📋 Clone Project", use_container_width=True, key="clone_project_sidebar"):
+                self._clone_project(project)
+            
+            # Delete project (with confirmation)
+            if st.button("🗑️ Delete Project", use_container_width=True, key="delete_project_sidebar", type="secondary"):
+                st.session_state.show_delete_project_modal = True
+        
+        # Handle modals
+        self._handle_project_modals(project)
     
     def render_project_dashboard(self) -> Dict[str, Any]:
         """Afficher le tableau de bord du projet simplifié"""
@@ -302,4 +351,385 @@ class ProjectManager:
             except Exception as e:
                 st.error(f"❌ Erreur récupération statistiques : {str(e)}")
         else:
-            st.info("🔧 Statistiques non disponibles dans ce mode") 
+            st.info("🔧 Statistiques non disponibles dans ce mode")
+    
+    def _clone_project(self, project: Project):
+        """Clone a project with all its metadata"""
+        try:
+            # Create new project with similar data
+            new_name = f"{project.name} (Copy)"
+            new_description = f"Cloned from: {project.name}\n\n{project.description}"
+            
+            new_project_id = self.rag_system.create_project(
+                name=new_name,
+                description=new_description,
+                proposal_text=project.proposal_text
+            )
+            
+            st.sidebar.success(f"✅ Project cloned: {new_name}")
+            st.sidebar.info("📋 New project created with same metadata. Documents and requirements are not copied.")
+            
+            # Load the new project
+            if hasattr(self.rag_system, 'load_project'):
+                self.rag_system.load_project(new_project_id)
+            
+            st.rerun()
+            
+        except Exception as e:
+            st.sidebar.error(f"❌ Error cloning project: {str(e)}")
+    
+    def _handle_project_modals(self, project: Project):
+        """Handle project edit and delete modals"""
+        # Edit project modal
+        if st.session_state.get('show_edit_project_modal', False):
+            self._render_edit_project_modal(project)
+        
+        # Delete project modal
+        if st.session_state.get('show_delete_project_modal', False):
+            self._render_delete_project_modal(project)
+    
+    def _render_edit_project_modal(self, project: Project):
+        """Render edit project modal"""
+        with st.sidebar.container():
+            st.markdown("### ✏️ Edit Project")
+            
+            with st.form("edit_project_form"):
+                # Pre-fill with current values
+                new_name = st.text_input("Project Name", value=project.name)
+                new_description = st.text_area("Description", value=project.description, height=100)
+                new_proposal = st.text_area("Proposal Text", value=project.proposal_text, height=150)
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if st.form_submit_button("💾 Save Changes", type="primary"):
+                        try:
+                            # Validate inputs
+                            if not new_name.strip():
+                                st.error("Project name cannot be empty")
+                                return
+                            
+                            # Update project
+                            success = self.rag_system.persistence_service.update_project(
+                                project.id,
+                                name=new_name.strip() if new_name.strip() != project.name else None,
+                                description=new_description.strip() if new_description.strip() != project.description else None,
+                                proposal_text=new_proposal.strip() if new_proposal.strip() != project.proposal_text else None
+                            )
+                            
+                            if success:
+                                st.success("✅ Project updated successfully!")
+                                st.session_state.show_edit_project_modal = False
+                                st.rerun()
+                            else:
+                                st.error("❌ Failed to update project")
+                                
+                        except Exception as e:
+                            st.error(f"❌ Update error: {str(e)}")
+                
+                with col2:
+                    if st.form_submit_button("❌ Cancel"):
+                        st.session_state.show_edit_project_modal = False
+                        st.rerun()
+    
+    def _render_delete_project_modal(self, project: Project):
+        """Render delete project modal with confirmation"""
+        with st.sidebar.container():
+            st.markdown("### 🗑️ Delete Project")
+            st.warning("⚠️ **This action cannot be undone!**")
+            
+            st.markdown(f"""
+            **Project to delete:** {project.name}
+            
+            This will permanently delete:
+            • All project documents and chunks
+            • All requirements and analyses
+            • All stakeholder information
+            • All project history
+            """)
+            
+            with st.form("delete_project_form"):
+                # Confirmation inputs
+                confirm_delete = st.checkbox("I understand this action is irreversible")
+                confirmation_text = st.text_input(
+                    "Type the project name to confirm deletion",
+                    placeholder=project.name
+                )
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if st.form_submit_button("🗑️ DELETE PROJECT", type="secondary"):
+                        if not confirm_delete:
+                            st.error("Please confirm you understand this action is irreversible")
+                            return
+                        
+                        if confirmation_text != project.name:
+                            st.error("Project name doesn't match. Please type the exact project name.")
+                            return
+                        
+                        try:
+                            # Delete project
+                            success = self.rag_system.persistence_service.delete_project(project.id)
+                            
+                            if success:
+                                st.success("✅ Project deleted successfully!")
+                                st.session_state.show_delete_project_modal = False
+                                
+                                # Clear current project
+                                if hasattr(self.rag_system, 'current_project'):
+                                    self.rag_system.current_project = None
+                                
+                                st.rerun()
+                            else:
+                                st.error("❌ Failed to delete project")
+                                
+                        except Exception as e:
+                            st.error(f"❌ Delete error: {str(e)}")
+                
+                with col2:
+                    if st.form_submit_button("❌ Cancel"):
+                        st.session_state.show_delete_project_modal = False
+                        st.rerun()
+    
+    def render_enhanced_project_list(self) -> Dict[str, Any]:
+        """Render enhanced project list with CRUD operations"""
+        if not self.has_persistence:
+            st.warning("🔧 Traditional mode - Enhanced project list not available")
+            return {}
+        
+        try:
+            projects = self.rag_system.get_all_projects()
+        except Exception as e:
+            st.error(f"❌ Error loading projects: {str(e)}")
+            return {}
+        
+        st.markdown("### 📋 All Projects")
+        
+        if not projects:
+            st.info("📭 No projects found. Create your first project!")
+            return {}
+        
+        # Enhanced project list with actions
+        for project in projects:
+            with st.container():
+                # Project header
+                col1, col2, col3 = st.columns([3, 1, 1])
+                
+                with col1:
+                    st.markdown(f"**📋 {project.name}**")
+                    if project.description:
+                        st.caption(project.description[:100] + "..." if len(project.description) > 100 else project.description)
+                    
+                    # Project stats
+                    stats_text = f"📄 {project.documents_count} docs • 📝 {project.requirements_count} reqs"
+                    st.caption(stats_text)
+                
+                with col2:
+                    st.caption(f"Created: {project.created_at.strftime('%d/%m/%Y')}")
+                    st.caption(f"Updated: {project.updated_at.strftime('%d/%m/%Y')}")
+                
+                with col3:
+                    # Action buttons
+                    if st.button("📂 Select", key=f"select_{project.id}"):
+                        if hasattr(self.rag_system, 'load_project'):
+                            self.rag_system.load_project(project.id)
+                        st.success(f"Selected: {project.name}")
+                        st.rerun()
+                    
+                    if st.button("✏️ Edit", key=f"edit_{project.id}"):
+                        st.session_state.current_editing_project = project.id
+                        st.session_state.show_edit_project_modal = True
+                        st.rerun()
+                
+                st.markdown("---")
+        
+        return {"projects": projects, "total": len(projects)}
+    
+    def validate_project_data(self, name: str, description: str = "", proposal_text: str = "") -> tuple[bool, str]:
+        """Validate project data before creation/update"""
+        # Name validation
+        if not name or not name.strip():
+            return False, "Project name is required"
+        
+        if len(name.strip()) < 3:
+            return False, "Project name must be at least 3 characters long"
+        
+        if len(name.strip()) > 100:
+            return False, "Project name must be less than 100 characters"
+        
+        # Description validation
+        if description and len(description) > 1000:
+            return False, "Description must be less than 1000 characters"
+        
+        # Proposal text validation
+        if proposal_text and len(proposal_text) > 5000:
+            return False, "Proposal text must be less than 5000 characters"
+        
+        # Check for duplicate names
+        try:
+            existing_projects = self.rag_system.get_all_projects()
+            for project in existing_projects:
+                if project.name.lower().strip() == name.lower().strip():
+                    return False, f"A project with the name '{name}' already exists"
+        except Exception as e:
+            # If we can't check for duplicates, still allow creation
+            pass
+        
+        return True, "Valid"
+    
+    def _create_template_project(self, template_type: str):
+        """Create a project from a template"""
+        templates = {
+            "architecture": {
+                "name": "Architecture Project",
+                "description": "System architecture design and analysis project using ARCADIA methodology",
+                "proposal": "This project focuses on developing a comprehensive system architecture using ARCADIA methodology. The project will include operational analysis, system analysis, logical architecture design, and physical architecture implementation."
+            },
+            "research": {
+                "name": "Research Project",
+                "description": "Research and development project for exploring new concepts and technologies",
+                "proposal": "This research project aims to investigate and develop new concepts, technologies, or methodologies. The project will include literature review, experimental design, data collection, analysis, and documentation of findings."
+            }
+        }
+        
+        if template_type not in templates:
+            st.sidebar.error(f"❌ Unknown template type: {template_type}")
+            return
+        
+        template = templates[template_type]
+        
+        try:
+            # Create project from template
+            project_id = self.rag_system.create_project(
+                name=template["name"],
+                description=template["description"],
+                proposal_text=template["proposal"]
+            )
+            
+            st.sidebar.success(f"✅ {template['name']} created from template!")
+            st.sidebar.info("📋 Template project created. You can edit the details and add your own content.")
+            
+            # Auto-load the new project
+            if hasattr(self.rag_system, 'load_project'):
+                self.rag_system.load_project(project_id)
+            
+            st.rerun()
+            
+        except Exception as e:
+            st.sidebar.error(f"❌ Error creating template project: {str(e)}")
+    
+    def export_project_data(self, project: Project) -> dict:
+        """Export project data for backup or migration"""
+        try:
+            export_data = {
+                "project_info": {
+                    "name": project.name,
+                    "description": project.description,
+                    "proposal_text": project.proposal_text,
+                    "created_at": project.created_at.isoformat(),
+                    "updated_at": project.updated_at.isoformat()
+                },
+                "documents": [],
+                "requirements": {},
+                "stakeholders": [],
+                "sessions": []
+            }
+            
+            # Export documents
+            if hasattr(self.rag_system, 'persistence_service'):
+                try:
+                    documents = self.rag_system.persistence_service.get_project_documents(project.id)
+                    export_data["documents"] = [
+                        {
+                            "filename": doc.filename,
+                            "file_size": doc.file_size,
+                            "chunks_count": doc.chunks_count,
+                            "processing_status": doc.processing_status,
+                            "processed_at": doc.processed_at.isoformat()
+                        }
+                        for doc in documents
+                    ]
+                except Exception as e:
+                    export_data["documents"] = f"Error loading documents: {str(e)}"
+                
+                # Export requirements
+                try:
+                    requirements = self.rag_system.persistence_service.get_project_requirements(project.id)
+                    export_data["requirements"] = requirements
+                except Exception as e:
+                    export_data["requirements"] = f"Error loading requirements: {str(e)}"
+                
+                # Export stakeholders
+                try:
+                    stakeholders = self.rag_system.persistence_service.get_project_stakeholders(project.id)
+                    export_data["stakeholders"] = stakeholders
+                except Exception as e:
+                    export_data["stakeholders"] = f"Error loading stakeholders: {str(e)}"
+                
+                # Export recent sessions
+                try:
+                    sessions = self.rag_system.persistence_service.get_project_sessions(project.id, limit=20)
+                    export_data["sessions"] = sessions
+                except Exception as e:
+                    export_data["sessions"] = f"Error loading sessions: {str(e)}"
+            
+            return export_data
+            
+        except Exception as e:
+            return {"error": f"Export failed: {str(e)}"}
+    
+    def get_project_health_check(self, project: Project) -> dict:
+        """Perform health check on project data"""
+        health_check = {
+            "status": "healthy",
+            "issues": [],
+            "recommendations": [],
+            "score": 100
+        }
+        
+        try:
+            # Check if project has documents
+            if hasattr(self.rag_system, 'persistence_service'):
+                documents = self.rag_system.persistence_service.get_project_documents(project.id)
+                
+                if not documents:
+                    health_check["issues"].append("No documents uploaded")
+                    health_check["recommendations"].append("Upload project documents to enable full functionality")
+                    health_check["score"] -= 30
+                
+                # Check document processing status
+                processing_docs = [doc for doc in documents if doc.processing_status != "completed"]
+                if processing_docs:
+                    health_check["issues"].append(f"{len(processing_docs)} documents still processing")
+                    health_check["recommendations"].append("Wait for document processing to complete")
+                    health_check["score"] -= 10
+                
+                # Check requirements
+                requirements = self.rag_system.persistence_service.get_project_requirements(project.id)
+                if not requirements.get("requirements"):
+                    health_check["issues"].append("No requirements generated")
+                    health_check["recommendations"].append("Generate requirements using the Requirements & Analysis tab")
+                    health_check["score"] -= 20
+                
+                # Check stakeholders
+                stakeholders = self.rag_system.persistence_service.get_project_stakeholders(project.id)
+                if not stakeholders:
+                    health_check["issues"].append("No stakeholders identified")
+                    health_check["recommendations"].append("Identify and document project stakeholders")
+                    health_check["score"] -= 15
+            
+            # Determine overall status
+            if health_check["score"] >= 80:
+                health_check["status"] = "healthy"
+            elif health_check["score"] >= 60:
+                health_check["status"] = "warning"
+            else:
+                health_check["status"] = "critical"
+                
+        except Exception as e:
+            health_check["status"] = "error"
+            health_check["issues"].append(f"Health check failed: {str(e)}")
+            health_check["score"] = 0
+        
+        return health_check

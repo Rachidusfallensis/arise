@@ -1,8 +1,109 @@
 {
   "proj_20250618_154509_5595": {
     "20250623_151113_842560": {
-      "title": "New Project Chat",
-      "messages": [],
+      "title": "What is the SAFE platform about ?",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is the SAFE platform about ?",
+          "timestamp": "2025-07-18T11:15:30.986966",
+          "project_id": "proj_20250618_154509_5595",
+          "project_name": "SAFE Project_test"
+        },
+        {
+          "role": "assistant",
+          "content": "I couldn't generate a response from the available documents in project 'SAFE Project_test'. Please try rephrasing your question or check if the documents contain relevant information.",
+          "context": [],
+          "timestamp": "2025-07-18T11:15:30.987830",
+          "project_id": "proj_20250618_154509_5595",
+          "project_name": "SAFE Project_test",
+          "debug_info": {
+            "ready_docs_count": 1,
+            "context_docs_count": 0,
+            "has_project_query_method": true,
+            "has_persistence_service": true,
+            "query_method_used": "project_documents"
+          }
+        },
+        {
+          "role": "user",
+          "content": "What is the SAFE platform about ?",
+          "timestamp": "2025-07-18T11:22:42.789422",
+          "project_id": "proj_20250618_154509_5595",
+          "project_name": "SAFE Project_test"
+        },
+        {
+          "role": "assistant",
+          "content": "[General search - may include content beyond project documents]\n\nThe SAFE (Scaleable and Flexible Environment) platform is a Model-Based Systems Engineering (MBSE) approach developed by Sparx Systems, an Australian software company.\n\nThe SAFE method is based on the concept of model-based systems engineering, which involves creating models of complex systems using graphical representations of components, interfaces, and behaviors. This allows for early analysis, simulation, verification, and validation of system designs, reducing the risk of errors and improving overall system performance.\n\nThe SAFE platform provides a set of tools and techniques to support the development of model-based systems engineering (MBSE) projects. It includes features such as:\n\n1. Modeling: Creating graphical models of systems using UML (Unified Modeling Language) and SysML (Systems Modeling Language).\n2. Simulation: Simulating system behavior using models, allowing for analysis and testing of different scenarios.\n3. Analysis: Performing quantitative and qualitative analyses on the system models to identify potential issues or areas for improvement.\n4. Verification and Validation: Verifying and validating that the system meets its requirements and behaves as expected.\n\nThe SAFE platform is widely used in industries such as aerospace, defense, automotive, and healthcare, where complex systems require rigorous design, testing, and validation processes.\n\nIn the context of the 'SAFE Project_test' documents, it is likely that this project aims to apply the SAFE methodology to develop a model-based system for testing and verification purposes.",
+          "context": [],
+          "timestamp": "2025-07-18T11:22:47.555231",
+          "project_id": "proj_20250618_154509_5595",
+          "project_name": "SAFE Project_test",
+          "debug_info": {
+            "ready_docs_count": 1,
+            "context_docs_count": 0,
+            "has_project_query_method": true,
+            "has_persistence_service": true,
+            "query_method_used": "project_documents"
+          }
+        },
+        {
+          "role": "user",
+          "content": "What is the SAFE platform about ?",
+          "timestamp": "2025-07-18T11:29:05.455364",
+          "project_id": "proj_20250618_154509_5595",
+          "project_name": "SAFE Project_test"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on the provided document excerpts, the SAFE platform appears to be focused on developing a framework for optimizing threat intelligence creation and analysis in Security Operations Centers (SOCs). The platform aims to automate initial steps in malware or forensic analysis using artificial intelligence (AI) and novel technologies.\n\nSpecifically, the SAFE project is mentioned to develop enabling technologies for SOCs, with a focus on automating the initial steps in malware or forensic analysis as much as possible. This will enable the generation and distribution of original threat intelligence while engaging AI in different areas, such as incident response in the SAFE Battle Control Center or threat intelligence enrichment in the SAFE Distribution Threat Intelligence Platform modules.\n\nReferences:\n\n* [Source: Proposal-SEP-211043552.pdf], Abstract section\n* [Source: Proposal-SEP-211043552.pdf], With threat actors...section",
+          "context": [
+            {
+              "content": "Field(s) marked * are mandatory to fill.\nTopic DIGITAL-ECCC-2024-DEPLOY-CYBER-06-ENA\nType of Model Grant Agreement DIGITAL-AGType of Action DIGITAL-JU-SIMPLE\nCall DIGITAL-ECCC-2024-DEPLOY-CYBER-06\nAcronym SAFE\nProposal title Security AI for Enhanced SOC\nNote that for technical reasons, the following characters are not accepted in the Proposal Title and will be removed: < > \" &\nDuration in \nmonths36\nFixed keyword 1     Cybersecurity\nFree keywordsCybersecurity, Threat Intelligence, Artificial Intelligence, Battle Center, Security Operations Center, Security \nPlatform\nAbstract *",
+              "metadata": {
+                "source": "temp/Proposal-SEP-211043552.pdf",
+                "filename": "Proposal-SEP-211043552.pdf",
+                "chunk_id": 1,
+                "total_chunks": 446,
+                "arcadia_phase": "system",
+                "source_filename": "Proposal-SEP-211043552.pdf"
+              }
+            },
+            {
+              "content": "for the development of the SAFE  framework  \n3. ENISA : ISEP will disseminate through AI Cybersecurity working group SAFE  developments. \nSince the group is composed by highly skilled AI specialists, they can advise the SAFE  \ndevelopments, as well as use them to influence regulation and standards in the European \ncybersecurity field.  \n4. CLAIRE: AI developments in SAFE  project will contribute to the innovation of AI in \ncybersecurity field.  In this context, ISEP will establish the connection with CLAIRE research \nnetwork to spread the results of  SAFE project.  \n5. RTO, University  Environment : SAFE projects will be  disseminated in the working groups that \nwill then consider methodology and results while drafting future guidelines and standards  \nCommunication Channels:  \n1. Working Groups: Working sessions will be conducted throughout the project development  to \nshare the methodology and early results, aiming at creating momentum on the approach that",
+              "metadata": {
+                "source": "temp/Proposal-SEP-211043552.pdf",
+                "filename": "Proposal-SEP-211043552.pdf",
+                "chunk_id": 225,
+                "total_chunks": 446,
+                "arcadia_phase": "operational",
+                "source_filename": "Proposal-SEP-211043552.pdf"
+              }
+            },
+            {
+              "content": "With threat actors proliferating at an unprecedented pace across verticals, threat intelligence sharing, and situational awareness are paramount for swift detection and decision-making. The SAFE project aims to optimize CTI creation and analysis by developing enabling technologies for Security Operations Centers. To this effect, we will leverage the efforts underwent in CYDERCO project (DIGITAL-ECCC-2022-CYBER-03-SOC). The scope of this evolution is to automate the initial steps in malware or forensic analysis as much as possible. This will empower the generation and distribution of original threat intelligence while engaging novel technologies such as AI in different areas. To enhance functional efficiency, we aim to harness AI in various cybersecurity domains such as incident response in the SAFE Battle Control Center or threat intelligence enrichment in the SAFE Distribution Threat Intelligence Platform modules",
+              "metadata": {
+                "source": "temp/Proposal-SEP-211043552.pdf",
+                "filename": "Proposal-SEP-211043552.pdf",
+                "chunk_id": 2,
+                "total_chunks": 446,
+                "arcadia_phase": "operational",
+                "source_filename": "Proposal-SEP-211043552.pdf"
+              }
+            }
+          ],
+          "timestamp": "2025-07-18T11:29:07.497452",
+          "project_id": "proj_20250618_154509_5595",
+          "project_name": "SAFE Project_test",
+          "debug_info": {
+            "ready_docs_count": 1,
+            "context_docs_count": 3,
+            "has_project_query_method": true,
+            "has_persistence_service": true,
+            "query_method_used": "project_documents"
+          }
+        }
+      ],
       "created_at": "2025-06-23T15:11:13.842583",
       "project_id": "proj_20250618_154509_5595",
       "project_name": "SAFE Project_test",
@@ -41,6 +142,180 @@
       "project_id": "proj_20250619_184706_2362",
       "project_name": "Irekia Modelisation",
       "document_count": 0
+    }
+  },
+  "proj_20250617_185145": {
+    "20250717_150537_500278": {
+      "title": "What the document about ? ",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What the document about ? ",
+          "timestamp": "2025-07-17T15:06:04.722046",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project"
+        },
+        {
+          "role": "assistant",
+          "content": "I apologize, but I could not generate a response.",
+          "context": [],
+          "timestamp": "2025-07-17T15:06:04.724176",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project"
+        },
+        {
+          "role": "user",
+          "content": "why ? ",
+          "timestamp": "2025-07-17T15:06:14.784606",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project"
+        },
+        {
+          "role": "assistant",
+          "content": "I apologize, but I could not generate a response.",
+          "context": [],
+          "timestamp": "2025-07-17T15:06:14.785064",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project"
+        }
+      ],
+      "created_at": "2025-07-17T15:05:37.500326",
+      "project_id": "proj_20250617_185145",
+      "project_name": "Irekia Project",
+      "document_count": 1
+    },
+    "20250717_151120_572674": {
+      "title": "What the document about ? ",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What the document about ? ",
+          "timestamp": "2025-07-17T15:11:31.140190",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project"
+        },
+        {
+          "role": "assistant",
+          "content": "I apologize, but I could not generate a response.",
+          "context": [],
+          "timestamp": "2025-07-17T15:11:31.140683",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project"
+        },
+        {
+          "role": "user",
+          "content": "What the document about ?",
+          "timestamp": "2025-07-17T15:18:39.771965",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project"
+        },
+        {
+          "role": "assistant",
+          "content": "I couldn't generate a response from the available documents in project 'Irekia Project'. Please try rephrasing your question or check if the documents contain relevant information.",
+          "context": [],
+          "timestamp": "2025-07-17T15:18:39.773850",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project",
+          "debug_info": {
+            "ready_docs_count": 1,
+            "context_docs_count": 0,
+            "has_project_query_method": true,
+            "has_persistence_service": true,
+            "query_method_used": "project_documents"
+          }
+        }
+      ],
+      "created_at": "2025-07-17T15:11:20.572704",
+      "project_id": "proj_20250617_185145",
+      "project_name": "Irekia Project",
+      "document_count": 1
+    },
+    "20250717_152451_986045": {
+      "title": "Who are the actors involved ? ",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Who are the actors involved ? ",
+          "timestamp": "2025-07-17T15:25:17.391273",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project"
+        },
+        {
+          "role": "assistant",
+          "content": "I couldn't generate a response from the available documents in project 'Irekia Project'. Please try rephrasing your question or check if the documents contain relevant information.",
+          "context": [],
+          "timestamp": "2025-07-17T15:25:17.398824",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project",
+          "debug_info": {
+            "ready_docs_count": 1,
+            "context_docs_count": 0,
+            "has_project_query_method": true,
+            "has_persistence_service": true,
+            "query_method_used": "project_documents"
+          }
+        },
+        {
+          "role": "user",
+          "content": "What is the IREKIA project about ?  ?",
+          "timestamp": "2025-07-18T11:29:58.840747",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on the provided document excerpts, it appears that the IREKIA project aims to \"doubler les effectifs étudiants sur la côte basque et à renforcer la connectivité avec l'écosystème économique local\" (Source: Modélisation Irekia .pdf, Introduction 1.1 Contexte). This suggests that the project is focused on increasing the number of students in a specific region and strengthening connections with the local economic ecosystem.\n\nAdditionally, the excerpts highlight the project's focus on formalizing operational needs, defining optimal system architecture, ensuring traceability of requirements, and facilitating evolution and maintenance of the system (Source: Modélisation Irekia .pdf, Introduction 1.2 Objectifs de la modélisation).",
+          "context": [
+            {
+              "content": ". Elle prend en compte les contraintes techniques, budgétaires et opérationnelles du projet IREKIA.5.2 Composants Comportementaux (Behavioral Components)BC1 - Services de Gestion de ProjetsTechnologie : Microservices Spring Boot (Java 17) Implémente : LC1 (Gestionnaire de Projets)",
+              "metadata": {
+                "source": "temp/Modélisation Irekia .pdf",
+                "filename": "Modélisation Irekia .pdf",
+                "chunk_id": 36,
+                "total_chunks": 48,
+                "arcadia_phase": "logical",
+                "source_filename": "Modélisation Irekia .pdf"
+              }
+            },
+            {
+              "content": "(Project Services)NC1.1 (K8s Prod)Haute disponibilité requiseBC2 (Security Services)NC1.1 (K8s Prod)Criticité sécuritéBC3 (Resource Services)NC1.1 (K8s Prod)Performance temps réelBC4 (LMS Platform)NC1.1 (K8s Prod)Charge utilisateursBC5.1 (IoT Gateway)NC1.3 (Edge Servers)Proximité capteursBC5.2-3 (Monitoring)NC1.1 (K8s Prod)Centralisation donnéesBC6 (Collaborative)NC1.1 (K8s Prod)Stockage importantBC7 (Analytics)NC1.2 (K8s Dev) + CloudRessources GPUBC8 (Integration)NC1.1 (K8s Prod) + DMZExposition externe",
+              "metadata": {
+                "source": "temp/Modélisation Irekia .pdf",
+                "filename": "Modélisation Irekia .pdf",
+                "chunk_id": 44,
+                "total_chunks": 48,
+                "arcadia_phase": "system",
+                "source_filename": "Modélisation Irekia .pdf"
+              }
+            },
+            {
+              "content": "Introduction 1.1 ContexteLe Fablab Ingénierie Numérique s'inscrit dans le projet IREKIA de l'UPPA, visant à doubler les effectifs étudiants sur la côte basque et à renforcer la connectivité avec l'écosystème économique local.1.2 Objectifs de la modélisation•Formaliser les besoins opérationnels du fablab•Déﬁnir l'architecture système optimale•Assurer la traçabilité des exigences•Faciliter l'évolution et la maintenance du système1.3 PérimètreLa modélisation couvre l'ensemble des activités du fablab dans les domaines :•Intelligence artiﬁcielle•Services numériques•Internet des objets (IoT)•Ingénierie des systèmes et logiciels•Cybersécurité•Transformation numérique2",
+              "metadata": {
+                "source": "temp/Modélisation Irekia .pdf",
+                "filename": "Modélisation Irekia .pdf",
+                "chunk_id": 0,
+                "total_chunks": 48,
+                "arcadia_phase": "system",
+                "source_filename": "Modélisation Irekia .pdf"
+              }
+            }
+          ],
+          "timestamp": "2025-07-18T11:30:00.583914",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project",
+          "debug_info": {
+            "ready_docs_count": 1,
+            "context_docs_count": 3,
+            "has_project_query_method": true,
+            "has_persistence_service": true,
+            "query_method_used": "project_documents"
+          }
+        }
+      ],
+      "created_at": "2025-07-17T15:24:51.986302",
+      "project_id": "proj_20250617_185145",
+      "project_name": "Irekia Project",
+      "document_count": 1
     }
   }
 }

@@ -4257,6 +4257,341 @@ def _calculate_chunk_similarity(query, chunks):
     return scored_chunks
 
 
+def _load_project_documents_safely(rag_system, project_id):
+    """
+    Safely load project documents with error handling and recovery
+    
+    Args:
+        rag_system: The RAG system instance
+        project_id: Project ID to load documents for
+    
+    Returns:
+        List of processed documents (empty list on error)
+    """
+    try:
+        # Load documents from persistence service
+        documents = rag_system.persistence_service.get_project_documents(project_id)
+        
+        # Filter for completed documents only
+        completed_docs = [doc for doc in documents if doc.processing_status == "completed"]
+        
+        logger.info(f"Loaded {len(completed_docs)} completed documents for project {project_id}")
+        return completed_docs
+        
+    except Exception as e:
+        logger.error(f"Error loading project documents for {project_id}: {str(e)}")
+        # Return empty list on error - don't crash the app
+        return []
+
+
+def _load_project_data_safely(rag_system, project_id):
+    """
+    Safely load all project data with error handling
+    
+    Args:
+        rag_system: The RAG system instance
+        project_id: Project ID to load data for
+    
+    Returns:
+        Dict with safely loaded data or empty defaults
+    """
+    try:
+        # Initialize with safe defaults
+        project_data = {
+            "documents": [],
+            "chunks": [],
+            "requirements": {},
+            "stakeholders": [],
+            "arcadia_analyses": [],
+            "sessions": [],
+            "errors": []
+        }
+        
+        # Load documents safely
+        try:
+            documents = rag_system.persistence_service.get_project_documents(project_id)
+            project_data["documents"] = [doc for doc in documents if doc.processing_status == "completed"]
+        except Exception as e:
+            logger.warning(f"Could not load documents for project {project_id}: {str(e)}")
+            project_data["errors"].append(f"Documents: {str(e)}")
+        
+        # Load chunks safely
+        try:
+            chunks = rag_system.persistence_service.get_project_chunks(project_id)
+            project_data["chunks"] = chunks
+        except Exception as e:
+            logger.warning(f"Could not load chunks for project {project_id}: {str(e)}")
+            project_data["errors"].append(f"Chunks: {str(e)}")
+        
+        # Load requirements safely
+        try:
+            requirements = rag_system.persistence_service.get_project_requirements(project_id)
+            project_data["requirements"] = requirements
+        except Exception as e:
+            logger.warning(f"Could not load requirements for project {project_id}: {str(e)}")
+            project_data["errors"].append(f"Requirements: {str(e)}")
+        
+        # Load stakeholders safely
+        try:
+            stakeholders = rag_system.persistence_service.get_project_stakeholders(project_id)
+            project_data["stakeholders"] = stakeholders
+        except Exception as e:
+            logger.warning(f"Could not load stakeholders for project {project_id}: {str(e)}")
+            project_data["errors"].append(f"Stakeholders: {str(e)}")
+        
+        # Load ARCADIA analyses safely
+        try:
+            analyses = rag_system.persistence_service.get_project_arcadia_analyses(project_id)
+            project_data["arcadia_analyses"] = analyses
+        except Exception as e:
+            logger.warning(f"Could not load ARCADIA analyses for project {project_id}: {str(e)}")
+            project_data["errors"].append(f"ARCADIA Analyses: {str(e)}")
+        
+        # Load sessions safely
+        try:
+            sessions = rag_system.persistence_service.get_project_sessions(project_id, limit=10)
+            project_data["sessions"] = sessions
+        except Exception as e:
+            logger.warning(f"Could not load sessions for project {project_id}: {str(e)}")
+            project_data["errors"].append(f"Sessions: {str(e)}")
+        
+        return project_data
+        
+    except Exception as e:
+        logger.error(f"Critical error loading project data for {project_id}: {str(e)}")
+        # Return safe defaults even on critical error
+        return {
+            "documents": [],
+            "chunks": [],
+            "requirements": {},
+            "stakeholders": [],
+            "arcadia_analyses": [],
+            "sessions": [],
+            "errors": [f"Critical error: {str(e)}"]
+        }
+
+
+def _log_error_safely(rag_system, project_id, error_type, error_message):
+    """
+    Safely log errors without crashing the app
+    
+    Args:
+        rag_system: The RAG system instance
+        project_id: Project ID (can be None)
+        error_type: Type of error
+        error_message: Error message
+    """
+    try:
+        if hasattr(rag_system, 'persistence_service') and project_id:
+            rag_system.persistence_service.log_project_session(
+                project_id,
+                error_type,
+                error_message
+            )
+        logger.error(f"Error logged for project {project_id}: {error_type} - {error_message}")
+    except Exception as e:
+        # Even error logging failed - just log to console
+        logger.error(f"Failed to log error: {str(e)}")
+
+
+def _handle_missing_data_gracefully(data_type, project_name=None):
+    """
+    Handle missing data gracefully with user-friendly messages
+    
+    Args:
+        data_type: Type of missing data
+        project_name: Optional project name for context
+    
+    Returns:
+        Tuple of (should_continue, message)
+    """
+    project_context = f" for project '{project_name}'" if project_name else ""
+    
+    if data_type == "documents":
+        st.info(f"📭 No documents found{project_context}. Upload some documents to get started!")
+        return True, "No documents"
+    
+    elif data_type == "chunks":
+        st.warning(f"⚠️ No text chunks available{project_context}. This may indicate documents are still processing or there was a processing error.")
+        return True, "No chunks"
+    
+    elif data_type == "requirements":
+        st.info(f"📝 No requirements generated{project_context}. Generate some requirements to view analysis.")
+        return True, "No requirements"
+    
+    elif data_type == "project":
+        st.error("❌ Project data is missing or corrupted. Please select a different project or contact support.")
+        return False, "Missing project"
+    
+    else:
+        st.warning(f"⚠️ Some data is missing{project_context}. The application will continue with available data.")
+        return True, "Missing data"
+
+
+def _handle_refresh_project_data(rag_system, current_project):
+    """
+    Handle refreshing project data with proper deletion and safety checks
+    
+    Args:
+        rag_system: The RAG system instance
+        current_project: Current project object
+    """
+    try:
+        # Create a confirmation dialog
+        st.warning("⚠️ **Data Refresh Warning**")
+        st.markdown(f"""
+        **This action will:**
+        • Delete all processed documents and chunks for project '{current_project.name}'
+        • Remove all requirements and ARCADIA analyses
+        • Clear all stakeholder information
+        • Reset project chat history
+        • Keep project metadata (name, description, etc.)
+        
+        ⚠️ **This action cannot be undone!**
+        """)
+        
+        # Confirmation checkbox
+        confirm_refresh = st.checkbox("I understand that this will delete all project data except basic project information")
+        
+        if confirm_refresh:
+            # Additional text confirmation
+            confirmation_text = st.text_input(
+                "Type 'DELETE DATA' to confirm the refresh action",
+                placeholder="DELETE DATA"
+            )
+            
+            if confirmation_text == "DELETE DATA":
+                if st.button("🗑️ Confirm Data Refresh", type="secondary"):
+                    with st.spinner("🔄 Refreshing project data..."):
+                        # Call the new refresh function
+                        success = _refresh_project_data_safely(rag_system, current_project.id)
+                        
+                        if success:
+                            st.success("✅ Project data refreshed successfully!")
+                            st.info("🔄 Reloading page with fresh data...")
+                            time.sleep(2)
+                            st.rerun()
+                        else:
+                            st.error("❌ Failed to refresh project data. Please try again.")
+            else:
+                if confirmation_text:
+                    st.error("❌ Confirmation text doesn't match. Please type 'DELETE DATA' exactly.")
+        
+    except Exception as e:
+        logger.error(f"Error in refresh handler: {str(e)}")
+        st.error(f"❌ Refresh error: {str(e)}")
+
+
+def _refresh_project_data_safely(rag_system, project_id):
+    """
+    Safely refresh project data by deleting all associated data except project metadata
+    
+    Args:
+        rag_system: The RAG system instance
+        project_id: Project ID to refresh
+    
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    try:
+        logger.info(f"Starting data refresh for project {project_id}")
+        
+        # Get persistence service
+        persistence_service = rag_system.persistence_service
+        
+        # Log the refresh action
+        persistence_service.log_project_session(
+            project_id,
+            "data_refresh_start",
+            "Starting complete project data refresh"
+        )
+        
+        # Delete data in safe order (respecting foreign key constraints)
+        with persistence_service._get_db_connection() as conn:
+            cursor = conn.cursor()
+            
+            # Step 1: Delete document chunks
+            cursor.execute("DELETE FROM document_chunks WHERE project_id = ?", (project_id,))
+            chunks_deleted = cursor.rowcount
+            logger.info(f"Deleted {chunks_deleted} chunks")
+            
+            # Step 2: Delete processed documents
+            cursor.execute("DELETE FROM processed_documents WHERE project_id = ?", (project_id,))
+            docs_deleted = cursor.rowcount
+            logger.info(f"Deleted {docs_deleted} documents")
+            
+            # Step 3: Delete requirements
+            cursor.execute("DELETE FROM requirements WHERE project_id = ?", (project_id,))
+            reqs_deleted = cursor.rowcount
+            logger.info(f"Deleted {reqs_deleted} requirements")
+            
+            # Step 4: Delete ARCADIA analyses
+            cursor.execute("DELETE FROM arcadia_analyses WHERE project_id = ?", (project_id,))
+            analyses_deleted = cursor.rowcount
+            logger.info(f"Deleted {analyses_deleted} ARCADIA analyses")
+            
+            # Step 5: Delete stakeholders
+            cursor.execute("DELETE FROM stakeholders WHERE project_id = ?", (project_id,))
+            stakeholders_deleted = cursor.rowcount
+            logger.info(f"Deleted {stakeholders_deleted} stakeholders")
+            
+            # Step 6: Reset project counters
+            cursor.execute("""
+                UPDATE projects 
+                SET documents_count = 0, 
+                    requirements_count = 0, 
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE id = ?
+            """, (project_id,))
+            
+            conn.commit()
+            
+            # Clear ChromaDB entries if available
+            if hasattr(rag_system, 'collection'):
+                try:
+                    # Delete from ChromaDB
+                    chroma_results = rag_system.collection.get(where={"project_id": project_id})
+                    if chroma_results.get('ids'):
+                        rag_system.collection.delete(ids=chroma_results['ids'])
+                        logger.info(f"Deleted {len(chroma_results['ids'])} ChromaDB entries")
+                except Exception as chroma_error:
+                    logger.warning(f"ChromaDB deletion error: {str(chroma_error)}")
+            
+            # Clear caches
+            if hasattr(st, 'cache_data'):
+                st.cache_data.clear()
+            if hasattr(st, 'cache_resource'):
+                st.cache_resource.clear()
+            
+            # Log successful completion
+            persistence_service.log_project_session(
+                project_id,
+                "data_refresh_complete",
+                f"Successfully refreshed project data: {docs_deleted} docs, {chunks_deleted} chunks, {reqs_deleted} requirements, {analyses_deleted} analyses, {stakeholders_deleted} stakeholders deleted"
+            )
+            
+            logger.info(f"Successfully refreshed project {project_id}")
+            return True
+            
+    except Exception as e:
+        logger.error(f"Error refreshing project data: {str(e)}")
+        
+        # Log the failure
+        try:
+            persistence_service.log_project_session(
+                project_id,
+                "data_refresh_failed",
+                f"Failed to refresh project data: {str(e)}"
+            )
+        except:
+            pass
+        
+        return False
+
+
+
+
+
 def project_documents_tab(rag_system, current_project, has_project_management):
     """Document Management tab - Focused on documents only"""
     st.markdown("### 📚 Document Management")
@@ -4264,14 +4599,14 @@ def project_documents_tab(rag_system, current_project, has_project_management):
     # Initialize project_documents to avoid undefined variable errors
     project_documents = []
     
-    # Load project documents if available
+    # Load project documents with enhanced safety
     if has_project_management and current_project:
         try:
-            project_documents = rag_system.persistence_service.get_project_documents(current_project.id)
-            project_documents = [doc for doc in project_documents if doc.processing_status == "completed"]
+            project_documents = _load_project_documents_safely(rag_system, current_project.id)
         except Exception as e:
             st.error(f"❌ Error loading project documents: {str(e)}")
             project_documents = []
+            _log_error_safely(rag_system, current_project.id, "document_loading_error", str(e))
     
     # Simple status check without detailed project metrics
     if has_project_management and not current_project:
@@ -5460,47 +5795,54 @@ def project_insights_tab(rag_system, current_project, has_project_management):
         days_active = (datetime.now() - current_project.created_at).days
         st.metric("📅 Days Active", days_active)
     
+    # Load project data safely once for all sections
+    project_data = _load_project_data_safely(rag_system, current_project.id)
+    
+    # Show any errors that occurred during data loading
+    if project_data["errors"]:
+        with st.expander("⚠️ Data Loading Issues", expanded=False):
+            for error in project_data["errors"]:
+                st.warning(f"• {error}")
+            st.info("The application will continue with available data.")
+    
     # Main insights sections
     insights_section1, insights_section2 = st.columns([2, 1])
     
     with insights_section1:
-        # Requirements overview - Compact
+        # Requirements overview - Compact with safe loading
         st.markdown("#### 📊 Requirements Overview")
         
-        try:
-            requirements_data = rag_system.persistence_service.get_project_requirements(current_project.id)
-            requirements = requirements_data.get("requirements", {})
+        # Use safely loaded project data
+        requirements_data = project_data["requirements"]
+        requirements = requirements_data.get("requirements", {})
+        
+        if requirements:
+            # Calculate phase coverage
+            phase_coverage = {}
+            total_requirements = 0
             
-            if requirements:
-                # Calculate phase coverage
-                phase_coverage = {}
-                total_requirements = 0
+            for phase, phase_reqs in requirements.items():
+                phase_total = sum(len(reqs) for reqs in phase_reqs.values())
+                phase_coverage[phase] = phase_total
+                total_requirements += phase_total
+            
+            if phase_coverage:
+                # Compact phase summary
+                req_col1, req_col2 = st.columns(2)
                 
-                for phase, phase_reqs in requirements.items():
-                    phase_total = sum(len(reqs) for reqs in phase_reqs.values())
-                    phase_coverage[phase] = phase_total
-                    total_requirements += phase_total
+                with req_col1:
+                    st.markdown("**Phase Distribution:**")
+                    for phase, count in phase_coverage.items():
+                        percentage = (count / total_requirements) * 100 if total_requirements > 0 else 0
+                        st.write(f"• **{phase.title()}**: {count} ({percentage:.0f}%)")
                 
-                if phase_coverage:
-                    # Compact phase summary
-                    req_col1, req_col2 = st.columns(2)
-                    
-                    with req_col1:
-                        st.markdown("**Phase Distribution:**")
-                        for phase, count in phase_coverage.items():
-                            percentage = (count / total_requirements) * 100 if total_requirements > 0 else 0
-                            st.write(f"• **{phase.title()}**: {count} ({percentage:.0f}%)")
-                    
-                    with req_col2:
-                        st.markdown("**Quality Status:**")
-                        for phase, count in phase_coverage.items():
-                            quality = "🟢 Good" if count >= 10 else "🟡 Moderate" if count >= 5 else "🔴 Low"
-                            st.write(f"• **{phase.title()}**: {quality}")
-            else:
-                st.info("No requirements generated yet")
-                
-        except Exception as e:
-            st.error(f"❌ Error loading requirements: {str(e)}")
+                with req_col2:
+                    st.markdown("**Quality Status:**")
+                    for phase, count in phase_coverage.items():
+                        quality = "🟢 Good" if count >= 10 else "🟡 Moderate" if count >= 5 else "🔴 Low"
+                        st.write(f"• **{phase.title()}**: {quality}")
+        else:
+            _handle_missing_data_gracefully("requirements", current_project.name)
     
     with insights_section2:
         # Project settings and management
@@ -5517,33 +5859,30 @@ def project_insights_tab(rag_system, current_project, has_project_management):
                 proposal_preview = current_project.proposal_text[:500] + "..." if len(current_project.proposal_text) > 500 else current_project.proposal_text
                 st.text_area("", value=proposal_preview, disabled=True, height=100, key="project_proposal_preview")
         
-        # Compact project statistics
+        # Compact project statistics with safe loading
         st.markdown("#### 📊 Key Stats")
         
-        try:
-            documents = rag_system.persistence_service.get_project_documents(current_project.id)
-            stakeholders = rag_system.persistence_service.get_project_stakeholders(current_project.id)
+        # Use safely loaded data (already loaded at the beginning)
+        documents = project_data["documents"]
+        stakeholders = project_data["stakeholders"]
+        
+        if documents:
+            total_size = sum(doc.file_size for doc in documents) / (1024 * 1024)  # MB
+            total_chunks = sum(doc.chunks_count for doc in documents)
             
-            if documents:
-                total_size = sum(doc.file_size for doc in documents) / (1024 * 1024)  # MB
-                total_chunks = sum(doc.chunks_count for doc in documents)
-                
-                # Compact metrics in single line format
-                st.write(f"📁 **Size**: {total_size:.1f} MB | 🧩 **Chunks**: {total_chunks} | 👥 **Stakeholders**: {len(stakeholders)}")
-                
-                # Document types in compact format
-                doc_types = {}
-                for doc in documents:
-                    ext = doc.filename.split('.')[-1].upper()
-                    doc_types[ext] = doc_types.get(ext, 0) + 1
-                
-                types_text = " | ".join([f"{dtype}: {count}" for dtype, count in doc_types.items()])
-                st.caption(f"**Types**: {types_text}")
-            else:
-                st.info("No documents uploaded")
-                
-        except Exception as e:
-            st.error(f"❌ Error loading stats: {str(e)}")
+            # Compact metrics in single line format
+            st.write(f"📁 **Size**: {total_size:.1f} MB | 🧩 **Chunks**: {total_chunks} | 👥 **Stakeholders**: {len(stakeholders)}")
+            
+            # Document types in compact format
+            doc_types = {}
+            for doc in documents:
+                ext = doc.filename.split('.')[-1].upper()
+                doc_types[ext] = doc_types.get(ext, 0) + 1
+            
+            types_text = " | ".join([f"{dtype}: {count}" for dtype, count in doc_types.items()])
+            st.caption(f"**Types**: {types_text}")
+        else:
+            _handle_missing_data_gracefully("documents", current_project.name)
         
         # Quick actions
         st.markdown("#### 🚀 Quick Actions")
@@ -5679,31 +6018,7 @@ def project_insights_tab(rag_system, current_project, has_project_management):
         
         with action_col2:
             if st.button("🔄 Refresh Data", use_container_width=True, key="refresh_project_data"):
-                try:
-                    # Clear relevant caches
-                    if hasattr(st, 'cache_data'):
-                        st.cache_data.clear()
-                    if hasattr(st, 'cache_resource'):
-                        st.cache_resource.clear()
-                    
-                    # Log the refresh action
-                    rag_system.persistence_service.log_project_session(
-                        current_project.id,
-                        "data_refresh",
-                        "Project data refreshed from insights dashboard"
-                    )
-                    
-                    # Show success message and rerun
-                    st.success("✅ Data refreshed successfully!")
-                    st.info("🔄 Reloading page with latest data...")
-                    time.sleep(1)  # Brief pause for user feedback
-                    st.rerun()
-                    
-                except Exception as e:
-                    logger.error(f"Refresh error: {str(e)}")
-                    st.error(f"❌ Refresh error: {str(e)}")
-                    # Fallback: just rerun the page
-                    st.rerun()
+                _handle_refresh_project_data(rag_system, current_project)
         
 
 

@@ -977,6 +977,10 @@ class PersistenceService:
             self.logger.error(f"Erreur lors de la récupération des statistiques : {str(e)}")
             return {"error": str(e)}
     
+    def _get_db_connection(self):
+        """Helper method to get database connection"""
+        return sqlite3.connect(self.db_path)
+    
     def link_document_to_project(self, existing_doc_id: str, target_project_id: str) -> bool:
         """Link an existing document to a new project by copying its data and chunks"""
         try:

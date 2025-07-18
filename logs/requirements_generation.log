@@ -1855,3 +1855,750 @@
 2025-07-08 15:16:15,589 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
 2025-07-08 15:16:15,594 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
 2025-07-08 15:16:15,594 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 11:08:30,096 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 11:08:30,165 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 11:08:30,171 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-17 11:08:30,193 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-17 11:08:30,262 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-07-17 11:08:30,500 - src.core.enhanced_persistent_rag_system - INFO - Collection existante compatible
+2025-07-17 11:08:30,500 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-07-17 11:08:30,500 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-07-17 11:08:30,500 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-07-17 11:08:30,500 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-07-17 11:08:30,500 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-07-17 11:08:30,500 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-07-17 11:08:30,500 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-07-17 11:08:30,501 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 11:08:30,502 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-07-17 11:08:30,512 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Irekia Modelisation (proj_20250619_184706_2362)
+2025-07-17 11:08:30,559 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 11:08:30,560 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 11:08:30,560 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 12:25:15,349 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 12:25:15,411 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 12:25:15,415 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-17 12:25:15,433 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-17 12:25:15,498 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-07-17 12:25:15,817 - src.core.enhanced_persistent_rag_system - INFO - Collection existante compatible
+2025-07-17 12:25:15,817 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-07-17 12:25:15,817 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-07-17 12:25:15,817 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-07-17 12:25:15,817 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-07-17 12:25:15,817 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-07-17 12:25:15,817 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-07-17 12:25:15,817 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-07-17 12:25:15,817 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 12:25:15,819 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-07-17 12:25:15,832 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Irekia Modelisation (proj_20250619_184706_2362)
+2025-07-17 12:25:15,881 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 12:25:15,882 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 12:25:15,882 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 12:37:51,477 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 12:37:51,498 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 12:37:51,499 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 13:03:33,659 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 13:03:33,681 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 13:03:33,681 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 14:37:23,223 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 14:37:23,241 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 14:37:23,241 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 14:40:58,127 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 14:40:58,133 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 14:40:58,133 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 14:49:52,435 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 14:49:52,443 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 14:49:52,443 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 14:49:52,469 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Irekia Project (proj_20250617_185145)
+2025-07-17 14:49:52,575 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 14:49:52,576 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 14:49:52,576 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 14:50:29,307 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 14:50:29,313 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 14:50:29,313 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:04:39,439 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:04:39,472 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:04:39,473 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:04:46,016 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:04:46,018 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:04:46,018 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:04:46,077 - ARCADIA_RAG_System - INFO - Starting requirements generation from 1 project documents...
+2025-07-17 15:04:46,077 - ARCADIA_RAG_System - INFO - Selected documents: ['Modélisation Irekia .pdf']
+2025-07-17 15:04:46,078 - src.core.enhanced_persistent_rag_system - INFO - Starting enhanced requirements generation with structured analysis
+2025-07-17 15:04:46,078 - src.core.enhanced_persistent_rag_system - INFO - Step 1: Generating traditional requirements
+2025-07-17 15:04:46,078 - src.core.enhanced_persistent_rag_system - INFO - Created 45 context chunks from proposal
+2025-07-17 15:04:46,082 - src.core.requirements_generator - INFO - Starting enhanced stakeholder generation process...
+2025-07-17 15:04:46,082 - src.core.enhanced_stakeholder_extractor - INFO - Starting enhanced stakeholder extraction from 35302 characters
+2025-07-17 15:04:46,108 - src.core.enhanced_stakeholder_extractor - INFO - Raw stakeholder mentions found: 21
+2025-07-17 15:04:46,108 - src.core.enhanced_stakeholder_extractor - INFO - Normalized stakeholders: 21
+2025-07-17 15:04:46,108 - src.core.enhanced_stakeholder_extractor - INFO - Grouped stakeholders: 13
+2025-07-17 15:04:46,109 - src.core.enhanced_stakeholder_extractor - INFO - Final structured stakeholders: 13
+2025-07-17 15:04:46,109 - src.core.requirements_generator - INFO - Enhanced extraction found 13 stakeholders
+2025-07-17 15:04:46,123 - src.core.requirements_generator - INFO - Identified 19 components for operational phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-07-17 15:05:23,059 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:05:23,094 - src.core.requirements_generator - INFO - Priority rebalancing for functional: {'MUST': 1, 'SHOULD': 3, 'COULD': 1}
+2025-07-17 15:05:23,119 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-07-17 15:05:24,250 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:05:24,254 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:05:24,254 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:05:37,370 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:05:37,387 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:05:37,389 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:05:37,503 - ARCADIA_RAG_System - INFO - Saved 1 chat sessions for project proj_20250617_185145
+2025-07-17 15:05:37,609 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:05:37,610 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:05:37,610 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:05:42,953 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:05:44,682 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:05:44,686 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:05:44,687 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:05:44,764 - ARCADIA_RAG_System - INFO - Saved 1 chat sessions for project proj_20250617_185145
+2025-07-17 15:05:56,167 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:06:04,641 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:06:04,660 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:06:04,660 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:06:04,721 - ARCADIA_RAG_System - INFO - New project chat message in Irekia Project: What the document about ? ...
+2025-07-17 15:06:04,723 - src.core.enhanced_persistent_rag_system - ERROR - Erreur lors de la recherche : Expected requested number of results to be a int, got proj_20250617_185145 in query.
+2025-07-17 15:06:04,724 - ARCADIA_RAG_System - INFO - Generated project-specific response with 0 context sources
+2025-07-17 15:06:04,725 - ARCADIA_RAG_System - INFO - Saved 1 chat sessions for project proj_20250617_185145
+2025-07-17 15:06:04,801 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:06:04,802 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:06:04,802 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:06:10,728 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:06:10,740 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 3, 'COULD': 0}
+2025-07-17 15:06:10,787 - src.core.requirements_generator - INFO - Identified 19 components for system phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-07-17 15:06:14,737 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:06:14,752 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:06:14,752 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:06:14,784 - ARCADIA_RAG_System - INFO - New project chat message in Irekia Project: why ? ...
+2025-07-17 15:06:14,784 - src.core.enhanced_persistent_rag_system - ERROR - Erreur lors de la recherche : Expected requested number of results to be a int, got proj_20250617_185145 in query.
+2025-07-17 15:06:14,785 - ARCADIA_RAG_System - INFO - Generated project-specific response with 0 context sources
+2025-07-17 15:06:14,785 - ARCADIA_RAG_System - INFO - Saved 1 chat sessions for project proj_20250617_185145
+2025-07-17 15:06:14,864 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:06:14,865 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:06:14,865 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:06:23,757 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:06:23,760 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:06:23,760 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:06:38,012 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:06:38,047 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-07-17 15:06:53,131 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:07:10,467 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:07:27,049 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:07:27,063 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 1, 'COULD': 0}
+2025-07-17 15:07:27,089 - src.core.requirements_generator - INFO - Identified 19 components for logical phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-07-17 15:07:29,507 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:07:29,513 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:07:29,513 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:07:50,388 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:07:50,428 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-07-17 15:08:06,772 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:08:25,423 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:08:42,988 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:08:42,999 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 2, 'COULD': 0}
+2025-07-17 15:08:43,025 - src.core.requirements_generator - INFO - Identified 19 components for physical phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-07-17 15:09:09,192 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:09:09,230 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-07-17 15:09:25,867 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:09:47,733 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:10:04,638 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:10:04,656 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 3, 'COULD': 0}
+2025-07-17 15:10:04,679 - src.core.requirements_generator - INFO - Identified 19 components for building_strategy phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
+2025-07-17 15:10:29,056 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:10:29,081 - src.core.requirements_generator - INFO - Selected 3 relevant NFR categories: ['security', 'maintainability', 'performance']
+2025-07-17 15:10:44,887 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:10:50,798 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:10:50,817 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:10:50,818 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:10:59,141 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:10:59,143 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:10:59,143 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:11:01,500 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:11:01,502 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:11:01,502 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:11:02,942 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:11:13,852 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:11:13,864 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:11:13,865 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:11:13,986 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:11:13,986 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:11:13,987 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:11:14,420 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:11:14,432 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 3, 'COULD': 0}
+2025-07-17 15:11:14,432 - src.core.enhanced_persistent_rag_system - INFO - Step 2: Generating structured ARCADIA analysis
+2025-07-17 15:11:14,432 - src.core.enhanced_persistent_rag_system - INFO - Created 45 context chunks from proposal
+2025-07-17 15:11:14,432 - src.core.structured_arcadia_service - INFO - Starting complete ARCADIA structured analysis
+2025-07-17 15:11:14,432 - src.core.structured_arcadia_service - INFO - Phase 1: Extracting Operational Analysis
+2025-07-17 15:11:14,432 - src.core.operational_analysis_extractor - INFO - Starting operational analysis extraction
+2025-07-17 15:11:14,432 - src.core.operational_analysis_extractor - INFO - Step 1: Extracting operational actors and stakeholders
+2025-07-17 15:11:19,618 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:11:19,621 - src.core.operational_analysis_extractor - INFO - Extracted 5 operational actors
+2025-07-17 15:11:19,621 - src.core.operational_analysis_extractor - INFO - Step 2: Extracting operational capabilities
+2025-07-17 15:11:20,533 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:11:20,537 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:11:20,537 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:11:20,573 - ARCADIA_RAG_System - INFO - Saved 2 chat sessions for project proj_20250617_185145
+2025-07-17 15:11:20,630 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:11:20,631 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:11:20,631 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:11:21,917 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:11:21,918 - src.core.operational_analysis_extractor - INFO - Extracted 2 operational capabilities
+2025-07-17 15:11:21,919 - src.core.operational_analysis_extractor - INFO - Step 3: Extracting operational scenarios
+2025-07-17 15:11:21,919 - src.core.operational_analysis_extractor - INFO - Step 4: Extracting operational processes
+2025-07-17 15:11:21,919 - src.core.operational_analysis_extractor - INFO - Operational analysis extraction completed: 5 actors, 2 capabilities, 2 scenarios, 2 processes
+2025-07-17 15:11:21,919 - src.core.structured_arcadia_service - INFO - Operational analysis completed: 5 actors, 2 capabilities
+2025-07-17 15:11:21,919 - src.core.structured_arcadia_service - INFO - Phase 2: Extracting System Analysis
+2025-07-17 15:11:21,919 - src.core.system_analysis_extractor - INFO - Starting system analysis extraction
+2025-07-17 15:11:21,919 - src.core.system_analysis_extractor - INFO - Step 1: Defining system boundary and context
+2025-07-17 15:11:27,601 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:11:27,604 - src.core.system_analysis_extractor - INFO - Step 2: Extracting system actors and interfaces
+2025-07-17 15:11:31,108 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:11:31,113 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:11:31,114 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:11:31,140 - ARCADIA_RAG_System - INFO - New project chat message in Irekia Project: What the document about ? ...
+2025-07-17 15:11:31,140 - src.core.enhanced_persistent_rag_system - ERROR - Erreur lors de la recherche : Expected requested number of results to be a int, got proj_20250617_185145 in query.
+2025-07-17 15:11:31,140 - ARCADIA_RAG_System - INFO - Generated project-specific response with 0 context sources from project Irekia Project
+2025-07-17 15:11:31,141 - ARCADIA_RAG_System - INFO - Saved 2 chat sessions for project proj_20250617_185145
+2025-07-17 15:11:31,255 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:11:31,256 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:11:31,256 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:11:34,018 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:11:34,019 - src.core.system_analysis_extractor - INFO - Extracted 0 system actors
+2025-07-17 15:11:34,020 - src.core.system_analysis_extractor - INFO - Step 3: Extracting system functions
+2025-07-17 15:11:43,170 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:11:43,176 - src.core.system_analysis_extractor - INFO - Extracted 7 system functions
+2025-07-17 15:11:43,177 - src.core.system_analysis_extractor - INFO - Step 4: Extracting system capabilities
+2025-07-17 15:11:46,253 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:11:46,255 - src.core.system_analysis_extractor - INFO - Extracted 1 system capabilities
+2025-07-17 15:11:46,255 - src.core.system_analysis_extractor - INFO - Step 5: Extracting functional chains
+2025-07-17 15:11:51,653 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:11:51,654 - src.core.system_analysis_extractor - INFO - Extracted 3 functional chains
+2025-07-17 15:11:51,654 - src.core.system_analysis_extractor - INFO - System analysis extraction completed: 0 actors, 7 functions, 1 capabilities, 3 functional chains
+2025-07-17 15:11:51,654 - src.core.structured_arcadia_service - INFO - System analysis completed: 0 actors, 7 functions
+2025-07-17 15:11:51,654 - src.core.structured_arcadia_service - INFO - Phase 3: Extracting Logical Architecture
+2025-07-17 15:11:51,655 - src.core.logical_architecture_extractor - INFO - Starting logical architecture extraction
+2025-07-17 15:11:51,655 - src.core.logical_architecture_extractor - INFO - Step 1: Extracting logical components
+2025-07-17 15:11:59,264 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:11:59,272 - src.core.logical_architecture_extractor - INFO - Extracted 4 logical components
+2025-07-17 15:11:59,273 - src.core.logical_architecture_extractor - INFO - Step 2: Extracting logical functions
+2025-07-17 15:12:05,352 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:12:05,365 - src.core.logical_architecture_extractor - INFO - Extracted 5 logical functions
+2025-07-17 15:12:05,365 - src.core.logical_architecture_extractor - INFO - Step 3: Extracting logical interfaces
+2025-07-17 15:12:09,465 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:12:09,466 - src.core.logical_architecture_extractor - INFO - Extracted 3 logical interfaces
+2025-07-17 15:12:09,466 - src.core.logical_architecture_extractor - INFO - Step 4: Extracting logical scenarios
+2025-07-17 15:12:14,973 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:12:14,982 - src.core.logical_architecture_extractor - INFO - Extracted 3 logical scenarios
+2025-07-17 15:12:14,983 - src.core.logical_architecture_extractor - INFO - Logical architecture extraction completed: 4 components, 5 functions, 3 interfaces, 3 scenarios
+2025-07-17 15:12:14,983 - src.core.structured_arcadia_service - INFO - Logical architecture completed: 4 components, 5 functions, 3 interfaces
+2025-07-17 15:12:14,983 - src.core.structured_arcadia_service - INFO - Phase 4: Extracting Physical Architecture
+2025-07-17 15:12:14,983 - src.core.physical_architecture_extractor - INFO - Starting physical architecture extraction
+2025-07-17 15:12:14,983 - src.core.physical_architecture_extractor - INFO - Step 1: Extracting physical components
+2025-07-17 15:12:17,166 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:12:17,168 - src.core.physical_architecture_extractor - INFO - Extracted 1 physical components
+2025-07-17 15:12:17,169 - src.core.physical_architecture_extractor - INFO - Step 2: Extracting implementation constraints
+2025-07-17 15:12:21,050 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:12:21,052 - src.core.physical_architecture_extractor - INFO - Extracted 0 implementation constraints
+2025-07-17 15:12:21,052 - src.core.physical_architecture_extractor - INFO - Step 3: Extracting physical functions
+2025-07-17 15:12:26,135 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:12:26,136 - src.core.physical_architecture_extractor - INFO - Extracted 0 physical functions
+2025-07-17 15:12:26,136 - src.core.physical_architecture_extractor - INFO - Step 4: Extracting physical scenarios
+2025-07-17 15:12:32,314 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-17 15:12:32,318 - src.core.physical_architecture_extractor - INFO - Extracted 0 physical scenarios
+2025-07-17 15:12:32,319 - src.core.physical_architecture_extractor - INFO - Physical architecture extraction completed: 1 components, 0 constraints, 0 functions, 0 scenarios
+2025-07-17 15:12:32,319 - src.core.structured_arcadia_service - INFO - Physical architecture completed: 1 components, 0 constraints
+2025-07-17 15:12:32,319 - src.core.structured_arcadia_service - INFO - Performing cross-phase analysis
+2025-07-17 15:12:32,319 - src.core.structured_arcadia_service - INFO - Starting cross-phase analysis
+2025-07-17 15:12:32,319 - src.core.structured_arcadia_service - INFO - Generating Operational -> System traceability links
+2025-07-17 15:12:32,319 - src.core.structured_arcadia_service - INFO - Generating System -> Logical traceability links
+2025-07-17 15:12:32,319 - src.core.structured_arcadia_service - INFO - Generating Logical -> Physical traceability links
+2025-07-17 15:12:32,320 - src.core.structured_arcadia_service - INFO - Generating End-to-End traceability links
+2025-07-17 15:12:32,320 - src.core.structured_arcadia_service - INFO - Generated 1 total traceability links across all phases
+2025-07-17 15:12:32,320 - src.core.structured_arcadia_service - INFO - Identified 5 gaps in analysis
+2025-07-17 15:12:32,320 - src.core.structured_arcadia_service - INFO - Performed 2 consistency checks
+2025-07-17 15:12:32,320 - src.core.structured_arcadia_service - INFO - Calculated 2 quality metrics
+2025-07-17 15:12:32,320 - src.core.structured_arcadia_service - INFO - Cross-phase analysis completed: 1 links, 5 gaps
+2025-07-17 15:12:32,320 - src.core.structured_arcadia_service - INFO - Complete ARCADIA analysis finished in 77.9 seconds
+2025-07-17 15:12:32,321 - src.core.enhanced_persistent_rag_system - INFO - Structured analysis completed for phases: ['operational', 'system', 'logical', 'physical']
+2025-07-17 15:12:32,321 - src.core.enhanced_persistent_rag_system - INFO - Enhanced requirements generation completed in 466.2 seconds
+2025-07-17 15:18:39,733 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:18:39,742 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:18:39,742 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:18:39,771 - ARCADIA_RAG_System - INFO - New project chat message in Irekia Project: What the document about ?...
+2025-07-17 15:18:39,773 - src.core.enhanced_persistent_rag_system - ERROR - Erreur lors de la recherche : Expected requested number of results to be a int, got proj_20250617_185145 in query.
+2025-07-17 15:18:39,773 - ARCADIA_RAG_System - WARNING - Empty response from RAG system
+2025-07-17 15:18:39,773 - ARCADIA_RAG_System - INFO - Generated project-specific response with 0 context sources from project Irekia Project
+2025-07-17 15:18:39,774 - ARCADIA_RAG_System - INFO - Saved 2 chat sessions for project proj_20250617_185145
+2025-07-17 15:18:39,902 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:18:39,903 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:18:39,903 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:23:06,977 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:23:06,984 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:23:06,985 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:23:13,020 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:23:13,058 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:23:13,061 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:23:13,307 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:23:13,310 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:23:13,311 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:23:19,073 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:23:19,101 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:23:19,101 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:23:21,679 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:23:21,728 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:23:21,734 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:23:24,413 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:23:24,438 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:23:24,438 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:23:26,618 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:23:26,620 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:23:26,621 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:23:28,819 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:23:28,820 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:23:28,821 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:24:26,528 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:24:26,531 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:24:26,532 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:24:31,817 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:24:31,825 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:24:31,835 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:24:45,556 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:24:45,568 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:24:45,569 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:24:51,902 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:24:51,932 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:24:51,932 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:24:51,987 - ARCADIA_RAG_System - INFO - Saved 3 chat sessions for project proj_20250617_185145
+2025-07-17 15:24:52,149 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:24:52,151 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:24:52,151 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:25:03,095 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:25:03,108 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:25:03,109 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:25:03,150 - ARCADIA_RAG_System - INFO - Saved 3 chat sessions for project proj_20250617_185145
+2025-07-17 15:25:17,289 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:25:17,311 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:25:17,312 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:25:17,390 - ARCADIA_RAG_System - INFO - New project chat message in Irekia Project: Who are the actors involved ? ...
+2025-07-17 15:25:17,397 - src.core.enhanced_persistent_rag_system - ERROR - Erreur lors de la recherche : Expected requested number of results to be a int, got proj_20250617_185145 in query.
+2025-07-17 15:25:17,398 - ARCADIA_RAG_System - WARNING - Empty response from RAG system
+2025-07-17 15:25:17,398 - ARCADIA_RAG_System - INFO - Generated project-specific response with 0 context sources from project Irekia Project
+2025-07-17 15:25:17,403 - ARCADIA_RAG_System - INFO - Saved 3 chat sessions for project proj_20250617_185145
+2025-07-17 15:25:17,514 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:25:17,516 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:25:17,516 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:25:27,550 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:25:27,554 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:25:27,554 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:25:35,658 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:25:35,682 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:25:35,684 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:25:37,741 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:25:37,748 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:25:37,759 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-17 15:25:37,843 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-07-17 15:25:38,163 - src.core.enhanced_persistent_rag_system - INFO - Collection existante compatible
+2025-07-17 15:25:38,164 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-07-17 15:25:38,164 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-07-17 15:25:38,164 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-07-17 15:25:38,164 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-07-17 15:25:38,164 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-07-17 15:25:38,164 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-07-17 15:25:38,164 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-07-17 15:25:38,164 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:25:38,166 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-07-17 15:25:38,193 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Irekia Modelisation (proj_20250619_184706_2362)
+2025-07-17 15:25:38,309 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:25:38,311 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:25:38,311 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:26:07,964 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:26:07,980 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:26:07,980 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:26:09,172 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:26:09,174 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:26:09,175 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-17 15:26:09,187 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-07-17 15:26:09,372 - src.core.enhanced_persistent_rag_system - INFO - Collection existante compatible
+2025-07-17 15:26:09,372 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-07-17 15:26:09,372 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-07-17 15:26:09,372 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-07-17 15:26:09,372 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-07-17 15:26:09,372 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-07-17 15:26:09,372 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-07-17 15:26:09,372 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-07-17 15:26:09,372 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:26:09,372 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-07-17 15:26:09,385 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Irekia Modelisation (proj_20250619_184706_2362)
+2025-07-17 15:26:09,444 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:26:09,447 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:26:09,447 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:26:25,852 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:26:25,859 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:26:25,859 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:26:27,290 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:26:27,294 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:26:27,294 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:26:32,517 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:26:32,519 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:26:32,519 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:26:41,960 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:26:41,996 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:26:41,997 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:26:43,606 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:26:43,609 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:26:43,610 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-17 15:26:46,376 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-17 15:26:46,379 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-17 15:26:46,379 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:14:38,406 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:14:38,428 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:14:38,429 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:15:09,180 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:15:09,184 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:15:09,184 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:15:09,202 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : SAFE Project_test (proj_20250618_154509_5595)
+2025-07-18 11:15:09,276 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:15:09,277 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:15:09,277 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:15:14,001 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:15:14,003 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:15:14,003 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:15:14,080 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:15:14,081 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:15:14,081 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:15:30,949 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:15:30,958 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:15:30,959 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:15:30,986 - ARCADIA_RAG_System - INFO - New project chat message in SAFE Project_test: What is the SAFE platform about ?...
+2025-07-18 11:15:30,987 - src.core.enhanced_persistent_rag_system - ERROR - Erreur lors de la recherche : Expected requested number of results to be a int, got proj_20250618_154509_5595 in query.
+2025-07-18 11:15:30,987 - ARCADIA_RAG_System - WARNING - Empty response from RAG system
+2025-07-18 11:15:30,987 - ARCADIA_RAG_System - INFO - Generated project-specific response with 0 context sources from project SAFE Project_test
+2025-07-18 11:15:30,988 - ARCADIA_RAG_System - INFO - Saved 1 chat sessions for project proj_20250618_154509_5595
+2025-07-18 11:15:31,086 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:15:31,087 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:15:31,087 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:21:42,852 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:21:42,922 - ARCADIA_RAG_System - INFO - Using dedicated query_project_documents method for project test_project
+2025-07-18 11:21:42,922 - ARCADIA_RAG_System - INFO - ✅ Project query successful
+2025-07-18 11:21:42,922 - ARCADIA_RAG_System - INFO - Using ChromaDB project filter for project test_project
+2025-07-18 11:21:42,922 - ARCADIA_RAG_System - INFO - ✅ ChromaDB project query successful
+2025-07-18 11:21:42,922 - ARCADIA_RAG_System - INFO - Using general query with project context
+2025-07-18 11:21:42,922 - ARCADIA_RAG_System - INFO - ✅ General query with project context successful
+2025-07-18 11:22:26,754 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:22:26,757 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:22:26,757 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:22:35,761 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:22:35,765 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:22:35,765 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:22:35,913 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:22:35,916 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:22:35,917 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:22:42,712 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:22:42,716 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:22:42,716 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:22:42,788 - ARCADIA_RAG_System - INFO - New project chat message in SAFE Project_test: What is the SAFE platform about ?...
+2025-07-18 11:22:42,789 - ARCADIA_RAG_System - INFO - Using dedicated query_project_documents method for project proj_20250618_154509_5595
+2025-07-18 11:22:42,790 - src.core.enhanced_persistent_rag_system - ERROR - Erreur lors de la recherche : Expected requested number of results to be a int, got proj_20250618_154509_5595 in query.
+2025-07-18 11:22:42,790 - ARCADIA_RAG_System - WARNING - Project query returned invalid format, falling back
+2025-07-18 11:22:42,790 - ARCADIA_RAG_System - INFO - Using ChromaDB project filter for project proj_20250618_154509_5595
+2025-07-18 11:22:43,253 - ARCADIA_RAG_System - INFO - Using general query with project context
+2025-07-18 11:22:43,253 - src.core.enhanced_persistent_rag_system - INFO - 💬 Processing query: [Project: SAFE Project_test] What is the SAFE platform about ?
+
+Note: This question is about project...
+2025-07-18 11:22:47,554 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-18 11:22:47,555 - ARCADIA_RAG_System - INFO - ✅ General query with project context successful
+2025-07-18 11:22:47,555 - ARCADIA_RAG_System - INFO - Generated project-specific response with 0 context sources from project SAFE Project_test
+2025-07-18 11:22:47,557 - ARCADIA_RAG_System - INFO - Saved 1 chat sessions for project proj_20250618_154509_5595
+2025-07-18 11:22:47,673 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:22:47,674 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:22:47,675 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:25:06,237 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:25:06,245 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:25:06,246 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:25:18,796 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:25:18,801 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:25:18,802 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:25:25,712 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:25:25,718 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:25:25,718 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:25:25,803 - ARCADIA_RAG_System - INFO - Starting requirements generation from 1 project documents...
+2025-07-18 11:25:25,804 - ARCADIA_RAG_System - INFO - Selected documents: ['Proposal-SEP-211043552.pdf']
+2025-07-18 11:25:25,805 - src.core.enhanced_persistent_rag_system - INFO - Starting enhanced requirements generation with structured analysis
+2025-07-18 11:25:25,806 - src.core.enhanced_persistent_rag_system - INFO - Step 1: Generating traditional requirements
+2025-07-18 11:25:25,807 - src.core.enhanced_persistent_rag_system - INFO - Created 517 context chunks from proposal
+2025-07-18 11:25:26,190 - src.core.requirements_generator - INFO - Identified 27 components for system phase: ['ai algorithm', 'data processing', 'api', 'user interface', 'web service']
+2025-07-18 11:26:00,589 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-18 11:26:00,807 - src.core.requirements_generator - INFO - Selected 4 relevant NFR categories: ['performance', 'security', 'scalability', 'usability']
+2025-07-18 11:26:16,105 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-18 11:26:41,167 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-18 11:26:58,163 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-18 11:27:16,111 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-18 11:27:16,127 - src.core.requirements_generator - INFO - Priority rebalancing for non_functional: {'MUST': 0, 'SHOULD': 1, 'COULD': 0}
+2025-07-18 11:27:16,127 - src.core.enhanced_persistent_rag_system - INFO - Step 2: Generating structured ARCADIA analysis
+2025-07-18 11:27:16,129 - src.core.enhanced_persistent_rag_system - INFO - Created 517 context chunks from proposal
+2025-07-18 11:27:16,129 - src.core.structured_arcadia_service - INFO - Starting complete ARCADIA structured analysis
+2025-07-18 11:27:16,129 - src.core.structured_arcadia_service - INFO - Phase 2: Extracting System Analysis
+2025-07-18 11:27:16,130 - src.core.system_analysis_extractor - INFO - Starting system analysis extraction
+2025-07-18 11:27:16,130 - src.core.system_analysis_extractor - INFO - Step 1: Defining system boundary and context
+2025-07-18 11:27:18,164 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-18 11:27:18,166 - src.core.system_analysis_extractor - INFO - Step 2: Extracting system actors and interfaces
+2025-07-18 11:27:21,920 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-18 11:27:21,922 - src.core.system_analysis_extractor - INFO - Extracted 0 system actors
+2025-07-18 11:27:21,922 - src.core.system_analysis_extractor - INFO - Step 3: Extracting system functions
+2025-07-18 11:27:28,011 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-18 11:27:28,013 - src.core.system_analysis_extractor - INFO - Extracted 4 system functions
+2025-07-18 11:27:28,013 - src.core.system_analysis_extractor - INFO - Step 4: Extracting system capabilities
+2025-07-18 11:27:32,780 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-18 11:27:32,780 - src.core.system_analysis_extractor - INFO - Extracted 0 system capabilities
+2025-07-18 11:27:32,780 - src.core.system_analysis_extractor - INFO - Step 5: Extracting functional chains
+2025-07-18 11:27:38,823 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-18 11:27:38,825 - src.core.system_analysis_extractor - INFO - Extracted 3 functional chains
+2025-07-18 11:27:38,825 - src.core.system_analysis_extractor - INFO - System analysis extraction completed: 0 actors, 4 functions, 0 capabilities, 3 functional chains
+2025-07-18 11:27:38,825 - src.core.structured_arcadia_service - INFO - System analysis completed: 0 actors, 4 functions
+2025-07-18 11:27:38,826 - src.core.structured_arcadia_service - INFO - Performing cross-phase analysis
+2025-07-18 11:27:38,826 - src.core.structured_arcadia_service - INFO - Starting cross-phase analysis
+2025-07-18 11:27:38,826 - src.core.structured_arcadia_service - INFO - Generated 0 total traceability links across all phases
+2025-07-18 11:27:38,826 - src.core.structured_arcadia_service - INFO - Identified 0 gaps in analysis
+2025-07-18 11:27:38,826 - src.core.structured_arcadia_service - INFO - Performed 2 consistency checks
+2025-07-18 11:27:38,826 - src.core.structured_arcadia_service - INFO - Calculated 1 quality metrics
+2025-07-18 11:27:38,826 - src.core.structured_arcadia_service - INFO - Cross-phase analysis completed: 0 links, 0 gaps
+2025-07-18 11:27:38,826 - src.core.structured_arcadia_service - INFO - Complete ARCADIA analysis finished in 22.7 seconds
+2025-07-18 11:27:38,826 - src.core.enhanced_persistent_rag_system - INFO - Structured analysis completed for phases: ['system']
+2025-07-18 11:27:38,826 - src.core.enhanced_persistent_rag_system - INFO - Enhanced requirements generation completed in 133.0 seconds
+2025-07-18 11:28:04,625 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:28:04,694 - ARCADIA_RAG_System - INFO - 🔍 Performing similarity search for project test_project
+2025-07-18 11:28:04,694 - ARCADIA_RAG_System - INFO - 📊 Found 1 high-relevance chunks (similarity > 0.7)
+2025-07-18 11:28:04,694 - ARCADIA_RAG_System - INFO - ✅ ChromaDB similarity search successful - used 1 chunks
+2025-07-18 11:28:04,694 - ARCADIA_RAG_System - INFO - 🔍 Performing manual similarity search on stored chunks for project test_project
+2025-07-18 11:28:04,694 - ARCADIA_RAG_System - INFO - ✅ Manual similarity search successful - used 1 chunks
+2025-07-18 11:28:57,525 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:28:57,529 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:28:57,529 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:01,615 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:01,625 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:01,625 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:01,753 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:01,754 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:01,754 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:05,416 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:05,424 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:05,424 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:05,455 - ARCADIA_RAG_System - INFO - New project chat message in SAFE Project_test: What is the SAFE platform about ?...
+2025-07-18 11:29:05,456 - ARCADIA_RAG_System - INFO - Using dedicated query_project_documents method for project proj_20250618_154509_5595
+2025-07-18 11:29:05,456 - src.core.enhanced_persistent_rag_system - ERROR - Erreur lors de la recherche : Expected requested number of results to be a int, got proj_20250618_154509_5595 in query.
+2025-07-18 11:29:05,456 - ARCADIA_RAG_System - WARNING - Project query returned invalid format, falling back
+2025-07-18 11:29:05,456 - ARCADIA_RAG_System - INFO - 🔍 Performing similarity search for project proj_20250618_154509_5595
+2025-07-18 11:29:05,833 - ARCADIA_RAG_System - INFO - 🔍 Performing manual similarity search on stored chunks for project proj_20250618_154509_5595
+2025-07-18 11:29:07,495 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-18 11:29:07,496 - ARCADIA_RAG_System - INFO - ✅ Manual similarity search successful - used 3 chunks
+2025-07-18 11:29:07,497 - ARCADIA_RAG_System - INFO - Generated project-specific response with 3 context sources from project SAFE Project_test
+2025-07-18 11:29:07,500 - ARCADIA_RAG_System - INFO - Saved 1 chat sessions for project proj_20250618_154509_5595
+2025-07-18 11:29:07,572 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:07,573 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:07,573 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:23,353 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:23,362 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:23,362 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:23,411 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Irekia Modelisation (proj_20250619_184706_2362)
+2025-07-18 11:29:23,496 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:23,497 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:23,497 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:26,202 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:26,206 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:26,207 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:26,237 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Irekia Project (proj_20250617_185145)
+2025-07-18 11:29:26,357 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:26,359 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:26,359 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:33,603 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:33,607 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:33,608 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:33,711 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:33,712 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:33,713 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:58,751 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:29:58,756 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:29:58,756 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:29:58,840 - ARCADIA_RAG_System - INFO - New project chat message in Irekia Project: What is the IREKIA project about ?  ?...
+2025-07-18 11:29:58,842 - ARCADIA_RAG_System - INFO - Using dedicated query_project_documents method for project proj_20250617_185145
+2025-07-18 11:29:58,844 - src.core.enhanced_persistent_rag_system - ERROR - Erreur lors de la recherche : Expected requested number of results to be a int, got proj_20250617_185145 in query.
+2025-07-18 11:29:58,844 - ARCADIA_RAG_System - WARNING - Project query returned invalid format, falling back
+2025-07-18 11:29:58,845 - ARCADIA_RAG_System - INFO - 🔍 Performing similarity search for project proj_20250617_185145
+2025-07-18 11:29:59,039 - ARCADIA_RAG_System - INFO - 🔍 Performing manual similarity search on stored chunks for project proj_20250617_185145
+2025-07-18 11:30:00,582 - httpx - INFO - HTTP Request: POST http://llm-eva.univ-pau.fr:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-18 11:30:00,583 - ARCADIA_RAG_System - INFO - ✅ Manual similarity search successful - used 3 chunks
+2025-07-18 11:30:00,583 - ARCADIA_RAG_System - INFO - Generated project-specific response with 3 context sources from project Irekia Project
+2025-07-18 11:30:00,586 - ARCADIA_RAG_System - INFO - Saved 3 chat sessions for project proj_20250617_185145
+2025-07-18 11:30:00,678 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:30:00,679 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:30:00,679 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:34:54,736 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:34:54,796 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:34:54,799 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-18 11:34:54,830 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-18 11:34:54,955 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-07-18 11:34:55,282 - src.core.enhanced_persistent_rag_system - INFO - Collection existante compatible
+2025-07-18 11:34:55,283 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-07-18 11:34:55,283 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-07-18 11:34:55,283 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-07-18 11:34:55,283 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-07-18 11:34:55,283 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-07-18 11:34:55,283 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-07-18 11:34:55,283 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-07-18 11:34:55,283 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:34:55,285 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-07-18 11:34:55,296 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Irekia Modelisation (proj_20250619_184706_2362)
+2025-07-18 11:34:55,348 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:34:55,350 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:34:55,350 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:38:08,955 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:38:09,021 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:38:09,024 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-18 11:38:09,039 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-18 11:38:09,104 - src.core.enhanced_persistent_rag_system - INFO - Collection existante récupérée : safe_mbse_requirements_persistent
+2025-07-18 11:38:09,344 - src.core.enhanced_persistent_rag_system - INFO - Collection existante compatible
+2025-07-18 11:38:09,345 - src.core.operational_analysis_extractor - INFO - Operational Analysis Extractor initialized
+2025-07-18 11:38:09,345 - src.core.system_analysis_extractor - INFO - System Analysis Extractor initialized
+2025-07-18 11:38:09,345 - src.core.logical_architecture_extractor - INFO - Logical Architecture Extractor initialized
+2025-07-18 11:38:09,345 - src.core.physical_architecture_extractor - INFO - Physical Architecture Extractor initialized
+2025-07-18 11:38:09,345 - src.core.structured_arcadia_service - INFO - Structured ARCADIA Service initialized
+2025-07-18 11:38:09,345 - src.core.enhanced_persistent_rag_system - INFO - Système RAG persistant initialisé avec embedding Nomic
+2025-07-18 11:38:09,345 - ARCADIA_RAG_System - INFO - Enhanced Persistent RAG System initialized successfully
+2025-07-18 11:38:09,345 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:38:09,346 - ARCADIA_RAG_System - INFO - Project Manager initialized successfully
+2025-07-18 11:38:09,358 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Irekia Modelisation (proj_20250619_184706_2362)
+2025-07-18 11:38:09,396 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:38:09,397 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:38:09,397 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:44:55,739 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:44:55,803 - ARCADIA_RAG_System - INFO - Starting data refresh for project proj_20250718_114454_9249
+2025-07-18 11:44:55,804 - ARCADIA_RAG_System - INFO - Deleted 5 chunks
+2025-07-18 11:44:55,804 - ARCADIA_RAG_System - INFO - Deleted 1 documents
+2025-07-18 11:44:55,804 - ARCADIA_RAG_System - INFO - Deleted 1 requirements
+2025-07-18 11:44:55,804 - ARCADIA_RAG_System - INFO - Deleted 1 ARCADIA analyses
+2025-07-18 11:44:55,804 - ARCADIA_RAG_System - INFO - Deleted 1 stakeholders
+2025-07-18 11:44:55,805 - ARCADIA_RAG_System - INFO - Deleted 2 ChromaDB entries
+2025-07-18 11:44:55,805 - ARCADIA_RAG_System - INFO - Successfully refreshed project proj_20250718_114454_9249
+2025-07-18 11:47:42,322 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:47:42,333 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:47:42,334 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:47:42,375 - ARCADIA_RAG_System - INFO - Loaded 0 completed documents for project proj_20250619_184706_2362
+2025-07-18 11:47:53,204 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:47:53,292 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-18 11:47:53,293 - src.services.persistence_service - INFO - Projet créé : proj_20250718_114753_3978 - Test Project
+2025-07-18 11:47:53,294 - ARCADIA_RAG_System - ERROR - Error logged for project test_project: test_error - Test error message
+2025-07-18 11:47:53,294 - ARCADIA_RAG_System - ERROR - Failed to log error: Logging failed
+2025-07-18 11:47:53,294 - ARCADIA_RAG_System - ERROR - Error logged for project test_project: test_error - Test error message
+2025-07-18 11:48:08,276 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:48:08,347 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-18 11:48:08,347 - src.services.persistence_service - INFO - Projet créé : proj_20250718_114808_2326 - Test Project
+2025-07-18 11:48:08,348 - ARCADIA_RAG_System - ERROR - Error logged for project test_project: test_error - Test error message
+2025-07-18 11:48:08,348 - ARCADIA_RAG_System - ERROR - Failed to log error: Logging failed
+2025-07-18 11:48:08,348 - ARCADIA_RAG_System - ERROR - Error logged for project test_project: test_error - Test error message
+2025-07-18 11:48:20,556 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:48:20,558 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:48:20,559 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:48:20,598 - ARCADIA_RAG_System - INFO - Loaded 0 completed documents for project proj_20250619_184706_2362
+2025-07-18 11:48:24,131 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:48:24,132 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:48:24,132 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:48:24,153 - ARCADIA_RAG_System - INFO - Loaded 0 completed documents for project proj_20250619_184706_2362
+2025-07-18 11:48:27,482 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:48:27,485 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:48:27,486 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:48:27,516 - ARCADIA_RAG_System - INFO - Loaded 0 completed documents for project proj_20250619_184706_2362
+2025-07-18 11:48:32,011 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:48:32,087 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-18 11:48:32,088 - src.services.persistence_service - INFO - Projet créé : proj_20250718_114832_2610 - Test Project
+2025-07-18 11:48:32,089 - src.services.persistence_service - ERROR - Erreur lors de la récupération des documents : no such table: processed_documents
+2025-07-18 11:48:32,089 - src.services.persistence_service - ERROR - Erreur lors de la récupération des chunks du projet : no such table: processed_documents
+2025-07-18 11:48:32,090 - ARCADIA_RAG_System - ERROR - Error logged for project test_project: test_error - Test error message
+2025-07-18 11:48:32,090 - ARCADIA_RAG_System - ERROR - Failed to log error: Logging failed
+2025-07-18 11:48:32,090 - ARCADIA_RAG_System - ERROR - Error logged for project test_project: test_error - Test error message
+2025-07-18 11:48:42,285 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:48:42,289 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:48:42,289 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:48:42,317 - ARCADIA_RAG_System - INFO - Loaded 0 completed documents for project proj_20250619_184706_2362
+2025-07-18 11:48:50,627 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:48:50,697 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-18 11:48:50,698 - src.services.persistence_service - INFO - Projet créé : proj_20250718_114850_9243 - Test Project
+2025-07-18 11:48:50,700 - src.services.persistence_service - ERROR - Erreur lors de la récupération des documents : no such table: processed_documents
+2025-07-18 11:48:50,700 - src.services.persistence_service - ERROR - Erreur lors de la récupération des chunks du projet : no such table: processed_documents
+2025-07-18 11:48:50,701 - ARCADIA_RAG_System - ERROR - Error logged for project test_project: test_error - Test error message
+2025-07-18 11:48:50,701 - ARCADIA_RAG_System - ERROR - Failed to log error: Logging failed
+2025-07-18 11:48:50,701 - ARCADIA_RAG_System - ERROR - Error logged for project test_project: test_error - Test error message
+2025-07-18 11:49:12,325 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:49:12,400 - src.services.persistence_service - INFO - Structure de base de données initialisée avec succès
+2025-07-18 11:49:12,401 - src.services.persistence_service - INFO - Projet créé : proj_20250718_114912_9976 - Test Project
+2025-07-18 11:49:12,402 - src.services.persistence_service - ERROR - Erreur lors de la récupération des documents : no such table: processed_documents
+2025-07-18 11:49:12,403 - src.services.persistence_service - ERROR - Erreur lors de la récupération des chunks du projet : no such table: processed_documents
+2025-07-18 11:49:12,403 - ARCADIA_RAG_System - WARNING - Could not load documents for project proj_20250718_114912_9976: Database connection failed
+2025-07-18 11:49:12,403 - ARCADIA_RAG_System - WARNING - Could not load chunks for project proj_20250718_114912_9976: Table does not exist
+2025-07-18 11:49:12,403 - ARCADIA_RAG_System - WARNING - Could not load requirements for project proj_20250718_114912_9976: Corrupt data
+2025-07-18 11:49:12,403 - ARCADIA_RAG_System - WARNING - Could not load stakeholders for project proj_20250718_114912_9976: Access denied
+2025-07-18 11:49:12,403 - ARCADIA_RAG_System - WARNING - Could not load ARCADIA analyses for project proj_20250718_114912_9976: Service unavailable
+2025-07-18 11:49:12,403 - ARCADIA_RAG_System - WARNING - Could not load sessions for project proj_20250718_114912_9976: Connection timeout
+2025-07-18 11:49:12,403 - ARCADIA_RAG_System - ERROR - Error logged for project test_project: test_error - Test error message
+2025-07-18 11:49:12,403 - ARCADIA_RAG_System - ERROR - Failed to log error: Logging failed
+2025-07-18 11:49:12,403 - ARCADIA_RAG_System - ERROR - Error logged for project test_project: test_error - Test error message
+2025-07-18 11:50:05,085 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:50:05,092 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:50:05,092 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:50:05,149 - ARCADIA_RAG_System - INFO - Loaded 0 completed documents for project proj_20250619_184706_2362
+2025-07-18 11:50:48,611 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:50:48,625 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:50:48,625 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:50:48,670 - ARCADIA_RAG_System - INFO - Loaded 0 completed documents for project proj_20250619_184706_2362
+2025-07-18 11:51:26,808 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:51:26,814 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:51:26,814 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:51:26,845 - ARCADIA_RAG_System - INFO - Loaded 0 completed documents for project proj_20250619_184706_2362
+2025-07-18 11:52:02,824 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:02,831 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:02,831 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:02,877 - src.core.enhanced_persistent_rag_system - INFO - Projet chargé : Irekia Project (proj_20250617_185145)
+2025-07-18 11:52:02,984 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:02,986 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:02,986 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:03,012 - ARCADIA_RAG_System - INFO - Loaded 1 completed documents for project proj_20250617_185145
+2025-07-18 11:52:13,364 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:13,366 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:13,367 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:13,407 - ARCADIA_RAG_System - INFO - Loaded 1 completed documents for project proj_20250617_185145
+2025-07-18 11:52:20,058 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:20,066 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:20,076 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:20,156 - ARCADIA_RAG_System - INFO - Loaded 1 completed documents for project proj_20250617_185145
+2025-07-18 11:52:21,465 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:21,471 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:21,472 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:21,509 - ARCADIA_RAG_System - INFO - Loaded 1 completed documents for project proj_20250617_185145
+2025-07-18 11:52:25,166 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:25,170 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:25,170 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:25,215 - ARCADIA_RAG_System - INFO - Loaded 1 completed documents for project proj_20250617_185145
+2025-07-18 11:52:28,562 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:28,566 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:28,566 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:28,610 - ARCADIA_RAG_System - INFO - Loaded 1 completed documents for project proj_20250617_185145
+2025-07-18 11:52:29,882 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:29,885 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:29,885 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:29,904 - ARCADIA_RAG_System - INFO - Loaded 1 completed documents for project proj_20250617_185145
+2025-07-18 11:52:31,653 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:31,656 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:31,656 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:31,702 - ARCADIA_RAG_System - INFO - Loaded 1 completed documents for project proj_20250617_185145
+2025-07-18 11:52:34,000 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:34,005 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:34,005 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:34,038 - ARCADIA_RAG_System - INFO - Loaded 1 completed documents for project proj_20250617_185145
+2025-07-18 11:52:44,154 - ARCADIA_RAG_System - INFO - Logger initialized successfully - terminal logging active
+2025-07-18 11:52:44,164 - ARCADIA_RAG_System - INFO - === ARCADIA Requirements Generator Started ===
+2025-07-18 11:52:44,164 - ARCADIA_RAG_System - INFO - Core services initialized successfully
+2025-07-18 11:52:44,195 - ARCADIA_RAG_System - INFO - Loaded 1 completed documents for project proj_20250617_185145
+2025-07-18 11:52:44,211 - ARCADIA_RAG_System - INFO - Starting requirements generation from 1 project documents...
+2025-07-18 11:52:44,211 - ARCADIA_RAG_System - INFO - Selected documents: ['Modélisation Irekia .pdf']
+2025-07-18 11:52:44,213 - src.core.enhanced_persistent_rag_system - INFO - Starting enhanced requirements generation with structured analysis
+2025-07-18 11:52:44,213 - src.core.enhanced_persistent_rag_system - INFO - Step 1: Generating traditional requirements
+2025-07-18 11:52:44,214 - src.core.enhanced_persistent_rag_system - INFO - Created 45 context chunks from proposal
+2025-07-18 11:52:44,239 - src.core.requirements_generator - INFO - Identified 19 components for logical phase: ['database', 'integration interface', 'authentication system', 'authorization system', 'server']
