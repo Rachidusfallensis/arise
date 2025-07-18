@@ -732,9 +732,9 @@ def main():
         with header_col1:
             # Project status display
             if current_project:
-                st.success(f"📋 **Active Project:** {current_project.name}")
+                st.success(f"**Active Project:** {current_project.name}")
             else:
-                st.info("⚠️ No project selected")
+                st.info("No project selected")
         
         with header_col2:
             # Current project metrics
@@ -767,7 +767,7 @@ def main():
         st.markdown("---")
         
         # System tools
-        st.markdown("### 🔧 System Tools")
+        st.markdown("### System Tools")
         if st.button("Clear Cache", help="Clear system cache"):
             st.cache_resource.clear()
             st.success("Cache cleared!")
@@ -775,17 +775,17 @@ def main():
         if st.button("Test System", help="Test RAG system"):
             try:
                 test_rag = SAFEMBSERAGSystem()
-                st.success("✅ System OK")
+                st.success("System OK")
             except Exception as e:
-                st.error(f"❌ System Error: {str(e)}")
+                st.error(f"System Error: {str(e)}")
     
     # Main interface tabs - Phase 2 Reorganization: Combined Requirements & Analysis
     if has_project_management:
         # Phase 2: Combined Requirements & Analysis tab
         tab1, tab2, tab3 = st.tabs([
-            "📚 Document Management",
-            "🏗️ Requirements & Analysis", 
-            "📊 Project Insights"
+            "Document Management",
+            "Requirements & Analysis", 
+            "Project Insights"
         ])
         
         with tab1:
@@ -801,9 +801,9 @@ def main():
     elif is_enhanced:
         # Enhanced without project management - Phase 2 Reorganization
         tab1, tab2, tab3 = st.tabs([
-            "📚 Document Management",
-            "🏗️ Requirements & Analysis",
-            "📊 Insights"
+            "Document Management",
+            "Requirements & Analysis",
+            "Insights"
         ])
         
         with tab1:
@@ -818,9 +818,9 @@ def main():
     else:
         # Basic mode - Phase 2 Reorganization
         tab1, tab2, tab3 = st.tabs([
-            "📚 Document Management",
-            "🏗️ Requirements & Analysis",
-            "📊 Basic Insights"
+            "Document Management",
+            "Requirements & Analysis",
+            "Basic Insights"
         ])
         
         with tab1:
@@ -4715,9 +4715,29 @@ def project_documents_tab(rag_system, current_project, has_project_management):
                             st.session_state[f"show_preview_{doc.id}"] = not st.session_state.get(f"show_preview_{doc.id}", False)
                         
                         if st.session_state.get(f"show_preview_{doc.id}", False):
-                            st.text_area(f"Preview of {doc.filename}", 
-                                       value="Document content preview would appear here...", 
-                                       height=100, disabled=True, key=f"preview_content_{doc.id}")
+                            try:
+                                # Get document chunks for preview
+                                chunks = rag_system.persistence_service.get_document_chunks(doc.id)
+                                
+                                if chunks:
+                                    # Combine chunks into preview text
+                                    preview_text = "\n\n".join([chunk["content"] for chunk in chunks])
+                                    
+                                    # Limit preview to first 2000 characters for readability
+                                    if len(preview_text) > 2000:
+                                        preview_text = preview_text[:2000] + "\n\n... (content truncated for preview)"
+                                    
+                                    st.text_area(f"Preview of {doc.filename} ({len(chunks)} chunks)", 
+                                               value=preview_text, 
+                                               height=200, disabled=True, key=f"preview_content_{doc.id}")
+                                    
+                                    # Show additional info
+                                    st.caption(f"📊 Document info: {doc.file_size / 1024:.1f} KB • {len(chunks)} chunks • {len(preview_text)} characters shown")
+                                else:
+                                    st.info("No content available for preview. Document may still be processing.")
+                                    
+                            except Exception as e:
+                                st.error(f"Error loading preview: {str(e)}")
                         
                         st.markdown("---")
             else:
@@ -5884,142 +5904,251 @@ def project_insights_tab(rag_system, current_project, has_project_management):
         else:
             _handle_missing_data_gracefully("documents", current_project.name)
         
-        # Quick actions
-        st.markdown("#### 🚀 Quick Actions")
+        # Enhanced Project Settings with CRUD Operations
+        st.markdown("#### Project Settings")
         
-        action_col1, action_col2 = st.columns(2)
+        # Get project manager for enhanced functionality
+        project_manager = init_project_manager(rag_system)
         
-        with action_col1:
-            if st.button("📊 Export Data", use_container_width=True, key="export_project_data"):
-                # Export comprehensive project data
-                try:
-                    # Get all project data with error handling
-                    documents = []
-                    requirements_data = {}
-                    stakeholders = []
-                    arcadia_analyses = []
-                    
-                    try:
-                        documents = rag_system.persistence_service.get_project_documents(current_project.id)
-                    except Exception as e:
-                        logger.warning(f"Could not load documents for export: {str(e)}")
-                        documents = []
-                    
-                    try:
-                        requirements_data = rag_system.persistence_service.get_project_requirements(current_project.id)
-                    except Exception as e:
-                        logger.warning(f"Could not load requirements for export: {str(e)}")
-                        requirements_data = {}
-                    
-                    try:
-                        stakeholders = rag_system.persistence_service.get_project_stakeholders(current_project.id)
-                    except Exception as e:
-                        logger.warning(f"Could not load stakeholders for export: {str(e)}")
-                        stakeholders = []
-                    
-                    try:
-                        arcadia_analyses = rag_system.persistence_service.get_project_arcadia_analyses(current_project.id)
-                    except Exception as e:
-                        logger.warning(f"Could not load ARCADIA analyses for export: {str(e)}")
-                        arcadia_analyses = []
-                    
-                    # Prepare comprehensive export data
-                    export_data = {
-                        'project_info': {
-                            'id': current_project.id,
-                            'name': current_project.name,
-                            'description': current_project.description,
-                            'proposal_text': current_project.proposal_text,
-                            'created_at': current_project.created_at.isoformat(),
-                            'updated_at': current_project.updated_at.isoformat(),
-                            'documents_count': current_project.documents_count,
-                            'requirements_count': current_project.requirements_count
-                        },
-                        'documents': [
-                            {
-                                'id': getattr(doc, 'id', 'unknown'),
-                                'filename': getattr(doc, 'filename', 'unknown'),
-                                'file_size': getattr(doc, 'file_size', 0),
-                                'chunks_count': getattr(doc, 'chunks_count', 0),
-                                'processing_status': getattr(doc, 'processing_status', 'unknown'),
-                                'embedding_model': getattr(doc, 'embedding_model', 'unknown'),
-                                'uploaded_at': (
-                                    doc.uploaded_at.isoformat() if hasattr(doc, 'uploaded_at') and doc.uploaded_at 
-                                    else doc.created_at.isoformat() if hasattr(doc, 'created_at') and doc.created_at
-                                    else datetime.now().isoformat()
-                                )
-                            } for doc in documents
-                        ],
-                        'requirements': requirements_data,
-                        'stakeholders': stakeholders,
-                        'arcadia_analyses': arcadia_analyses,
-                        'export_metadata': {
-                            'exported_at': datetime.now().isoformat(),
-                            'total_documents': len(documents),
-                            'total_stakeholders': len(stakeholders),
-                            'total_analyses': len(arcadia_analyses)
-                        }
-                    }
-                    
-                    # Create downloadable JSON
-                    export_json = json.dumps(export_data, indent=2, ensure_ascii=False)
-                    
-                    st.download_button(
-                        "💾 Download Complete Project Data",
-                        export_json,
-                        f"{current_project.name}_complete_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
-                        "application/json",
-                        use_container_width=True,
-                        key="download_complete_export"
-                    )
-                    
-                    # Show export summary with detailed feedback
-                    st.success("✅ Export prepared successfully!")
-                    
-                    # Provide detailed export summary
-                    export_summary = f"""
-                    **📦 Export Contents:**
-                    • **Project Info**: ✅ Complete project metadata
-                    • **Documents**: {len(documents)} records"""
-                    
-                    if len(documents) == 0:
-                        export_summary += " ⚠️ (No documents found)"
-                    
-                    export_summary += f"""
-                    • **Requirements**: {'✅ Available' if requirements_data else '⚠️ None found'}
-                    • **Stakeholders**: {len(stakeholders)} records"""
-                    
-                    if len(stakeholders) == 0:
-                        export_summary += " ⚠️ (No stakeholders found)"
-                    
-                    export_summary += f"""
-                    • **ARCADIA Analyses**: {len(arcadia_analyses)} records"""
-                    
-                    if len(arcadia_analyses) == 0:
-                        export_summary += " ⚠️ (No analyses found)"
-                    
-                    st.info(export_summary)
-                    
-                    # Show any warnings about data collection
-                    warnings_shown = False
-                    if len(documents) == 0:
-                        st.warning("⚠️ **No documents found** - Export contains project metadata only")
-                        warnings_shown = True
-                    if not requirements_data:
-                        st.warning("⚠️ **No requirements found** - Generate requirements to include them in exports")
-                        warnings_shown = True
-                    
-                    if not warnings_shown:
-                        st.success("🎯 **Complete export** - All available project data included!")
-                    
-                except Exception as e:
-                    logger.error(f"Export error: {str(e)}")
-                    st.error(f"❌ Export error: {str(e)}")
+        # Project settings sections
+        settings_col1, settings_col2 = st.columns(2)
         
-        with action_col2:
-            if st.button("🔄 Refresh Data", use_container_width=True, key="refresh_project_data"):
+        with settings_col1:
+            st.markdown("**Project Operations**")
+            
+            # Edit Project
+            if st.button("Edit Project", use_container_width=True, key="edit_project_insights"):
+                st.session_state.show_edit_project_insights_modal = True
+            
+            # Project Health Check
+            if st.button("Health Check", use_container_width=True, key="health_check_insights"):
+                if project_manager:
+                    try:
+                        health_check = project_manager.get_project_health_check(current_project)
+                        st.session_state.show_health_check_modal = True
+                        st.session_state.health_check_data = health_check
+                    except Exception as e:
+                        st.error(f"Health check error: {str(e)}")
+                else:
+                    st.error("Project manager not available")
+        
+        with settings_col2:
+            st.markdown("**Data Operations**")
+            
+            # Enhanced Export with Project Manager
+            if st.button("Export Project", use_container_width=True, key="export_project_insights"):
+                if project_manager:
+                    try:
+                        export_data = project_manager.export_project_data(current_project)
+                        st.session_state.show_export_modal = True
+                        st.session_state.export_data = export_data
+                    except Exception as e:
+                        st.error(f"Export error: {str(e)}")
+                else:
+                    st.error("Project manager not available")
+            
+            # Refresh Data
+            if st.button("Refresh Data", use_container_width=True, key="refresh_project_insights"):
                 _handle_refresh_project_data(rag_system, current_project)
+            
+        # Danger Zone
+        with st.expander("Danger Zone", expanded=False):
+            st.warning("**Destructive Operations**")
+            st.markdown("These operations cannot be undone. Use with caution.")
+            
+            if st.button("Delete Project", use_container_width=True, key="delete_project_insights", type="secondary"):
+                st.session_state.show_delete_project_insights_modal = True
         
+        # Handle all modals
+        _handle_project_settings_modals(rag_system, current_project, project_manager)
+
+
+def _handle_project_settings_modals(rag_system, current_project, project_manager):
+    """Handle all project settings modals in the insights tab"""
+    
+    # Edit Project Modal
+    if st.session_state.get('show_edit_project_insights_modal', False):
+        with st.container():
+            st.markdown("### Edit Project")
+            
+            with st.form("edit_project_insights_form"):
+                # Pre-fill with current values
+                new_name = st.text_input("Project Name", value=current_project.name, max_chars=100)
+                new_description = st.text_area("Description", value=current_project.description, height=100, max_chars=1000)
+                new_proposal = st.text_area("Proposal Text", value=current_project.proposal_text, height=150, max_chars=5000)
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if st.form_submit_button("Save Changes", type="primary"):
+                        try:
+                            # Validate inputs
+                            if project_manager:
+                                is_valid, error_message = project_manager.validate_project_data(new_name, new_description, new_proposal)
+                                if not is_valid:
+                                    st.error(f"{error_message}")
+                                    return
+                            
+                            # Update project
+                            success = rag_system.persistence_service.update_project(
+                                current_project.id,
+                                name=new_name.strip() if new_name.strip() != current_project.name else None,
+                                description=new_description.strip() if new_description.strip() != current_project.description else None,
+                                proposal_text=new_proposal.strip() if new_proposal.strip() != current_project.proposal_text else None
+                            )
+                            
+                            if success:
+                                st.success("Project updated successfully!")
+                                st.session_state.show_edit_project_insights_modal = False
+                                st.rerun()
+                            else:
+                                st.error("Failed to update project")
+                                
+                        except Exception as e:
+                            st.error(f"Update error: {str(e)}")
+                
+                with col2:
+                    if st.form_submit_button("Cancel"):
+                        st.session_state.show_edit_project_insights_modal = False
+                        st.rerun()
+    
+    # Health Check Modal
+    if st.session_state.get('show_health_check_modal', False):
+        with st.container():
+            st.markdown("### Project Health Check")
+            
+            health_data = st.session_state.get('health_check_data', {})
+            
+            if health_data:
+                # Health status with appropriate color
+                status = health_data.get('status', 'unknown')
+                score = health_data.get('score', 0)
+                
+                if status == 'healthy':
+                    st.success(f"**Status**: {status.title()} (Score: {score}/100)")
+                elif status == 'warning':
+                    st.warning(f"**Status**: {status.title()} (Score: {score}/100)")
+                else:
+                    st.error(f"**Status**: {status.title()} (Score: {score}/100)")
+                
+                # Issues
+                issues = health_data.get('issues', [])
+                if issues:
+                    st.markdown("**Issues Found:**")
+                    for issue in issues:
+                        st.markdown(f"• {issue}")
+                
+                # Recommendations
+                recommendations = health_data.get('recommendations', [])
+                if recommendations:
+                    st.markdown("**Recommendations:**")
+                    for rec in recommendations:
+                        st.markdown(f"• {rec}")
+                
+                if not issues and not recommendations:
+                    st.success("No issues found! Your project is in excellent health.")
+            
+            if st.button("Close Health Check", use_container_width=True):
+                st.session_state.show_health_check_modal = False
+                st.rerun()
+    
+    # Export Modal
+    if st.session_state.get('show_export_modal', False):
+        with st.container():
+            st.markdown("### Export Project Data")
+            
+            export_data = st.session_state.get('export_data', {})
+            
+            if export_data and not export_data.get('error'):
+                # Create downloadable JSON
+                export_json = json.dumps(export_data, indent=2, ensure_ascii=False)
+                
+                st.download_button(
+                    "Download Project Export",
+                    export_json,
+                    f"{current_project.name}_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                    "application/json",
+                    use_container_width=True,
+                    key="download_project_export"
+                )
+                
+                # Show export summary
+                st.success("Export prepared successfully!")
+                
+                # Display export contents
+                project_info = export_data.get('project_info', {})
+                documents = export_data.get('documents', [])
+                requirements = export_data.get('requirements', {})
+                stakeholders = export_data.get('stakeholders', [])
+                
+                st.markdown("**Export Contents:**")
+                st.markdown(f"• **Project**: {project_info.get('name', 'N/A')}")
+                st.markdown(f"• **Documents**: {len(documents)} files")
+                st.markdown(f"• **Requirements**: {len(requirements.get('requirements', {}))} phases")
+                st.markdown(f"• **Stakeholders**: {len(stakeholders)} records")
+                
+            elif export_data.get('error'):
+                st.error(f"Export failed: {export_data['error']}")
+            
+            if st.button("Close Export", use_container_width=True):
+                st.session_state.show_export_modal = False
+                st.rerun()
+    
+    # Delete Project Modal
+    if st.session_state.get('show_delete_project_insights_modal', False):
+        with st.container():
+            st.markdown("### Delete Project")
+            st.error("**DANGER: This action cannot be undone!**")
+            
+            st.markdown(f"""
+            **Project to delete:** {current_project.name}
+            
+            This will permanently delete:
+            • All project documents and chunks
+            • All requirements and analyses
+            • All stakeholder information
+            • All project history
+            """)
+            
+            with st.form("delete_project_insights_form"):
+                # Confirmation inputs
+                confirm_delete = st.checkbox("I understand this action is irreversible")
+                confirmation_text = st.text_input(
+                    "Type the project name to confirm deletion",
+                    placeholder=current_project.name
+                )
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if st.form_submit_button("DELETE PROJECT", type="secondary"):
+                        if not confirm_delete:
+                            st.error("Please confirm you understand this action is irreversible")
+                            return
+                        
+                        if confirmation_text != current_project.name:
+                            st.error("Project name doesn't match. Please type the exact project name.")
+                            return
+                        
+                        try:
+                            # Delete project
+                            success = rag_system.persistence_service.delete_project(current_project.id)
+                            
+                            if success:
+                                st.success("Project deleted successfully!")
+                                st.session_state.show_delete_project_insights_modal = False
+                                st.info("Redirecting to project selection...")
+                                st.rerun()
+                            else:
+                                st.error("Failed to delete project")
+                                
+                        except Exception as e:
+                            st.error(f"Delete error: {str(e)}")
+                
+                with col2:
+                    if st.form_submit_button("Cancel"):
+                        st.session_state.show_delete_project_insights_modal = False
+                        st.rerun()
 
 
 if __name__ == "__main__":
