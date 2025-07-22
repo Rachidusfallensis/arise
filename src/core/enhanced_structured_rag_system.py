@@ -389,7 +389,12 @@ class EnhancedStructuredRAGSystem(SAFEMBSERAGSystem):
             md_content.append("\n### Logical Functions")
             for function in structured_analysis.logical_architecture.functions:
                 md_content.append(f"\n#### {function.name} ({function.id})")
-                md_content.append(f"**Behavioral Specification:** {function.behavioral_specification}")
+                # Format behavioral models as readable text
+                behavioral_text = ""
+                if function.behavioral_models:
+                    behavioral_specs = [model.get('spec', str(model)) for model in function.behavioral_models]
+                    behavioral_text = "; ".join(behavioral_specs)
+                md_content.append(f"**Behavioral Specification:** {behavioral_text}")
                 md_content.append(f"**Description:** {function.description}")
         
         # Physical Architecture Section

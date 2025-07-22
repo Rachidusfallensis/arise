@@ -1,0 +1,368 @@
+{
+  "comparison_metadata": {
+    "timestamp": "2025-07-22T11:00:52.981934",
+    "total_techniques_tested": 11,
+    "successful_techniques": 1,
+    "failed_techniques": 10
+  },
+  "technique_rankings": {
+    "by_overall_score": [
+      {
+        "rank": 1,
+        "technique": "Fusion RAG",
+        "type": "fusion",
+        "overall_score": 0.2963395763656633,
+        "key_strengths": [
+          "Fast response time"
+        ]
+      }
+    ],
+    "best_for_requirements_generation": {
+      "technique": "Fusion RAG",
+      "type": "fusion",
+      "score": 0.2963395763656633
+    },
+    "best_for_document_chat": {
+      "technique": "Fusion RAG",
+      "type": "fusion",
+      "score": 0.2963395763656633
+    },
+    "best_performance": {
+      "technique": "Fusion RAG",
+      "type": "fusion",
+      "response_time": 2.611807310581207
+    },
+    "best_quality": {
+      "technique": "Fusion RAG",
+      "type": "fusion",
+      "quality_score": 0.0
+    }
+  },
+  "detailed_results": {
+    "simple_rag": {
+      "success": false,
+      "execution_time": 0.0,
+      "error_message": "'RequirementsGenerator' object has no attribute 'generate_requirements'",
+      "metrics": null
+    },
+    "semantic_chunking": {
+      "success": false,
+      "execution_time": 0.0,
+      "error_message": "'RequirementsGenerator' object has no attribute 'generate_requirements'",
+      "metrics": null
+    },
+    "context_enriched_retrieval": {
+      "success": false,
+      "execution_time": 0.0,
+      "error_message": "'RequirementsGenerator' object has no attribute 'generate_requirements'",
+      "metrics": null
+    },
+    "hypothetical_document_embeddings": {
+      "success": false,
+      "execution_time": 0.0,
+      "error_message": "'RequirementsGenerator' object has no attribute 'generate_requirements'",
+      "metrics": null
+    },
+    "re_ranker": {
+      "success": false,
+      "execution_time": 0.0,
+      "error_message": "'RequirementsGenerator' object has no attribute 'generate_requirements_from_context'",
+      "metrics": null
+    },
+    "retrieval_summarization_enhancement": {
+      "success": false,
+      "execution_time": 0.0,
+      "error_message": "'RequirementsGenerator' object has no attribute 'generate_requirements_from_context'",
+      "metrics": null
+    },
+    "contextual_compression": {
+      "success": false,
+      "execution_time": 0.0,
+      "error_message": "'RequirementsGenerator' object has no attribute 'generate_requirements_from_context'",
+      "metrics": null
+    },
+    "adaptive_rag": {
+      "success": false,
+      "execution_time": 0.0,
+      "error_message": "'RequirementsGenerator' object has no attribute 'generate_requirements_from_context'",
+      "metrics": null
+    },
+    "fusion": {
+      "success": true,
+      "execution_time": 0.0004119873046875,
+      "error_message": null,
+      "metrics": {
+        "overall_score": 0.2963395763656633,
+        "performance": {
+          "response_time": 2.611807310581207,
+          "throughput": 0.0,
+          "memory_usage": 1400.0
+        },
+        "quality": {
+          "requirement_quality_score": 0.0,
+          "coherence_score": 0.0,
+          "relevance_score": 0.0,
+          "completeness_score": 0.0
+        },
+        "retrieval": {
+          "precision": 0.77,
+          "recall": 0.725,
+          "f1": 0.7468227424749163,
+          "mrr": 0.0,
+          "ndcg": 0.0
+        },
+        "compliance": {
+          "arcadia_compliance": 0.0,
+          "phase_alignment": 0.0,
+          "traceability": 0.0
+        },
+        "implementation": {
+          "complexity": 0.9,
+          "ease_of_use": 0.55,
+          "maintenance_effort": 0.0
+        }
+      }
+    },
+    "self_rag": {
+      "success": false,
+      "execution_time": 0.0,
+      "error_message": "'RequirementsGenerator' object has no attribute 'generate_requirements_from_context'",
+      "metrics": null
+    },
+    "multi_model": {
+      "success": false,
+      "execution_time": 0.0,
+      "error_message": "'list' object has no attribute 'items'",
+      "metrics": null
+    }
+  },
+  "recommendations": {
+    "primary_recommendation": {
+      "technique": "Fusion RAG",
+      "type": "fusion",
+      "reason": "Highest overall score (0.296)",
+      "implementation_notes": "Implementation notes not available."
+    },
+    "use_case_specific": {
+      "for_requirements_generation": {
+        "technique": "Fusion RAG",
+        "type": "fusion",
+        "score": 0.2963395763656633
+      },
+      "for_document_chat": {
+        "technique": "Fusion RAG",
+        "type": "fusion",
+        "score": 0.2963395763656633
+      },
+      "for_high_performance": {
+        "technique": "Fusion RAG",
+        "type": "fusion",
+        "response_time": 2.611807310581207
+      },
+      "for_highest_quality": {
+        "technique": "Fusion RAG",
+        "type": "fusion",
+        "quality_score": 0.0
+      }
+    },
+    "implementation_strategy": "Implement the best performing technique.",
+    "next_steps": [
+      "Implement the recommended technique in a test environment",
+      "Conduct user acceptance testing with domain experts",
+      "Measure performance with real-world data",
+      "Consider hybrid approach combining multiple techniques"
+    ]
+  },
+  "summary": {
+    "average_score": 0.2963395763656633,
+    "best_score": 0.2963395763656633,
+    "worst_score": 0.2963395763656633,
+    "score_std": 0.0,
+    "recommended_technique": "Fusion RAG"
+  },
+  "chat_analysis": {
+    "overall_metrics": {
+      "average_response_time": 0.8486562403765592,
+      "average_quality_score": 0.0,
+      "average_success_rate": 1.0,
+      "best_response_time": 0.10394287109375,
+      "best_quality_score": 0.0,
+      "best_success_rate": 1.0
+    },
+    "technique_rankings": {
+      "by_quality": [
+        {
+          "technique": "Simple RAG",
+          "type": "simple_rag",
+          "quality_score": 0.0
+        },
+        {
+          "technique": "Semantic Chunking RAG",
+          "type": "semantic_chunking",
+          "quality_score": 0.0
+        },
+        {
+          "technique": "Context Enriched RAG",
+          "type": "context_enriched_retrieval",
+          "quality_score": 0.0
+        },
+        {
+          "technique": "HyDE RAG",
+          "type": "hypothetical_document_embeddings",
+          "quality_score": 0.0
+        },
+        {
+          "technique": "Re-Ranker RAG",
+          "type": "re_ranker",
+          "quality_score": 0.0
+        },
+        {
+          "technique": "RSE RAG",
+          "type": "retrieval_summarization_enhancement",
+          "quality_score": 0.0
+        },
+        {
+          "technique": "Contextual Compression RAG",
+          "type": "contextual_compression",
+          "quality_score": 0.0
+        },
+        {
+          "technique": "Adaptive RAG",
+          "type": "adaptive_rag",
+          "quality_score": 0.0
+        },
+        {
+          "technique": "Fusion RAG",
+          "type": "fusion",
+          "quality_score": 0.0
+        },
+        {
+          "technique": "Self RAG",
+          "type": "self_rag",
+          "quality_score": 0.0
+        },
+        {
+          "technique": "Multi-Model RAG",
+          "type": "multi_model",
+          "quality_score": 0.0
+        }
+      ],
+      "by_speed": [
+        {
+          "technique": "Adaptive RAG",
+          "type": "adaptive_rag",
+          "response_time": 0.10394287109375
+        },
+        {
+          "technique": "Contextual Compression RAG",
+          "type": "contextual_compression",
+          "response_time": 0.10404598712921143
+        },
+        {
+          "technique": "Self RAG",
+          "type": "self_rag",
+          "response_time": 0.10411126613616943
+        },
+        {
+          "technique": "RSE RAG",
+          "type": "retrieval_summarization_enhancement",
+          "response_time": 0.10549159049987793
+        },
+        {
+          "technique": "Re-Ranker RAG",
+          "type": "re_ranker",
+          "response_time": 0.10923817157745361
+        },
+        {
+          "technique": "Context Enriched RAG",
+          "type": "context_enriched_retrieval",
+          "response_time": 0.11155550479888916
+        },
+        {
+          "technique": "Semantic Chunking RAG",
+          "type": "semantic_chunking",
+          "response_time": 0.113777756690979
+        },
+        {
+          "technique": "Simple RAG",
+          "type": "simple_rag",
+          "response_time": 0.11950578689575195
+        },
+        {
+          "technique": "Fusion RAG",
+          "type": "fusion",
+          "response_time": 0.5236146211624145
+        },
+        {
+          "technique": "Multi-Model RAG",
+          "type": "multi_model",
+          "response_time": 2.784311890602112
+        },
+        {
+          "technique": "HyDE RAG",
+          "type": "hypothetical_document_embeddings",
+          "response_time": 5.155623197555542
+        }
+      ]
+    },
+    "query_analysis": {
+      "What are the main stakeholders in the traffic management system?": {
+        "average_score": 0.0,
+        "difficulty_level": "hard"
+      },
+      "What are the performance requirements for the drone delivery system?": {
+        "average_score": 0.0,
+        "difficulty_level": "hard"
+      },
+      "How does the healthcare platform ensure HIPAA compliance?": {
+        "average_score": 0.0,
+        "difficulty_level": "hard"
+      },
+      "What are the key technical challenges for autonomous navigation?": {
+        "average_score": 0.0,
+        "difficulty_level": "hard"
+      },
+      "Explain the integration requirements for existing systems": {
+        "average_score": 0.0,
+        "difficulty_level": "hard"
+      },
+      "What safety measures are required for drone operations?": {
+        "average_score": 0.0,
+        "difficulty_level": "hard"
+      },
+      "How is real-time traffic data processed and analyzed?": {
+        "average_score": 0.0,
+        "difficulty_level": "hard"
+      },
+      "What are the scalability requirements for multi-facility deployment?": {
+        "average_score": 0.0,
+        "difficulty_level": "hard"
+      },
+      "Describe the emergency response integration capabilities": {
+        "average_score": 0.0,
+        "difficulty_level": "hard"
+      },
+      "What are the environmental considerations for each system?": {
+        "average_score": 0.0,
+        "difficulty_level": "hard"
+      }
+    },
+    "recommendations": {
+      "for_chat_quality": {
+        "technique": "Simple RAG",
+        "score": 0.0
+      },
+      "for_chat_speed": {
+        "technique": "Adaptive RAG",
+        "response_time": 0.10394287109375
+      }
+    }
+  },
+  "test_metadata": {
+    "total_test_time": 302.11064195632935,
+    "test_proposals_count": 3,
+    "test_queries_count": 10,
+    "techniques_tested": 11,
+    "test_timestamp": "2025-07-22T11:00:52.982460"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "executive_summary": {
+    "test_overview": {
+      "total_techniques_tested": 11,
+      "successful_techniques": 1,
+      "test_duration": 302.11064195632935,
+      "test_timestamp": "2025-07-22T11:00:52.982460"
+    },
+    "key_findings": {
+      "recommended_technique": "Fusion RAG",
+      "best_for_requirements": "Fusion RAG",
+      "best_for_chat": "Simple RAG",
+      "fastest_technique": "Adaptive RAG"
+    },
+    "performance_highlights": {
+      "average_quality_score": 0.0,
+      "average_response_time": 0.8486562403765592,
+      "overall_success_rate": 1.0
+    },
+    "implementation_recommendations": [
+      "Implement the recommended technique in a test environment",
+      "Conduct user acceptance testing with domain experts",
+      "Measure performance with real-world data",
+      "Consider hybrid approach combining multiple techniques"
+    ]
+  }
+}

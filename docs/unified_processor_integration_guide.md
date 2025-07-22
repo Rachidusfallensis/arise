@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Unified Document Processor provides centralized, intelligent document handling across all tabs in the ARISE application with advanced features like duplicate detection, cross-tab linking, and automatic fallback mechanisms.
+The Unified Document Processor provides centralized, intelligent document handling across all tabs in the ARISE application with advanced features like cross-tab linking and automatic fallback mechanisms.
 
 ## Integration Architecture
 
@@ -64,7 +64,7 @@ results = safe_document_processor(
 
 Users can dynamically control features:
 - **Enable Unified Document Processor**: Turn on/off advanced processing
-- **Enable Duplicate Detection**: Smart duplicate file handling
+- **Enable Direct Processing**: Process all files in new projects
 - **Enable Cross-Tab Linking**: Documents available across all tabs
 - **Enable UI Feedback**: Detailed progress bars and status
 - **Enable Automatic Linking**: Auto-link duplicates without confirmation
@@ -117,31 +117,18 @@ The integration automatically updates all existing calls:
 
 ## Advanced Features
 
-### 1. Intelligent Duplicate Detection
+### 1. Direct Document Processing
 
 **How it works:**
-- Calculates file hashes for uploaded documents
-- Checks against global document database
-- Identifies exact duplicates across all projects
-- Offers automatic linking to save storage and processing
+- Processes all uploaded documents directly
+- Creates new embeddings and chunks for each project
+- Ensures complete project isolation
+- Provides clear processing feedback
 
 **Benefits:**
-- **Storage Efficiency**: No duplicate files stored
-- **Processing Speed**: Reuses existing embeddings and chunks
-- **Cross-Project Sharing**: Link documents between projects
-
-```python
-# Automatic duplicate handling
-if is_duplicate:
-    # Shows efficiency metrics to user
-    st.success(f"💾 Storage Saved: {file_size_mb:.1f} MB")
-    st.success(f"⚡ Processing Saved: Instant linking")
-    
-    # Links existing document to current project
-    success = rag_system.persistence_service.link_document_to_project(
-        existing_doc_id, current_project_id
-    )
-```
+- **Project Isolation**: Each project maintains its own documents
+- **Predictable Behavior**: All files are processed consistently
+- **Simple Workflow**: No duplicate handling decisions needed
 
 ### 2. Cross-Tab Document Availability
 
@@ -193,9 +180,9 @@ except Exception as e:
 - **Solution**: Check logs, verify feature flags, test with smaller files
 - **Action**: App automatically uses legacy mode, no user impact
 
-**2. Duplicate detection not working**
-- **Cause**: `enable_duplicate_detection` is disabled or persistence unavailable
-- **Solution**: Enable in Advanced Settings, check project management status
+**2. Document processing issues**
+- **Cause**: Processing settings are disabled or persistence unavailable  
+- **Solution**: Check project settings and ensure proper project setup
 - **Workaround**: Manual file management still works
 
 **3. Documents not appearing across tabs**

@@ -282,7 +282,7 @@ ARCADIA_PHASES = {
 
 - **Multi-format Support**: PDF, DOCX, TXT, MD, XML, JSON
 - **Automatic Text Extraction**: Advanced OCR and parsing
-- **Duplicate Detection**: Prevents reprocessing of identical documents
+- **Direct Processing**: Processes all documents in new projects
 - **Chunking Strategy**: Intelligent text segmentation for optimal RAG performance
 - **Metadata Extraction**: Automatic extraction of document metadata
 

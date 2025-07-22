@@ -1,0 +1,8 @@
+2025-07-22 10:55:09,206 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 10:55:09,303 - src.core.arcadia_context_enricher - INFO - Loaded 5 operational capabilities
+2025-07-22 10:55:09,303 - src.core.arcadia_context_enricher - INFO - Loaded 5 ARCADIA actors
+2025-07-22 10:55:09,303 - src.core.arcadia_context_enricher - INFO - Loaded 5 traceability links
+2025-07-22 10:55:09,303 - src.core.arcadia_context_enricher - INFO - Loaded phase-specific templates
+2025-07-22 10:55:09,303 - src.core.arcadia_context_enricher - INFO - ARCADIA knowledge base loaded successfully
+2025-07-22 10:55:09,304 - src.core.rag_comparison_framework - INFO - Advanced RAG techniques initialized successfully
+2025-07-22 10:55:09,304 - src.core.rag_comparison_framework - INFO - RAG Comparison Framework initialized with 11 techniques

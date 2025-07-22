@@ -94,19 +94,6 @@ class ProjectManager:
                             import logging
                             logging.error(f"Project creation failed: {str(e)}")
                 
-                # Quick project templates
-                st.sidebar.markdown("**🚀 Quick Templates:**")
-                
-                template_col1, template_col2 = st.sidebar.columns(2)
-                
-                with template_col1:
-                    if st.button("🏗️ Architecture", key="template_architecture", help="Create architecture project"):
-                        self._create_template_project("architecture")
-                
-                with template_col2:
-                    if st.button("🔬 Research", key="template_research", help="Create research project"):
-                        self._create_template_project("research")
-        
         # Project selection section
         if projects:
             st.sidebar.markdown("### 📂 Existing Projects")
@@ -168,10 +155,6 @@ class ProjectManager:
             # Quick update project
             if st.button("✏️ Edit Project", use_container_width=True, key="edit_project_sidebar"):
                 st.session_state.show_edit_project_modal = True
-            
-            # Clone project
-            if st.button("📋 Clone Project", use_container_width=True, key="clone_project_sidebar"):
-                self._clone_project(project)
             
             # Delete project (with confirmation)
             if st.button("🗑️ Delete Project", use_container_width=True, key="delete_project_sidebar", type="secondary"):
@@ -352,31 +335,6 @@ class ProjectManager:
                 st.error(f"❌ Erreur récupération statistiques : {str(e)}")
         else:
             st.info("🔧 Statistiques non disponibles dans ce mode")
-    
-    def _clone_project(self, project: Project):
-        """Clone a project with all its metadata"""
-        try:
-            # Create new project with similar data
-            new_name = f"{project.name} (Copy)"
-            new_description = f"Cloned from: {project.name}\n\n{project.description}"
-            
-            new_project_id = self.rag_system.create_project(
-                name=new_name,
-                description=new_description,
-                proposal_text=project.proposal_text
-            )
-            
-            st.sidebar.success(f"✅ Project cloned: {new_name}")
-            st.sidebar.info("📋 New project created with same metadata. Documents and requirements are not copied.")
-            
-            # Load the new project
-            if hasattr(self.rag_system, 'load_project'):
-                self.rag_system.load_project(new_project_id)
-            
-            st.rerun()
-            
-        except Exception as e:
-            st.sidebar.error(f"❌ Error cloning project: {str(e)}")
     
     def _handle_project_modals(self, project: Project):
         """Handle project edit and delete modals"""
@@ -577,47 +535,6 @@ class ProjectManager:
             pass
         
         return True, "Valid"
-    
-    def _create_template_project(self, template_type: str):
-        """Create a project from a template"""
-        templates = {
-            "architecture": {
-                "name": "Architecture Project",
-                "description": "System architecture design and analysis project using ARCADIA methodology",
-                "proposal": "This project focuses on developing a comprehensive system architecture using ARCADIA methodology. The project will include operational analysis, system analysis, logical architecture design, and physical architecture implementation."
-            },
-            "research": {
-                "name": "Research Project",
-                "description": "Research and development project for exploring new concepts and technologies",
-                "proposal": "This research project aims to investigate and develop new concepts, technologies, or methodologies. The project will include literature review, experimental design, data collection, analysis, and documentation of findings."
-            }
-        }
-        
-        if template_type not in templates:
-            st.sidebar.error(f"❌ Unknown template type: {template_type}")
-            return
-        
-        template = templates[template_type]
-        
-        try:
-            # Create project from template
-            project_id = self.rag_system.create_project(
-                name=template["name"],
-                description=template["description"],
-                proposal_text=template["proposal"]
-            )
-            
-            st.sidebar.success(f"✅ {template['name']} created from template!")
-            st.sidebar.info("📋 Template project created. You can edit the details and add your own content.")
-            
-            # Auto-load the new project
-            if hasattr(self.rag_system, 'load_project'):
-                self.rag_system.load_project(project_id)
-            
-            st.rerun()
-            
-        except Exception as e:
-            st.sidebar.error(f"❌ Error creating template project: {str(e)}")
     
     def export_project_data(self, project: Project) -> dict:
         """Export project data for backup or migration"""

@@ -415,6 +415,35 @@ class PersistenceService:
             self.logger.error(f"Erreur lors de la récupération des chunks du projet : {str(e)}")
             return []
     
+    def get_document_chunks(self, document_id: str) -> List[Dict[str, Any]]:
+        """Récupérer tous les chunks d'un document spécifique"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    SELECT dc.content, dc.metadata, pd.filename
+                    FROM document_chunks dc
+                    JOIN processed_documents pd ON dc.document_id = pd.id
+                    WHERE dc.document_id = ?
+                    ORDER BY dc.chunk_index
+                """, (document_id,))
+                
+                chunks = []
+                for row in cursor.fetchall():
+                    metadata = json.loads(row[1]) if row[1] else {}
+                    metadata["source_filename"] = row[2]
+                    
+                    chunks.append({
+                        "content": row[0],
+                        "metadata": metadata
+                    })
+                
+                return chunks
+                
+        except Exception as e:
+            self.logger.error(f"Erreur lors de la récupération des chunks du document : {str(e)}")
+            return []
+    
     def get_project_documents(self, project_id: str) -> List[ProcessedDocument]:
         """Récupérer tous les documents d'un projet"""
         try:
@@ -915,8 +944,30 @@ class PersistenceService:
             self.logger.error(f"Erreur lors de la mise à jour du projet : {str(e)}")
             return False
     
+    def check_file_hash_in_project(self, file_hash: str, project_id: str) -> Tuple[bool, Optional[str]]:
+        """Vérifier si un fichier a déjà été traité dans le projet spécifique (RECOMMANDÉ)"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    SELECT id, filename, processed_at 
+                    FROM processed_documents 
+                    WHERE file_hash = ? AND project_id = ? AND processing_status = 'completed'
+                    ORDER BY processed_at DESC
+                    LIMIT 1
+                """, (file_hash, project_id))
+                
+                result = cursor.fetchone()
+                if result:
+                    return True, result[0]  # found, document_id
+                return False, None
+                
+        except Exception as e:
+            self.logger.error(f"Erreur lors de la vérification du hash dans le projet : {str(e)}")
+            return False, None
+
     def check_file_hash_globally(self, file_hash: str) -> Tuple[bool, Optional[str], Optional[str]]:
-        """Vérifier si un fichier a déjà été traité dans n'importe quel projet"""
+        """Vérifier si un fichier a déjà été traité dans n'importe quel projet (AVANCÉ)"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()

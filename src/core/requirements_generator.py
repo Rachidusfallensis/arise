@@ -59,9 +59,9 @@ class RequirementsGenerator:
         
         # Fallback to original AI-based approach if enhanced extraction finds nothing
         self.logger.info("Falling back to AI-based stakeholder identification...")
-        template = requirements_templates.REQUIREMENT_TEMPLATES["stakeholder_template"]
+        template = requirements_templates.REQUIREMENT_TEMPLATES["stakeholder_template"]  # type: ignore
         
-        prompt = template["prompts"]["identification"].format(
+        prompt = template["prompts"]["identification"].format(  # type: ignore
             context=self._prepare_context_text(context)
         )
         
@@ -86,7 +86,7 @@ class RequirementsGenerator:
         component_focus = self.component_analyzer.get_component_requirements_focus(components, phase)
         
         # Enhanced prompt with priority balancing guidance
-        prompt = template["prompts"]["generation"].format(
+        prompt = template["prompts"]["generation"].format(  # type: ignore
             phase=phase,
             context=self._prepare_context_text(context),
             stakeholders=self._extract_stakeholders_from_context(context),
@@ -163,7 +163,7 @@ Generate 3-5 well-balanced functional requirements with complete descriptions.""
             component_focus = self.component_analyzer.get_component_requirements_focus(components, phase)
             
             # Enhanced prompt with context-aware generation
-            prompt = template["prompts"]["generation"].format(
+            prompt = template["prompts"]["generation"].format(  # type: ignore
                 phase=phase,
                 context=context_text,
                 category=category,
@@ -210,7 +210,7 @@ QUALITY REQUIREMENTS:
 
     def _select_relevant_nfr_categories(self, context_text: str, proposal_text: str) -> Dict[str, float]:
         """Select relevant NFR categories based on context analysis to avoid overrepresentation"""
-        nfr_categories = arcadia_config.REQUIREMENT_CATEGORIES["non_functional"]["subcategories"]
+        nfr_categories = arcadia_config.REQUIREMENT_CATEGORIES["non_functional"]["subcategories"]  # type: ignore
         combined_text = f"{context_text} {proposal_text}".lower()
         
         category_relevance = {}
@@ -638,13 +638,13 @@ QUALITY REQUIREMENTS:
             
             if issues:
                 req["validation_issues"] = issues
-                validation_results["invalid_requirements"].append(req)
+                validation_results["invalid_requirements"].append(req)  # type: ignore
             else:
-                validation_results["valid_requirements"].append(req)
+                validation_results["valid_requirements"].append(req)  # type: ignore
         
         # Calculate quality score
         total_reqs = len(requirements)
-        valid_reqs = len(validation_results["valid_requirements"])
+        valid_reqs = len(validation_results["valid_requirements"])  # type: ignore
         validation_results["quality_score"] = (valid_reqs / total_reqs) * 100 if total_reqs > 0 else 0
         
         return validation_results

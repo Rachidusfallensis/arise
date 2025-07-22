@@ -428,6 +428,49 @@ st.markdown("""
         color: white;
     }
     
+    /* Professional improvements */
+    .stAlert {
+        border-radius: 8px;
+        border: none;
+        font-weight: 500;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .stMetric {
+        background: white;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid #e1e5e9;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .stExpander {
+        border: 1px solid #e1e5e9;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .stSelectbox, .stTextInput, .stTextArea {
+        border-radius: 6px;
+    }
+    
+    .stColumn {
+        padding: 0.25rem;
+    }
+    
+    /* Professional typography */
+    h1, h2, h3, h4 {
+        font-weight: 600 !important;
+        color: #2c3e50 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Clean caption text */
+    .stCaption {
+        color: #6c757d !important;
+        font-size: 0.875rem !important;
+    }
+
     /* Hide streamlit elements */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
@@ -684,13 +727,10 @@ def main():
     <div class="main-header">
         <h1 style="margin-bottom: 0.5rem;">ARISE</h1>
         <p style="font-size: 1.3rem; margin: 0.5rem 0; font-weight: 300; opacity: 0.95;">
-            <span style="color: #f0f2f6;">AR</span>cadia 
-            <span style="color: #f0f2f6;">I</span>ntelligent 
-            <span style="color: #f0f2f6;">S</span>ystem 
-            <span style="color: #f0f2f6;">E</span>ngine
+            ARCADIA Intelligent System Engine
         </p>
         <p style="font-size: 1.1rem; margin: 0.5rem 0 0 0; font-style: italic; opacity: 0.9;">
-            Built by engineers, for engineers
+            Professional Model-Based Systems Engineering Platform
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -770,18 +810,18 @@ def main():
         st.markdown("### System Tools")
         if st.button("Clear Cache", help="Clear system cache"):
             st.cache_resource.clear()
-            st.success("Cache cleared!")
+            st.success("Cache cleared")
         
         if st.button("Test System", help="Test RAG system"):
             try:
                 test_rag = SAFEMBSERAGSystem()
-                st.success("System OK")
+                st.success("System operational")
             except Exception as e:
-                st.error(f"System Error: {str(e)}")
+                st.error(f"System error: {str(e)}")
     
     # Main interface tabs - Phase 2 Reorganization: Combined Requirements & Analysis
     if has_project_management:
-        # Phase 2: Combined Requirements & Analysis tab
+        # Professional tab layout
         tab1, tab2, tab3 = st.tabs([
             "Document Management",
             "Requirements & Analysis", 
@@ -1372,11 +1412,11 @@ def export_requirements_to_json(results):
                     {
                         "id": func.id,
                         "name": func.name,
-                        "behavioral_specification": func.behavioral_specification,
+                        "behavioral_specification": "; ".join([model.get('spec', str(model)) for model in func.behavioral_models]) if func.behavioral_models else "",
                         "description": func.description,
                         "allocated_components": func.allocated_components,
-                        "input_flows": func.input_flows,
-                        "output_flows": func.output_flows
+                        "input_flows": [str(iface) for iface in func.input_interfaces] if func.input_interfaces else [],
+                        "output_flows": [str(iface) for iface in func.output_interfaces] if func.output_interfaces else []
                     } for func in (logical_arch.functions or [])
                 ],
                 "interfaces": [
@@ -1754,14 +1794,16 @@ def export_requirements_to_excel_csv(results):
                 output.write("\n=== LOGICAL FUNCTIONS ===\n")
                 output.write("ID,Name,Behavioral Specification,Description,Allocated Components,Input Flows,Output Flows,Phase\n")
                 for func in logical_arch.functions:
+                    # Format behavioral models for CSV
+                    behavioral_spec = "; ".join([model.get('spec', str(model)) for model in func.behavioral_models]) if func.behavioral_models else ""
                     row = [
                         csv_escape(func.id),
                         csv_escape(func.name),
-                        csv_escape(func.behavioral_specification),
+                        csv_escape(behavioral_spec),
                         csv_escape(func.description),
                         csv_escape('; '.join(func.allocated_components) if func.allocated_components else ''),
-                        csv_escape('; '.join(func.input_flows) if func.input_flows else ''),
-                        csv_escape('; '.join(func.output_flows) if func.output_flows else ''),
+                        csv_escape('; '.join([str(iface) for iface in func.input_interfaces]) if func.input_interfaces else ''),
+                        csv_escape('; '.join([str(iface) for iface in func.output_interfaces]) if func.output_interfaces else ''),
                         csv_escape('Logical')
                     ]
                     output.write(','.join(row) + '\n')
@@ -3062,11 +3104,14 @@ def display_logical_analysis(enhanced_results):
         if logical_arch.functions:
             for i, function in enumerate(logical_arch.functions):
                 with st.container():
+                    # Format behavioral models for display
+                    behavioral_display = "; ".join([model.get('spec', str(model)) for model in function.behavioral_models]) if function.behavioral_models else "Not specified"
+                    
                     st.markdown(f"""
                     <div class="requirement-item">
                         <div class="requirement-header">{function.name} ({function.id})</div>
                         <div class="requirement-description">
-                            <strong>Behavior:</strong> {function.behavioral_specification}<br>
+                            <strong>Behavior:</strong> {behavioral_display}<br>
                             <strong>Description:</strong> {function.description}
                         </div>
                     </div>
@@ -3075,15 +3120,15 @@ def display_logical_analysis(enhanced_results):
                     if function.allocated_components:
                         st.markdown(f"**Allocated Components:** {', '.join(function.allocated_components)}")
                     
-                    if function.input_flows:
-                        st.markdown("**Input Flows:**")
-                        for flow in function.input_flows:
-                            st.markdown(f"• {flow}")
+                    if function.input_interfaces:
+                        st.markdown("**Input Interfaces:**")
+                        for interface in function.input_interfaces:
+                            st.markdown(f"• {interface}")
                     
-                    if function.output_flows:
-                        st.markdown("**Output Flows:**")
-                        for flow in function.output_flows:
-                            st.markdown(f"• {flow}")
+                    if function.output_interfaces:
+                        st.markdown("**Output Interfaces:**")
+                        for interface in function.output_interfaces:
+                            st.markdown(f"• {interface}")
                     
                     if i < len(logical_arch.functions) - 1:
                         st.markdown("---")
@@ -3407,7 +3452,7 @@ def documents_project_tab(rag_system, current_project):
             "Select files",
             accept_multiple_files=True,
             type=['pdf', 'docx', 'txt', 'md', 'xml', 'json', 'aird'],
-            help="Upload multiple documents. Duplicates will be automatically detected."
+            help="Upload multiple documents for processing."
         )
         
         if uploaded_files:
@@ -3747,6 +3792,121 @@ def extract_file_content(file_path: str, filename: str) -> str:
 def process_documents_with_duplicate_detection(rag_system, current_project, uploaded_files):
     """Process uploaded documents with intelligent duplicate detection"""
     
+    # SIMPLIFIED: Process all files directly without duplicate detection
+    st.info("Processing all files directly in project")
+    
+    # Simple processing approach
+    temp_files = []
+    all_extracted_content = []
+    
+    progress_bar = st.progress(0)
+    status_text = st.empty()
+    
+    try:
+        status_text.text("Extracting content and processing files...")
+        
+        for i, uploaded_file in enumerate(uploaded_files):
+            progress_bar.progress((i + 1) / len(uploaded_files))
+            
+            # Save temporarily
+            temp_path = f"temp_{uploaded_file.name}"
+            with open(temp_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+            temp_files.append(temp_path)
+            
+            # Extract content from file
+            file_content = extract_file_content(temp_path, uploaded_file.name)
+            if file_content:
+                all_extracted_content.append({
+                    'filename': uploaded_file.name,
+                    'content': file_content,
+                    'size': len(file_content)
+                })
+        
+        # Store extracted content in session state for requirements generation
+        if all_extracted_content:
+            combined_content = "\n\n=== DOCUMENT SEPARATOR ===\n\n".join([
+                f"=== {doc['filename']} ===\n{doc['content']}" 
+                for doc in all_extracted_content
+            ])
+            st.session_state['extracted_document_content'] = combined_content
+            st.session_state['extracted_files_info'] = all_extracted_content
+        
+        # Show processing summary
+        st.success(f"{len(uploaded_files)} file(s) ready for processing")
+        
+        # Process all files directly
+        status_text.text("Processing documents...")
+        
+        if hasattr(rag_system, 'add_documents_to_project'):
+            results = rag_system.add_documents_to_project(temp_files, current_project.id)
+        else:
+            # Fallback for systems without project support
+            results = rag_system.add_documents_to_vectorstore(temp_files)
+        
+        # Safely extract numeric results, handling cases where values might be lists
+        processed_val = results.get('processed', results.get('processed_files', 0))
+        chunks_val = results.get('new_chunks', results.get('chunks_added', 0))
+        
+        # Convert to integers if they're lists (take length) or other types
+        if isinstance(processed_val, list):
+            total_processed = len(processed_val)
+        elif isinstance(processed_val, (int, float)):
+            total_processed = int(processed_val)
+        else:
+            total_processed = 1 if processed_val else 0
+            
+        if isinstance(chunks_val, list):
+            total_chunks = len(chunks_val)
+        elif isinstance(chunks_val, (int, float)):
+            total_chunks = int(chunks_val)
+        else:
+            total_chunks = 0
+        
+        # Show final results
+        progress_bar.progress(1.0)
+        
+        if total_processed > 0:
+            st.success("**Processing Complete**")
+            
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("Files Processed", total_processed)
+            with col2:
+                st.metric("Chunks Created", total_chunks)
+            with col3:
+                st.metric("Project", current_project.name)
+                
+            # Show what's now available
+            if st.session_state.get('extracted_document_content'):
+                st.info("**Documents are now available for:**")
+                st.markdown("""
+                - **Chat & Analysis** - Ask questions about your documents
+                - **Requirements Generation** - Generate structured requirements
+                - **ARCADIA Analysis** - Perform systems engineering analysis
+                """)
+        else:
+            st.error("No files were successfully processed")
+            
+    except Exception as e:
+        st.error(f"Error during processing: {str(e)}")
+        logger.error(f"Document processing error: {str(e)}")
+    
+    finally:
+        # Cleanup temporary files
+        for temp_file in temp_files:
+            try:
+                if os.path.exists(temp_file):
+                    os.remove(temp_file)
+            except:
+                pass
+        
+        progress_bar.empty()
+        status_text.empty()
+    
+    return  # Exit here to avoid original duplicate detection logic
+    
+    # ORIGINAL DUPLICATE DETECTION CODE BELOW (NOT EXECUTED)
     # Save files temporarily and check for duplicates
     temp_files = []
     duplicate_info = []
@@ -4594,7 +4754,7 @@ def _refresh_project_data_safely(rag_system, project_id):
 
 def project_documents_tab(rag_system, current_project, has_project_management):
     """Document Management tab - Focused on documents only"""
-    st.markdown("### 📚 Document Management")
+    st.markdown("### Document Management")
     
     # Initialize project_documents to avoid undefined variable errors
     project_documents = []
@@ -4610,7 +4770,7 @@ def project_documents_tab(rag_system, current_project, has_project_management):
     
     # Simple status check without detailed project metrics
     if has_project_management and not current_project:
-        st.warning("⚠️ No project selected. Please create or select a project in the sidebar.")
+        st.warning("No project selected. Please create or select a project in the sidebar.")
         st.info("""
         **To create a new project:**
         1. Use the sidebar on the left to create a new project
@@ -4619,16 +4779,12 @@ def project_documents_tab(rag_system, current_project, has_project_management):
         """)
         return
     elif not has_project_management:
-        st.info("🔧 **Traditional Mode** - Basic document management available")
+        st.info("**Traditional Mode** - Basic document management available")
     
     # Document upload section
-    with st.expander("📤 Upload Documents", expanded=False):
+    with st.expander("Upload Documents", expanded=False):
         if has_project_management and current_project:
             st.markdown(f"**Upload to project: {current_project.name}**")
-            st.info("""
-            💾 **Smart Deduplication Enabled**: If you upload files that already exist in the system, 
-            we'll offer to reuse them for maximum storage and processing efficiency!
-            """)
             
             uploaded_files = st.file_uploader(
                 "Select files",
@@ -4927,8 +5083,29 @@ def project_documents_tab(rag_system, current_project, has_project_management):
                                 else:
                                     st.success("✅ System appears to be working correctly")
             
-            # Chat input with project context
+            # Show project documents available for chat BEFORE chat input
             ready_docs = [doc for doc in project_documents if doc.processing_status == "completed"]
+            if 'project_documents' in locals() and project_documents:
+                with st.expander(f"Available Documents ({len(project_documents)})", expanded=False):
+                    total_chunks = sum(doc.chunks_count for doc in project_documents)
+                    total_size = sum(doc.file_size for doc in project_documents) / 1024  # KB
+                    
+                    st.info(f"**Knowledge Base**: {len(project_documents)} documents, {total_chunks} text chunks, {total_size:.1f} KB")
+                    
+                    for doc in project_documents:
+                        status_text = "Ready" if doc.processing_status == "completed" else "Processing..."
+                        
+                        col1, col2 = st.columns([3, 1])
+                        with col1:
+                            st.write(f"**{doc.filename}**")
+                            st.caption(f"{doc.chunks_count} chunks • {doc.file_size / 1024:.1f} KB • {status_text}")
+                        with col2:
+                            if doc.processing_status == "completed":
+                                st.success("Available")
+                            else:
+                                st.warning("Processing")
+
+            # Chat input with project context
             if ready_docs:
                 placeholder_text = f"Ask about {current_project.name} documents ({len(ready_docs)} available), ARCADIA methodology, or MBSE concepts..."
             else:
@@ -4942,16 +5119,16 @@ def project_documents_tab(rag_system, current_project, has_project_management):
             
             # Show chat scope indicator
             if ready_docs:
-                st.caption(f"🎯 **Chat scope**: {len(ready_docs)} document(s) from {current_project.name} • {sum(doc.chunks_count for doc in ready_docs)} text chunks available")
+                st.caption(f"**Chat scope**: {len(ready_docs)} document(s) from {current_project.name} • {sum(doc.chunks_count for doc in ready_docs)} text chunks available")
             else:
-                st.caption("⚠️ **No documents available** - Upload and process documents to enable chat")
+                st.caption("**No documents available** - Upload and process documents to enable chat")
             
             if user_prompt:
                 logger.info(f"New project chat message in {current_project.name}: {user_prompt[:100]}...")
                 
                 # Check if we have any processed documents
                 if not ready_docs:
-                    st.error("❌ **No documents available for chat!** Please upload and process documents first.")
+                    st.error("**No documents available for chat!** Please upload and process documents first.")
                     st.info("Upload documents in the section above, then wait for processing to complete.")
                     return
                 
@@ -5055,19 +5232,19 @@ def project_documents_tab(rag_system, current_project, has_project_management):
                         save_project_chats(current_project_chats, project_id)
                         st.rerun()
         else:
-            st.warning("⚠️ Chat session not found. Please create a new chat or select an existing one.")
+            st.warning("Chat session not found. Please create a new chat or select an existing one.")
     
     elif has_project_management and current_project:
         # Project exists but no chat selected
-        st.info("💬 **Project Chat Available**")
+        st.info("**Project Chat Available**")
         st.markdown(f"""
         **Ready to chat with {current_project.name} documents!**
         
-        📋 **Available in this project:**
+        **Available in this project:**
         • {len(project_documents) if 'project_documents' in locals() else 0} processed documents
         
-        💡 **Get started:**
-        1. Click "📝 New Project Chat" to start
+        **Get started:**
+        1. Click "New Project Chat" to start
         2. Or select an existing chat from history
         3. Ask questions about your project documents
         """)
@@ -5126,7 +5303,7 @@ def project_documents_tab(rag_system, current_project, has_project_management):
     
     else:
         # Traditional mode without project management
-        st.info("🔧 **Traditional Mode - Limited Chat**")
+        st.info("**Traditional Mode - Limited Chat**")
         st.markdown("""
         **Basic chat functionality available.**
         
@@ -5135,12 +5312,12 @@ def project_documents_tab(rag_system, current_project, has_project_management):
         • Create dedicated projects
         • Isolated chat histories per project
         
-        💡 **Current limitations:** Global document access, no chat isolation
+        **Current limitations:** Global document access, no chat isolation
         """)
 
 def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types, export_format, 
                              enable_structured_analysis, enable_cross_phase_analysis, is_enhanced):
-    """Combined Requirements & Analysis tab - Phase 2 of reorganization"""
+    """Combined Requirements & Analysis tab - Professional interface"""
     
     
     # Check project and documents status - Initialize variables first
@@ -5773,11 +5950,11 @@ def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types,
             st.rerun()
 
 def project_insights_tab(rag_system, current_project, has_project_management):
-    """Combined Project Insights tab - Phase 3 of reorganization"""
-    st.markdown("### 📊 Project Insights")
+    """Combined Project Insights tab - Professional interface"""
+    st.markdown("### Project Insights")
     
     if not has_project_management:
-        st.info("🔧 **Traditional Mode** - Limited insights available without project management")
+        st.info("**Traditional Mode** - Limited insights available without project management")
         
         # Show basic system information
         col1, col2, col3 = st.columns(3)
@@ -5792,11 +5969,11 @@ def project_insights_tab(rag_system, current_project, has_project_management):
         st.markdown("• Basic requirements generation")
         st.markdown("• Document chat functionality") 
         st.markdown("• Simple evaluation metrics")
-        st.markdown("\n💡 **Enable project management for full insights dashboard**")
+        st.markdown("\n**Enable project management for full insights dashboard**")
         return
     
     if not current_project:
-        st.warning("⚠️ No project selected. Please select or create a project to view insights.")
+        st.warning("No project selected. Please select or create a project to view insights.")
         return
     
     # Project dashboard with key metrics

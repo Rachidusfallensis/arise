@@ -310,11 +310,157 @@
             "has_persistence_service": true,
             "query_method_used": "project_documents"
           }
+        },
+        {
+          "role": "user",
+          "content": "Who are the actors involved in the IREKIA project ? ",
+          "timestamp": "2025-07-18T12:18:09.319859",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on the provided document excerpts, the actors involved in the IREKIA project are:\n\n* Le Fablab Ingénierie Numérique (mentioned in Introduction 1.1 Contexte)\n* Université de Pau et des Pays de l'Adour (UPPA) (mentioned in Introduction 1.1 Contexte)\n\nThese are the only mentions of actors involved in the IREKIA project found in the provided document excerpts.\n\nReferences:\n\n* Source: Modélisation Irekia .pdf, Introduction 1.1 Contexte and 1.3 Périmètre",
+          "context": [
+            {
+              "content": ". Elle prend en compte les contraintes techniques, budgétaires et opérationnelles du projet IREKIA.5.2 Composants Comportementaux (Behavioral Components)BC1 - Services de Gestion de ProjetsTechnologie : Microservices Spring Boot (Java 17) Implémente : LC1 (Gestionnaire de Projets)",
+              "metadata": {
+                "source": "temp/Modélisation Irekia .pdf",
+                "filename": "Modélisation Irekia .pdf",
+                "chunk_id": 36,
+                "total_chunks": 48,
+                "arcadia_phase": "logical",
+                "source_filename": "Modélisation Irekia .pdf"
+              }
+            },
+            {
+              "content": "(Project Services)NC1.1 (K8s Prod)Haute disponibilité requiseBC2 (Security Services)NC1.1 (K8s Prod)Criticité sécuritéBC3 (Resource Services)NC1.1 (K8s Prod)Performance temps réelBC4 (LMS Platform)NC1.1 (K8s Prod)Charge utilisateursBC5.1 (IoT Gateway)NC1.3 (Edge Servers)Proximité capteursBC5.2-3 (Monitoring)NC1.1 (K8s Prod)Centralisation donnéesBC6 (Collaborative)NC1.1 (K8s Prod)Stockage importantBC7 (Analytics)NC1.2 (K8s Dev) + CloudRessources GPUBC8 (Integration)NC1.1 (K8s Prod) + DMZExposition externe",
+              "metadata": {
+                "source": "temp/Modélisation Irekia .pdf",
+                "filename": "Modélisation Irekia .pdf",
+                "chunk_id": 44,
+                "total_chunks": 48,
+                "arcadia_phase": "system",
+                "source_filename": "Modélisation Irekia .pdf"
+              }
+            },
+            {
+              "content": "Introduction 1.1 ContexteLe Fablab Ingénierie Numérique s'inscrit dans le projet IREKIA de l'UPPA, visant à doubler les effectifs étudiants sur la côte basque et à renforcer la connectivité avec l'écosystème économique local.1.2 Objectifs de la modélisation•Formaliser les besoins opérationnels du fablab•Déﬁnir l'architecture système optimale•Assurer la traçabilité des exigences•Faciliter l'évolution et la maintenance du système1.3 PérimètreLa modélisation couvre l'ensemble des activités du fablab dans les domaines :•Intelligence artiﬁcielle•Services numériques•Internet des objets (IoT)•Ingénierie des systèmes et logiciels•Cybersécurité•Transformation numérique2",
+              "metadata": {
+                "source": "temp/Modélisation Irekia .pdf",
+                "filename": "Modélisation Irekia .pdf",
+                "chunk_id": 0,
+                "total_chunks": 48,
+                "arcadia_phase": "system",
+                "source_filename": "Modélisation Irekia .pdf"
+              }
+            }
+          ],
+          "timestamp": "2025-07-18T12:18:12.648615",
+          "project_id": "proj_20250617_185145",
+          "project_name": "Irekia Project",
+          "debug_info": {
+            "ready_docs_count": 1,
+            "context_docs_count": 3,
+            "has_project_query_method": true,
+            "has_persistence_service": true,
+            "query_method_used": "project_documents"
+          }
         }
       ],
       "created_at": "2025-07-17T15:24:51.986302",
       "project_id": "proj_20250617_185145",
       "project_name": "Irekia Project",
+      "document_count": 1
+    },
+    "20250718_120414_731365": {
+      "title": "New Project Chat",
+      "messages": [],
+      "created_at": "2025-07-18T12:04:14.731408",
+      "project_id": "proj_20250617_185145",
+      "project_name": "Irekia Project",
+      "document_count": 1
+    }
+  },
+  "proj_20250722_113105_7186": {
+    "20250722_115509_655169": {
+      "title": "Describe the Air Traffic Management system?",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Describe the Air Traffic Management system?",
+          "timestamp": "2025-07-22T11:55:42.758165",
+          "project_id": "proj_20250722_113105_7186",
+          "project_name": "AIr Traffic Management"
+        },
+        {
+          "role": "assistant",
+          "content": "Based on the provided document excerpts, the Air Traffic Management (ATM) system is designed to manage air traffic safely and efficiently. The system integrates advanced communication, navigation, and surveillance technologies to enable real-time decision-making and coordination.\n\nThe ATM system's main functions are divided into several interconnected modules:\n\n1. Airspace Monitoring Module: Tracks aircraft positions in real-time using radar and ADS-B data (Source: Operational Analysis).\n2. Flight Path Optimization Module: Calculates efficient routes for takeoff, landing, and cruising based on real-time traffic and weather conditions (Source: Logical Architecture).\n3. Other modules include:\n\t* Conflict detection and resolution: Automated systems to detect potential collisions and propose resolution strategies.\n\t* Emergency systems: Procedures and technologies for handling emergencies, such as rerouting or ground evacuation.\n\nThe system involves several actors, including:\n\n1. Air Traffic Controllers (ATCs)\n2. Pilots\n3. Airport Ground Operations Staff\n4. Airline Operators\n5. Meteorological Services\n6. Regulatory Authorities\n7. System Engineers\n\nThe operational needs of the ATM system include:\n\n* Safe airspace management: Ensure safe distances between aircraft during all phases of flight.\n* Efficient runway usage: Minimize aircraft waiting times for takeoff and landing by optimizing scheduling.\n\nOverall, the ATM system is designed to reduce delays, optimize runway utilization, ensure compliance with environmental and safety regulations, and provide real-time decision-making capabilities.",
+          "context": [
+            {
+              "content": "Case Study 8 : Design of an Air Traffic Management System for a Smart Airport (Omar, Brandon et Arona) Description The increasing demand for air travel has led to more complex airport operations and the need for efficient air traffic management (ATM) systems. This study focuses on designing a smart ATM system to manage air traffic safely and efficiently, reduce delays, optimize runway utilization, and ensure compliance with environmental and safety regulations. The system must integrate advanced communication, navigation, and surveillance technologies to enable real-time decision-making and coordination. Actors Involved 1. Air Traffic Controllers (ATCs): Manage airspace and ensure safe distances between aircraft. 2. Pilots: Communicate with ATCs and comply with instructions for takeoff, landing, and taxiing. 3. Airport Ground Operations Staff: Oversee taxiway, runway operations, and ground vehicles. 4",
+              "metadata": {
+                "chunk_id": 0,
+                "embedding_model": "nomic-embed-text",
+                "document_id": "doc_20250722_113123_2646",
+                "chunk_index": 0,
+                "total_chunks": 7,
+                "project_id": "proj_20250722_113105_7186",
+                "source": "temp_(Omar, Brandon et Arona) Case Study 8 - Design of an Air Traffic Management System for a Smart Airport.pdf",
+                "arcadia_phase": "operational",
+                "filename": "temp_(Omar, Brandon et Arona) Case Study 8 - Design of an Air Traffic Management System for a Smart Airport.pdf",
+                "similarity_score": 0.40847522020339966,
+                "rank": 1
+              }
+            },
+            {
+              "content": ". 2. Pilots: Communicate with ATCs and comply with instructions for takeoff, landing, and taxiing. 3. Airport Ground Operations Staff: Oversee taxiway, runway operations, and ground vehicles. 4. Airline Operators: Monitor flight schedules and coordinate with ATCs for efficient operations. 5. Meteorological Services: Provide real-time weather data to ATCs and pilots. 6. Regulatory Authorities: Ensure the system complies with international aviation safety standards. 7. System Engineers: Develop and maintain the ATM system. 8. Passengers: Indirect stakeholders affected by delays or disruptions in the system. 1. Operational Analysis The system's operational needs were identified as follows: • Safe airspace management: Ensure safe distances between aircraft during all phases of flight (takeoff, landing, cruising). • Efficient runway usage: Minimize aircraft waiting times for takeoff and landing by optimizing scheduling",
+              "metadata": {
+                "total_chunks": 7,
+                "filename": "temp_(Omar, Brandon et Arona) Case Study 8 - Design of an Air Traffic Management System for a Smart Airport.pdf",
+                "project_id": "proj_20250722_113105_7186",
+                "arcadia_phase": "operational",
+                "embedding_model": "nomic-embed-text",
+                "chunk_index": 1,
+                "document_id": "doc_20250722_113123_2646",
+                "chunk_id": 1,
+                "source": "temp_(Omar, Brandon et Arona) Case Study 8 - Design of an Air Traffic Management System for a Smart Airport.pdf",
+                "similarity_score": 0.28176379203796387,
+                "rank": 2
+              }
+            },
+            {
+              "content": "2. Surveillance technologies: Integration of radar, ADS-B (Automatic Dependent Surveillance–Broadcast), and satellite tracking systems for precise aircraft location tracking. 3. Flight scheduling system: Algorithms for optimizing takeoff, landing, and taxiing schedules to minimize delays. 4. Weather integration: Advanced weather forecasting tools and integration with ATM for dynamic adjustments. 5. Conflict detection and resolution: Automated systems to detect potential collisions and propose resolution strategies. 6. Emergency systems: Procedures and technologies for handling emergencies, such as rerouting or ground evacuation. 3. Logical Architecture The ATM system’s main functions are divided into several interconnected modules: 1. Airspace Monitoring Module: Tracks aircraft positions in real time using radar and ADS-B data. 2. Flight Path Optimization Module: Calculates efficient routes for takeoff, landing, and cruising based on real-time traffic and weather conditions. 3",
+              "metadata": {
+                "project_id": "proj_20250722_113105_7186",
+                "chunk_index": 3,
+                "filename": "temp_(Omar, Brandon et Arona) Case Study 8 - Design of an Air Traffic Management System for a Smart Airport.pdf",
+                "source": "temp_(Omar, Brandon et Arona) Case Study 8 - Design of an Air Traffic Management System for a Smart Airport.pdf",
+                "chunk_id": 3,
+                "total_chunks": 7,
+                "embedding_model": "nomic-embed-text",
+                "document_id": "doc_20250722_113123_2646",
+                "arcadia_phase": "system",
+                "similarity_score": 0.14434415102005005,
+                "rank": 3
+              }
+            }
+          ],
+          "timestamp": "2025-07-22T11:55:47.663917",
+          "project_id": "proj_20250722_113105_7186",
+          "project_name": "AIr Traffic Management",
+          "debug_info": {
+            "ready_docs_count": 1,
+            "context_docs_count": 3,
+            "has_project_query_method": true,
+            "has_persistence_service": true,
+            "query_method_used": "project_documents"
+          }
+        }
+      ],
+      "created_at": "2025-07-22T11:55:09.655193",
+      "project_id": "proj_20250722_113105_7186",
+      "project_name": "AIr Traffic Management",
       "document_count": 1
     }
   }
