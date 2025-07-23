@@ -50,42 +50,45 @@ class SystemAnalysisExtractor:
                                context_chunks: List[Dict[str, Any]], 
                                proposal_text: str,
                                operational_actors: Optional[List] = None,
+                               operational_analysis: Optional[Any] = None,
                                source_documents: Optional[List[str]] = None) -> SystemAnalysisOutput:
         """
-        Extract complete system analysis from documentation
+        Enhanced system analysis extraction for ARCADIA System Analysis phase:
+        - Define Actors, Missions and Capabilities 
+        - Refine Operational Activities and describe interactions
+        - System Functions, functional Exchanges 
+        - Allocate System Functions to System and Actors
+        - Functional and Non Functional Requirements
         
         Args:
             context_chunks: Document chunks with metadata
             proposal_text: Full proposal text
             operational_actors: Actors from operational analysis for traceability
+            operational_analysis: Complete operational analysis for refinement
             source_documents: List of source document paths
             
         Returns:
-            Complete system analysis output
+            Enhanced system analysis output with refined activities and requirements
         """
-        self.logger.info("Starting system analysis extraction")
+        self.logger.info("Starting enhanced system analysis extraction (Formalize System Requirements)")
         
         start_time = datetime.now()
         source_docs = source_documents or ["proposal_text"]
         
-        # Step 1: Define system boundary
-        self.logger.info("Step 1: Defining system boundary and context")
-        system_boundary = self._extract_system_boundary(context_chunks, proposal_text)
-        
-        # Step 2: Extract system actors
-        self.logger.info("Step 2: Extracting system actors and interfaces")
+        # Step 1: Define System Actors, Missions and Capabilities  
+        self.logger.info("Step 1: Defining System Actors, Missions and Capabilities")
         system_actors = self._extract_system_actors(context_chunks, proposal_text)
+        system_capabilities = self._extract_system_capabilities(context_chunks, proposal_text, [])
         
-        # Step 3: Extract system functions
-        self.logger.info("Step 3: Extracting system functions")
+        # Step 2: Extract System Functions
+        self.logger.info("Step 2: Extracting System Functions") 
         system_functions = self._extract_system_functions(context_chunks, proposal_text, system_actors)
         
-        # Step 4: Extract system capabilities
-        self.logger.info("Step 4: Extracting system capabilities")
-        system_capabilities = self._extract_system_capabilities(context_chunks, proposal_text, system_functions)
+        # Step 3: Define system boundary
+        self.logger.info("Step 3: Defining system boundary and context")
+        system_boundary = self._extract_system_boundary(context_chunks, proposal_text)
         
-        # Step 5: Extract functional chains
-        self.logger.info("Step 5: Extracting functional chains")
+        # Step 7: Extract functional chains
         functional_chains = self._extract_functional_chains(context_chunks, proposal_text, system_functions)
         
         # Create extraction metadata

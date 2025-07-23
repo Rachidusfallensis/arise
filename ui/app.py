@@ -48,6 +48,59 @@ logger.setLevel(logging.INFO)
 if not any(isinstance(h, logging.StreamHandler) for h in logger.handlers):
     console_handler = logging.StreamHandler(sys.stderr)
     console_handler.setLevel(logging.INFO)
+
+def clean_html_tags(text):
+    """Remove HTML tags and clean text for display"""
+    import re
+    if not text:
+        return ""
+    
+    # Convert to string if not already
+    text = str(text)
+    
+    # Remove HTML tags
+    text = re.sub(r'<[^>]+>', '', text)
+    
+    # Clean up common HTML entities
+    text = text.replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&')
+    text = text.replace('&nbsp;', ' ').replace('&quot;', '"').replace('&#39;', "'")
+    
+    # Remove multiple spaces and clean up
+    text = re.sub(r'\s+', ' ', text).strip()
+    
+    return text
+
+def safe_join(items, separator="; ", default=""):
+    """Safely join items, handling mixed types including dicts"""
+    if not items:
+        return default
+    
+    clean_items = []
+    for item in items:
+        if isinstance(item, dict):
+            # For dict items, extract a meaningful string representation
+            if 'description' in item:
+                clean_items.append(clean_html_tags(str(item['description'])))
+            elif 'name' in item:
+                clean_items.append(clean_html_tags(str(item['name'])))
+            else:
+                # Use the first non-empty value or string representation
+                clean_items.append(clean_html_tags(str(next((v for v in item.values() if v), item))))
+        else:
+            clean_items.append(clean_html_tags(str(item)))
+    
+    return separator.join(clean_items)
+
+def format_time_duration(seconds):
+    """Format time duration in a human-readable way"""
+    if seconds < 60:
+        return f"{seconds:.1f}s"
+    elif seconds < 3600:
+        minutes = seconds / 60
+        return f"{minutes:.1f}min"
+    else:
+        hours = seconds / 3600
+        return f"{hours:.1f}h"
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
@@ -1412,21 +1465,21 @@ def export_requirements_to_json(results):
                     {
                         "id": func.id,
                         "name": func.name,
-                        "behavioral_specification": "; ".join([model.get('spec', str(model)) for model in func.behavioral_models]) if func.behavioral_models else "",
+                        "behavioral_specification": safe_join([model.get('spec', str(model)) if isinstance(model, dict) else str(model) for model in func.behavioral_models]) if func.behavioral_models else "",
                         "description": func.description,
                         "allocated_components": func.allocated_components,
-                        "input_flows": [str(iface) for iface in func.input_interfaces] if func.input_interfaces else [],
-                        "output_flows": [str(iface) for iface in func.output_interfaces] if func.output_interfaces else []
+                        "input_flows": [clean_html_tags(str(iface)) for iface in func.input_interfaces] if func.input_interfaces else [],
+                        "output_flows": [clean_html_tags(str(iface)) for iface in func.output_interfaces] if func.output_interfaces else []
                     } for func in (logical_arch.functions or [])
                 ],
                 "interfaces": [
                     {
-                        "id": iface.id,
-                        "name": iface.name,
-                        "protocol": iface.protocol,
-                        "provider": iface.provider,
-                        "consumer": iface.consumer,
-                        "data_elements": iface.data_elements
+                        "id": getattr(iface, 'id', 'N/A'),
+                        "name": getattr(iface, 'name', 'Unknown'),
+                        "protocol": getattr(iface, 'protocol', 'Not specified'),
+                        "provider": getattr(iface, 'provider', 'Unknown'),
+                        "consumer": getattr(iface, 'consumer', 'Unknown'),
+                        "data_elements": getattr(iface, 'data_elements', [])
                     } for iface in (logical_arch.interfaces or [])
                 ]
             }
@@ -1443,7 +1496,7 @@ def export_requirements_to_json(results):
                         "technology_platform": comp.technology_platform,
                         "description": comp.description,
                         "resource_requirements": comp.resource_requirements,
-                        "deployment_location": comp.deployment_location
+                        "deployment_location": getattr(comp, 'deployment_location', 'Not specified')
                     } for comp in (physical_arch.components or [])
                 ],
                 "constraints": [
@@ -1539,8 +1592,8 @@ def export_requirements_to_csv(results):
                         csv_escape(actor.name),
                         csv_escape(actor.role_definition),
                         csv_escape(actor.description),
-                        csv_escape('; '.join(actor.responsibilities) if actor.responsibilities else ''),
-                        csv_escape('; '.join(actor.capabilities) if actor.capabilities else '')
+                        csv_escape(safe_join(actor.responsibilities) if actor.responsibilities else ''),
+                        csv_escape(safe_join(actor.capabilities) if actor.capabilities else '')
                     ]
                     output.write(','.join(row) + '\n')
             
@@ -1554,8 +1607,8 @@ def export_requirements_to_csv(results):
                         csv_escape(cap.name),
                         csv_escape(cap.mission_statement),
                         csv_escape(cap.description),
-                        csv_escape('; '.join(cap.involved_actors) if cap.involved_actors else ''),
-                        csv_escape('; '.join(cap.performance_constraints) if cap.performance_constraints else '')
+                        csv_escape(safe_join(cap.involved_actors) if cap.involved_actors else ''),
+                        csv_escape(safe_join(cap.performance_constraints) if cap.performance_constraints else '')
                     ]
                     output.write(','.join(row) + '\n')
         
@@ -1571,8 +1624,8 @@ def export_requirements_to_csv(results):
                         csv_escape(func.name),
                         csv_escape(func.function_type),
                         csv_escape(func.description),
-                        csv_escape('; '.join(func.allocated_actors) if func.allocated_actors else ''),
-                        csv_escape('; '.join(func.performance_requirements) if func.performance_requirements else '')
+                        csv_escape(safe_join(func.allocated_actors) if func.allocated_actors else ''),
+                        csv_escape(safe_join(func.performance_requirements) if func.performance_requirements else '')
                     ]
                     output.write(','.join(row) + '\n')
         
@@ -1588,8 +1641,8 @@ def export_requirements_to_csv(results):
                         csv_escape(comp.name),
                         csv_escape(comp.component_type),
                         csv_escape(comp.description),
-                        csv_escape('; '.join(comp.responsibilities) if comp.responsibilities else ''),
-                        csv_escape('; '.join(comp.sub_components) if comp.sub_components else '')
+                        csv_escape(safe_join(comp.responsibilities) if comp.responsibilities else ''),
+                        csv_escape(safe_join(comp.sub_components) if comp.sub_components else '')
                     ]
                     output.write(','.join(row) + '\n')
         
@@ -1601,13 +1654,13 @@ def export_requirements_to_csv(results):
                 output.write("ID,Name,Type,Technology Platform,Description,Resource Requirements,Deployment Location\n")
                 for comp in physical_arch.components:
                     row = [
-                        csv_escape(comp.id),
-                        csv_escape(comp.name),
-                        csv_escape(comp.component_type),
-                        csv_escape(comp.technology_platform),
-                        csv_escape(comp.description),
-                        csv_escape('; '.join(comp.resource_requirements) if comp.resource_requirements else ''),
-                        csv_escape(comp.deployment_location)
+                        csv_escape(getattr(comp, 'id', 'N/A')),
+                        csv_escape(getattr(comp, 'name', 'Unknown')),
+                        csv_escape(getattr(comp, 'component_type', 'Unknown')),
+                        csv_escape(getattr(comp, 'technology_platform', 'Not specified')),
+                        csv_escape(getattr(comp, 'description', 'No description')),
+                        csv_escape(safe_join(getattr(comp, 'resource_requirements', [])) if getattr(comp, 'resource_requirements', None) else ''),
+                        csv_escape(getattr(comp, 'deployment_location', 'Not specified'))
                     ]
                     output.write(','.join(row) + '\n')
         
@@ -1702,8 +1755,8 @@ def export_requirements_to_excel_csv(results):
                         csv_escape(actor.name),
                         csv_escape(actor.role_definition),
                         csv_escape(actor.description),
-                        csv_escape('; '.join(actor.responsibilities) if actor.responsibilities else ''),
-                        csv_escape('; '.join(actor.capabilities) if actor.capabilities else ''),
+                        csv_escape(safe_join(actor.responsibilities) if actor.responsibilities else ''),
+                        csv_escape(safe_join(actor.capabilities) if actor.capabilities else ''),
                         csv_escape('Operational')
                     ]
                     output.write(','.join(row) + '\n')
@@ -1718,8 +1771,8 @@ def export_requirements_to_excel_csv(results):
                         csv_escape(cap.name),
                         csv_escape(cap.mission_statement),
                         csv_escape(cap.description),
-                        csv_escape('; '.join(cap.involved_actors) if cap.involved_actors else ''),
-                        csv_escape('; '.join(cap.performance_constraints) if cap.performance_constraints else ''),
+                        csv_escape(safe_join(cap.involved_actors) if cap.involved_actors else ''),
+                        csv_escape(safe_join(cap.performance_constraints) if cap.performance_constraints else ''),
                         csv_escape('Operational')
                     ]
                     output.write(','.join(row) + '\n')
@@ -1748,8 +1801,8 @@ def export_requirements_to_excel_csv(results):
                 output.write("Scope Definition,Included Elements,Excluded Elements\n")
                 row = [
                     csv_escape(sys_analysis.system_boundary.scope_definition),
-                    csv_escape('; '.join(sys_analysis.system_boundary.included_elements) if sys_analysis.system_boundary.included_elements else ''),
-                    csv_escape('; '.join(sys_analysis.system_boundary.excluded_elements) if sys_analysis.system_boundary.excluded_elements else '')
+                                            csv_escape(safe_join(sys_analysis.system_boundary.included_elements) if sys_analysis.system_boundary.included_elements else ''),
+                        csv_escape(safe_join(sys_analysis.system_boundary.excluded_elements) if sys_analysis.system_boundary.excluded_elements else '')
                 ]
                 output.write(','.join(row) + '\n')
             
@@ -1795,15 +1848,15 @@ def export_requirements_to_excel_csv(results):
                 output.write("ID,Name,Behavioral Specification,Description,Allocated Components,Input Flows,Output Flows,Phase\n")
                 for func in logical_arch.functions:
                     # Format behavioral models for CSV
-                    behavioral_spec = "; ".join([model.get('spec', str(model)) for model in func.behavioral_models]) if func.behavioral_models else ""
+                    behavioral_spec = safe_join([model.get('spec', str(model)) if isinstance(model, dict) else str(model) for model in func.behavioral_models]) if func.behavioral_models else ""
                     row = [
                         csv_escape(func.id),
                         csv_escape(func.name),
                         csv_escape(behavioral_spec),
                         csv_escape(func.description),
                         csv_escape('; '.join(func.allocated_components) if func.allocated_components else ''),
-                        csv_escape('; '.join([str(iface) for iface in func.input_interfaces]) if func.input_interfaces else ''),
-                        csv_escape('; '.join([str(iface) for iface in func.output_interfaces]) if func.output_interfaces else ''),
+                        csv_escape(safe_join([clean_html_tags(str(iface)) for iface in func.input_interfaces]) if func.input_interfaces else ''),
+                        csv_escape(safe_join([clean_html_tags(str(iface)) for iface in func.output_interfaces]) if func.output_interfaces else ''),
                         csv_escape('Logical')
                     ]
                     output.write(','.join(row) + '\n')
@@ -1814,12 +1867,12 @@ def export_requirements_to_excel_csv(results):
                 output.write("ID,Name,Protocol,Provider,Consumer,Data Elements,Phase\n")
                 for iface in logical_arch.interfaces:
                     row = [
-                        csv_escape(iface.id),
-                        csv_escape(iface.name),
-                        csv_escape(iface.protocol),
-                        csv_escape(iface.provider),
-                        csv_escape(iface.consumer),
-                        csv_escape('; '.join(iface.data_elements) if iface.data_elements else ''),
+                        csv_escape(getattr(iface, 'id', 'N/A')),
+                        csv_escape(getattr(iface, 'name', 'Unknown')),
+                        csv_escape(getattr(iface, 'protocol', 'Not specified')),
+                        csv_escape(getattr(iface, 'provider', 'Unknown')),
+                        csv_escape(getattr(iface, 'consumer', 'Unknown')),
+                        csv_escape(safe_join(getattr(iface, 'data_elements', [])) if getattr(iface, 'data_elements', None) else ''),
                         csv_escape('Logical')
                     ]
                     output.write(','.join(row) + '\n')
@@ -1834,13 +1887,13 @@ def export_requirements_to_excel_csv(results):
                 output.write("ID,Name,Component Type,Technology Platform,Description,Resource Requirements,Deployment Location,Phase\n")
                 for comp in physical_arch.components:
                     row = [
-                        csv_escape(comp.id),
-                        csv_escape(comp.name),
-                        csv_escape(comp.component_type),
-                        csv_escape(comp.technology_platform),
-                        csv_escape(comp.description),
-                        csv_escape('; '.join(comp.resource_requirements) if comp.resource_requirements else ''),
-                        csv_escape(comp.deployment_location),
+                        csv_escape(getattr(comp, 'id', 'N/A')),
+                        csv_escape(getattr(comp, 'name', 'Unknown')),
+                        csv_escape(getattr(comp, 'component_type', 'Unknown')),
+                        csv_escape(getattr(comp, 'technology_platform', 'Not specified')),
+                        csv_escape(getattr(comp, 'description', 'No description')),
+                        csv_escape(safe_join(getattr(comp, 'resource_requirements', [])) if getattr(comp, 'resource_requirements', None) else ''),
+                        csv_escape(getattr(comp, 'deployment_location', 'Not specified')),
                         csv_escape('Physical')
                     ]
                     output.write(','.join(row) + '\n')
@@ -1886,7 +1939,7 @@ def export_requirements_to_excel_csv(results):
                         csv_escape(gap.gap_type),
                         csv_escape(gap.description),
                         csv_escape(gap.severity),
-                        csv_escape('; '.join(gap.recommendations) if gap.recommendations else '')
+                        csv_escape(safe_join(gap.recommendations) if gap.recommendations else '')
                     ]
                     output.write(','.join(row) + '\n')
         
@@ -2963,7 +3016,7 @@ def display_operational_analysis(enhanced_results):
                     """, unsafe_allow_html=True)
                     
                     if capability.involved_actors:
-                        st.markdown(f"**Involved Actors:** {', '.join(capability.involved_actors)}")
+                        st.markdown(f"**Involved Actors:** {safe_join(capability.involved_actors, ', ')}")
                     
                     if capability.performance_constraints:
                         st.markdown("**Performance Constraints:**")
@@ -3036,7 +3089,7 @@ def display_system_analysis(enhanced_results):
                     """, unsafe_allow_html=True)
                     
                     if function.allocated_actors:
-                        st.markdown(f"**Allocated Actors:** {', '.join(function.allocated_actors)}")
+                        st.markdown(f"**Allocated Actors:** {safe_join(function.allocated_actors, ', ')}")
                     
                     if function.performance_requirements:
                         st.markdown("**Performance Requirements:**")
@@ -3055,10 +3108,40 @@ def display_system_analysis(enhanced_results):
                 st.markdown(f"**{capability.name} ({capability.id})**")
                 st.write(f"Description: {capability.description}")
                 if capability.implementing_functions:
-                    st.write(f"Implementing Functions: {', '.join(capability.implementing_functions)}")
+                    st.write(f"Implementing Functions: {safe_join(capability.implementing_functions)}")
                 st.markdown("---")
         else:
             st.info("No system capabilities identified")
+    
+    # Generated Requirements Section - Show F&NFR for System Analysis
+    with st.expander("📝 Generated Functional & Non-Functional Requirements", expanded=True):
+        enhanced_results = st.session_state.get('enhanced_results')
+        if enhanced_results and 'traditional_requirements' in enhanced_results:
+            traditional_reqs = enhanced_results['traditional_requirements']
+            system_reqs = traditional_reqs.get('requirements', {}).get('system', {})
+            
+            if system_reqs.get('functional') or system_reqs.get('non_functional'):
+                # Create tabs for functional and non-functional requirements
+                if system_reqs.get('functional') and system_reqs.get('non_functional'):
+                    req_tab1, req_tab2 = st.tabs(["Functional Requirements", "Non-Functional Requirements"])
+                    
+                    with req_tab1:
+                        display_requirements_list(system_reqs['functional'], "Functional")
+                    
+                    with req_tab2:
+                        display_requirements_list(system_reqs['non_functional'], "Non-Functional")
+                        
+                elif system_reqs.get('functional'):
+                    st.markdown("**Functional Requirements:**")
+                    display_requirements_list(system_reqs['functional'], "Functional")
+                    
+                elif system_reqs.get('non_functional'):
+                    st.markdown("**Non-Functional Requirements:**")
+                    display_requirements_list(system_reqs['non_functional'], "Non-Functional")
+            else:
+                st.info("No functional/non-functional requirements generated for system analysis. Generate requirements to see them here.")
+        else:
+            st.info("No requirements available. Generate requirements to see them here.")
 
 def display_logical_analysis(enhanced_results):
     """Display detailed logical architecture results"""
@@ -3092,7 +3175,7 @@ def display_logical_analysis(enhanced_results):
                             st.markdown(f"• {resp}")
                     
                     if component.sub_components:
-                        st.markdown(f"**Sub-components:** {', '.join(component.sub_components)}")
+                        st.markdown(f"**Sub-components:** {safe_join(component.sub_components, ', ')}")
                     
                     if i < len(logical_arch.components) - 1:
                         st.markdown("---")
@@ -3105,7 +3188,7 @@ def display_logical_analysis(enhanced_results):
             for i, function in enumerate(logical_arch.functions):
                 with st.container():
                     # Format behavioral models for display
-                    behavioral_display = "; ".join([model.get('spec', str(model)) for model in function.behavioral_models]) if function.behavioral_models else "Not specified"
+                    behavioral_display = safe_join([model.get('spec', str(model)) if isinstance(model, dict) else str(model) for model in function.behavioral_models]) if function.behavioral_models else "Not specified"
                     
                     st.markdown(f"""
                     <div class="requirement-item">
@@ -3118,17 +3201,17 @@ def display_logical_analysis(enhanced_results):
                     """, unsafe_allow_html=True)
                     
                     if function.allocated_components:
-                        st.markdown(f"**Allocated Components:** {', '.join(function.allocated_components)}")
+                        st.markdown(f"**Allocated Components:** {safe_join(function.allocated_components, ', ')}")
                     
                     if function.input_interfaces:
                         st.markdown("**Input Interfaces:**")
                         for interface in function.input_interfaces:
-                            st.markdown(f"• {interface}")
+                            st.markdown(f"• {clean_html_tags(str(interface))}")
                     
                     if function.output_interfaces:
                         st.markdown("**Output Interfaces:**")
                         for interface in function.output_interfaces:
-                            st.markdown(f"• {interface}")
+                            st.markdown(f"• {clean_html_tags(str(interface))}")
                     
                     if i < len(logical_arch.functions) - 1:
                         st.markdown("---")
@@ -3139,11 +3222,19 @@ def display_logical_analysis(enhanced_results):
     with st.expander("🔌 Logical Interfaces", expanded=False):
         if logical_arch.interfaces:
             for interface in logical_arch.interfaces:
-                st.markdown(f"**{interface.name} ({interface.id})**")
-                st.write(f"Protocol: {interface.protocol}")
-                st.write(f"Provider: {interface.provider} → Consumer: {interface.consumer}")
-                if interface.data_elements:
-                    st.write(f"Data Elements: {', '.join(interface.data_elements)}")
+                st.markdown(f"**{getattr(interface, 'name', 'Unknown')} ({getattr(interface, 'id', 'N/A')})**")
+                
+                # Safely access attributes that may not exist
+                protocol = getattr(interface, 'protocol', 'Not specified')
+                provider = getattr(interface, 'provider', 'Unknown')
+                consumer = getattr(interface, 'consumer', 'Unknown')
+                data_elements = getattr(interface, 'data_elements', None)
+                
+                st.write(f"Protocol: {protocol}")
+                st.write(f"Provider: {provider} → Consumer: {consumer}")
+                
+                if data_elements:
+                    st.write(f"Data Elements: {safe_join(data_elements, ', ')}")
                 st.markdown("---")
         else:
             st.info("No logical interfaces identified")
@@ -3152,13 +3243,21 @@ def display_logical_analysis(enhanced_results):
     with st.expander("📋 Logical Scenarios", expanded=False):
         if logical_arch.scenarios:
             for scenario in logical_arch.scenarios:
-                st.markdown(f"**{scenario.name} ({scenario.id})**")
-                st.write(f"Context: {scenario.scenario_context}")
-                st.write(f"Description: {scenario.description}")
-                if scenario.component_interactions:
+                # Safely access scenario attributes
+                name = getattr(scenario, 'name', 'Unknown')
+                scenario_id = getattr(scenario, 'id', 'N/A')
+                scenario_context = getattr(scenario, 'scenario_context', getattr(scenario, 'context', 'Not specified'))
+                description = getattr(scenario, 'description', 'No description')
+                component_interactions = getattr(scenario, 'component_interactions', None)
+                
+                st.markdown(f"**{name} ({scenario_id})**")
+                st.write(f"Context: {scenario_context}")
+                st.write(f"Description: {description}")
+                
+                if component_interactions:
                     st.markdown("**Component Interactions:**")
-                    for interaction in scenario.component_interactions:
-                        st.markdown(f"• {interaction}")
+                    for interaction in component_interactions:
+                        st.markdown(f"• {clean_html_tags(str(interaction))}")
                 st.markdown("---")
         else:
             st.info("No logical scenarios identified")
@@ -3179,24 +3278,33 @@ def display_physical_analysis(enhanced_results):
         if physical_arch.components:
             for i, component in enumerate(physical_arch.components):
                 with st.container():
+                    # Safely access component attributes
+                    name = getattr(component, 'name', 'Unknown')
+                    comp_id = getattr(component, 'id', 'N/A')
+                    comp_type = getattr(component, 'component_type', 'Unknown')
+                    tech_platform = getattr(component, 'technology_platform', 'Not specified')
+                    description = getattr(component, 'description', 'No description')
+                    
                     st.markdown(f"""
                     <div class="requirement-item">
-                        <div class="requirement-header">{component.name} ({component.id})</div>
+                        <div class="requirement-header">{name} ({comp_id})</div>
                         <div class="requirement-description">
-                            <strong>Type:</strong> {component.component_type}<br>
-                            <strong>Technology Platform:</strong> {component.technology_platform}<br>
-                            <strong>Description:</strong> {component.description}
+                            <strong>Type:</strong> {comp_type}<br>
+                            <strong>Technology Platform:</strong> {tech_platform}<br>
+                            <strong>Description:</strong> {description}
                         </div>
                     </div>
                     """, unsafe_allow_html=True)
                     
-                    if component.resource_requirements:
+                    resource_requirements = getattr(component, 'resource_requirements', None)
+                    if resource_requirements:
                         st.markdown("**Resource Requirements:**")
-                        for req in component.resource_requirements:
-                            st.markdown(f"• {req}")
+                        for req in resource_requirements:
+                            st.markdown(f"• {clean_html_tags(str(req))}")
                     
-                    if component.deployment_location:
-                        st.markdown(f"**Deployment Location:** {component.deployment_location}")
+                    deployment_location = getattr(component, 'deployment_location', None)
+                    if deployment_location:
+                        st.markdown(f"**Deployment Location:** {deployment_location}")
                     
                     if i < len(physical_arch.components) - 1:
                         st.markdown("---")
@@ -5783,17 +5891,9 @@ def requirements_analysis_tab(rag_system, eval_service, target_phase, req_types,
                     with analysis_tab4:
                         display_physical_analysis(enhanced_results)
                     
-                    # Show generated requirements at the bottom in a clean format
-                    if 'traditional_requirements' in enhanced_results and enhanced_results['traditional_requirements'].get('requirements'):
-                        st.markdown("---")
-                        st.markdown("#### 📝 Generated Requirements")
-                        display_generation_results(enhanced_results['traditional_requirements'], export_format_local, rag_system)
+                    # Note: Generated requirements are now displayed within the System Analysis tab
                 else:
                     st.info("Structured analysis not available. Enable enhanced analysis options in configuration.")
-                    # Fallback to traditional requirements if enhanced is not available
-                    st.markdown("---")
-                    st.markdown("#### 📝 Generated Requirements")
-                    display_generation_results(results, export_format_local, rag_system)
                 
                 # Quality metrics and evaluation inline
                 st.markdown("#### 📊 Quality Metrics & Evaluation")

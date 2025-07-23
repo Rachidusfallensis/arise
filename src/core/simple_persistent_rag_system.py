@@ -287,13 +287,15 @@ class SimplePersistentRAGSystem:
         for phase in phases_to_process:
             results["requirements"][phase] = {}
             
-            if "functional" in (requirement_types or []):
+            # Generate functional requirements (skip for operational phase - focus on stakeholder needs)
+            if "functional" in (requirement_types or []) and phase != "operational":
                 functional_reqs = self.req_generator.generate_functional_requirements(
                     context_chunks, phase, proposal_text
                 )
                 results["requirements"][phase]["functional"] = functional_reqs
             
-            if "non_functional" in (requirement_types or []):
+            # Generate non-functional requirements (skip for operational phase - focus on stakeholder needs)
+            if "non_functional" in (requirement_types or []) and phase != "operational":
                 nf_reqs = self.req_generator.generate_non_functional_requirements(
                     context_chunks, phase, proposal_text
                 )

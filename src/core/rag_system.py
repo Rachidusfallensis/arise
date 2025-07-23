@@ -82,15 +82,15 @@ class SAFEMBSERAGSystem:
                 stakeholders = self.req_generator.generate_stakeholders(phase_context, proposal_text)
                 results["stakeholders"] = stakeholders
             
-            # Generate functional requirements
-            if "functional" in requirement_types:
+            # Generate functional requirements (skip for operational phase - focus on stakeholder needs)
+            if "functional" in requirement_types and phase != "operational":
                 functional_reqs = self.req_generator.generate_functional_requirements(
                     phase_context, phase, proposal_text
                 )
                 results["requirements"][phase]["functional"] = functional_reqs
             
-            # Generate non-functional requirements
-            if "non_functional" in requirement_types:
+            # Generate non-functional requirements (skip for operational phase - focus on stakeholder needs)  
+            if "non_functional" in requirement_types and phase != "operational":
                 nf_reqs = self.req_generator.generate_non_functional_requirements(
                     phase_context, phase, proposal_text
                 )

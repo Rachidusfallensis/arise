@@ -92,7 +92,15 @@ class EnhancedStructuredRAGSystem(SAFEMBSERAGSystem):
         )
         
         total_time = (datetime.now() - start_time).total_seconds()
-        self.logger.info(f"Enhanced requirements generation completed in {total_time:.1f} seconds")
+        # Format time duration for better readability
+        if total_time < 60:
+            time_str = f"{total_time:.1f} seconds"
+        elif total_time < 3600:
+            time_str = f"{total_time/60:.1f} minutes ({total_time:.1f} seconds)"
+        else:
+            time_str = f"{total_time/3600:.1f} hours ({total_time/60:.0f} minutes)"
+        
+        self.logger.info(f"Enhanced requirements generation completed in {time_str}")
         
         return enhanced_results
     

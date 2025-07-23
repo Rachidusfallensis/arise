@@ -35,7 +35,7 @@ EVALUATION_METRICS = [
 # AI Model Configuration
 AI_MODELS = {
     "requirements_generation": {
-        "model": "gemma3:27b",
+        "model": "gemma3:12b",  # Using gemma3:12b for all content generation
         "temperature": 0.3,
         "max_tokens": 2000
     },
@@ -45,7 +45,7 @@ AI_MODELS = {
         "max_tokens": 1000
     },
     "evaluation": {
-        "model": "llama3:instruct",
+        "model": "gemma3:12b",  # Consistent model usage across all components
         "temperature": 0.2,
         "max_tokens": 1500
     }
